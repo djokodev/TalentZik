@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}TalentZik - Découvrez les talents musicaux du Cameroun{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-gradient-to-r from-primary-500 to-secondary-500 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Découvrez les talents musicaux du Cameroun
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                TalentZik connecte les artistes musicaux camerounais avec les organisateurs d'événements. 
+                Trouvez l'artiste parfait pour votre événement ou faites-vous connaître en tant qu'artiste.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'artists:search' %}" class="bg-white text-primary-500 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold text-lg transition duration-300">
+                    <i class="fas fa-search mr-2"></i>
+                    Trouver un artiste
+                </a>
+                <a href="{% url 'accounts:register' %}" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-500 px-8 py-3 rounded-lg font-semibold text-lg transition duration-300">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    Devenir membre
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Pourquoi choisir TalentZik ?
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Notre plateforme facilite la mise en relation entre artistes et organisateurs d'événements au Cameroun.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="text-center p-6">
+                <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-primary-500 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Mise en relation directe</h3>
+                <p class="text-gray-600">
+                    Contactez directement les artistes via WhatsApp pour organiser vos événements rapidement.
+                </p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="text-center p-6">
+                <div class="bg-secondary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-star text-secondary-500 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Système d'avis</h3>
+                <p class="text-gray-600">
+                    Consultez les avis et notes des autres organisateurs pour faire le meilleur choix.
+                </p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="text-center p-6">
+                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-music text-green-500 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Portfolio multimédia</h3>
+                <p class="text-gray-600">
+                    Découvrez les talents à travers leurs portfolios audio, vidéo et photos.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Categories Section -->
+<div class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Genres musicaux populaires
+            </h2>
+            <p class="text-lg text-gray-600">
+                Explorez la richesse de la musique camerounaise et africaine
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {% for genre in popular_genres %}
+                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
+                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
+                    <h4 class="font-semibold text-gray-900">{{ genre }}</h4>
+                </div>
+            {% empty %}
+                <!-- Genres par défaut si pas de données -->
+                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
+                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
+                    <h4 class="font-semibold text-gray-900">Makossa</h4>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
+                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
+                    <h4 class="font-semibold text-gray-900">Bikutsi</h4>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
+                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
+                    <h4 class="font-semibold text-gray-900">Afrobeat</h4>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
+                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
+                    <h4 class="font-semibold text-gray-900">Gospel</h4>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
+                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
+                    <h4 class="font-semibold text-gray-900">Hip-hop</h4>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
+                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
+                    <h4 class="font-semibold text-gray-900">Jazz</h4>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="bg-gray-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">
+            Prêt à découvrir les talents du Cameroun ?
+        </h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+            Rejoignez TalentZik dès aujourd'hui et connectez-vous avec la scène musicale camerounaise.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'accounts:artist_register' %}" class="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold text-lg transition duration-300">
+                <i class="fas fa-microphone mr-2"></i>
+                Je suis un artiste
+            </a>
+            <a href="{% url 'accounts:organizer_register' %}" class="bg-secondary-500 hover:bg-secondary-600 text-white px-8 py-3 rounded-lg font-semibold text-lg transition duration-300">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                Je suis un organisateur
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,1 @@
+# Package apps pour organiser les applications Django 

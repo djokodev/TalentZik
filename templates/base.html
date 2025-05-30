@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TalentZik - Plateforme des talents musicaux camerounais{% endblock %}</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration Tailwind personnalisée -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fef7ee',
+                            100: '#fdedd3',
+                            200: '#fbd7a5',
+                            300: '#f8bb6d',
+                            400: '#f59332',
+                            500: '#f2750a',
+                            600: '#e35d05',
+                            700: '#bc4508',
+                            800: '#95370e',
+                            900: '#782f0f',
+                        },
+                        secondary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="h-full bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <!-- Logo -->
+                    <a href="{% url 'home' %}" class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-music text-primary-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">TalentZik</span>
+                    </a>
+                    
+                    <!-- Navigation principale -->
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="{% url 'artists:list' %}" class="text-gray-900 hover:text-primary-500 px-3 py-2 text-sm font-medium">
+                            Artistes
+                        </a>
+                        <a href="{% url 'artists:search' %}" class="text-gray-900 hover:text-primary-500 px-3 py-2 text-sm font-medium">
+                            Rechercher
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Menu utilisateur -->
+                <div class="flex items-center space-x-4">
+                    {% if user.is_authenticated %}
+                        <div class="relative">
+                            <button class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500" id="user-menu-button">
+                                <span class="sr-only">Ouvrir le menu utilisateur</span>
+                                <i class="fas fa-user-circle text-2xl text-gray-600"></i>
+                                <span class="ml-2 text-gray-700">{{ user.get_full_name|default:user.email }}</span>
+                            </button>
+                        </div>
+                        <a href="{% url 'accounts:logout' %}" class="text-gray-600 hover:text-gray-900">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">
+                            Connexion
+                        </a>
+                        <a href="{% url 'accounts:register' %}" class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-md text-sm font-medium">
+                            S'inscrire
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} bg-{{ message.tags == 'error' and 'red' or message.tags == 'success' and 'green' or 'blue' }}-100 border border-{{ message.tags == 'error' and 'red' or message.tags == 'success' and 'green' or 'blue' }}-400 text-{{ message.tags == 'error' and 'red' or message.tags == 'success' and 'green' or 'blue' }}-700 px-4 py-3 rounded mb-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Contenu principal -->
+    <main class="flex-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">TalentZik</h3>
+                    <p class="text-gray-300">
+                        La plateforme de mise en relation des talents musicaux camerounais.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liens utiles</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'artists:list' %}" class="text-gray-300 hover:text-white">Tous les artistes</a></li>
+                        <li><a href="{% url 'artists:search' %}" class="text-gray-300 hover:text-white">Rechercher</a></li>
+                        <li><a href="{% url 'accounts:register' %}" class="text-gray-300 hover:text-white">Devenir membre</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <p class="text-gray-300">
+                        Email: contact@talentzik.com<br>
+                        Téléphone: +237 XXX XXX XXX
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 TalentZik. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 
