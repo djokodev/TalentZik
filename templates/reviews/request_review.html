@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block title %}Demander un avis - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête -->
+        <div class="bg-white rounded-lg shadow mb-6">
+            <div class="px-6 py-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-envelope text-primary-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Demander un avis client</h1>
+                        <p class="text-gray-600">Invitez vos clients à partager leur expérience</p>
+                    </div>
+                </div>
+
+                <!-- Informations utiles -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex items-start">
+                        <i class="fas fa-lightbulb text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-blue-900 mb-2">Comment ça fonctionne ?</h4>
+                            <ul class="text-blue-800 text-sm space-y-1">
+                                <li>• Votre client recevra un email avec un lien personnalisé</li>
+                                <li>• Il pourra laisser un avis sans créer de compte</li>
+                                <li>• L'avis apparaîtra sur votre profil public</li>
+                                <li>• Le lien expire après 30 jours</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulaire de demande -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="px-6 py-8">
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <!-- Informations client -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                            <i class="fas fa-user text-primary-600 mr-2"></i>
+                            Informations du client
+                        </h3>
+                        
+                        <!-- Email (obligatoire) -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-envelope text-red-500 mr-2"></i>
+                                {{ form.client_email.label }} *
+                            </label>
+                            {{ form.client_email }}
+                            {% if form.client_email.errors %}
+                                <p class="mt-1 text-sm text-red-600">{{ form.client_email.errors.0 }}</p>
+                            {% endif %}
+                            <p class="mt-1 text-sm text-gray-500">L'email où envoyer la demande d'avis</p>
+                        </div>
+
+                        <!-- Nom (optionnel) -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-user-circle text-blue-500 mr-2"></i>
+                                {{ form.client_name.label }}
+                            </label>
+                            {{ form.client_name }}
+                            {% if form.client_name.errors %}
+                                <p class="mt-1 text-sm text-red-600">{{ form.client_name.errors.0 }}</p>
+                            {% endif %}
+                            <p class="mt-1 text-sm text-gray-500">Pour personnaliser l'email (optionnel)</p>
+                        </div>
+
+                        <!-- Téléphone (optionnel) -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                                {{ form.client_phone.label }}
+                            </label>
+                            {{ form.client_phone }}
+                            {% if form.client_phone.errors %}
+                                <p class="mt-1 text-sm text-red-600">{{ form.client_phone.errors.0 }}</p>
+                            {% endif %}
+                            <p class="mt-1 text-sm text-gray-500">Numéro de téléphone du client (optionnel)</p>
+                        </div>
+                    </div>
+
+                    <!-- Informations sur l'événement -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                            <i class="fas fa-calendar text-purple-600 mr-2"></i>
+                            Détails de l'événement
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Date de l'événement -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-calendar-day text-green-500 mr-2"></i>
+                                    {{ form.event_date.label }} *
+                                </label>
+                                {{ form.event_date }}
+                                {% if form.event_date.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.event_date.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Type d'événement -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-calendar-alt text-purple-500 mr-2"></i>
+                                    {{ form.event_type.label }} *
+                                </label>
+                                {{ form.event_type }}
+                                {% if form.event_type.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.event_type.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Lieu de l'événement -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
+                                {{ form.event_location.label }}
+                            </label>
+                            {{ form.event_location }}
+                            {% if form.event_location.errors %}
+                                <p class="mt-1 text-sm text-red-600">{{ form.event_location.errors.0 }}</p>
+                            {% endif %}
+                            <p class="mt-1 text-sm text-gray-500">Ville ou lieu de l'événement (optionnel)</p>
+                        </div>
+                    </div>
+
+                    <!-- Message personnalisé -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-comment text-orange-500 mr-2"></i>
+                            {{ form.message.label }}
+                        </label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.message.errors.0 }}</p>
+                        {% endif %}
+                        <p class="mt-1 text-sm text-gray-500">Message qui apparaîtra dans l'email (optionnel)</p>
+                    </div>
+
+                    <!-- Aperçu de l'email -->
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-900 mb-3">
+                            <i class="fas fa-eye text-gray-600 mr-2"></i>
+                            Aperçu de l'email envoyé
+                        </h4>
+                        <div class="bg-white border border-gray-300 rounded p-4 text-sm">
+                            <div class="mb-3">
+                                <strong>Objet :</strong> {{ user.artist_profile.get_display_name }} vous invite à partager votre expérience
+                            </div>
+                            <div class="space-y-2 text-gray-700">
+                                <p>Bonjour <span class="font-medium text-blue-600">[Nom du client]</span>,</p>
+                                <p>J'espère que vous avez apprécié ma prestation lors de votre événement.</p>
+                                <p>Votre avis m'aiderait énormément à améliorer mes services et à rassurer mes futurs clients.</p>
+                                <p><strong>Cliquez ici pour laisser votre avis :</strong> <span class="text-blue-600 underline">[Lien personnalisé]</span></p>
+                                <p>Merci beaucoup pour votre temps !</p>
+                                <p class="text-sm text-gray-500 mt-4">
+                                    Cordialement,<br>
+                                    {{ user.artist_profile.get_display_name }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Boutons d'action -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                        <button type="submit" class="flex-1 sm:flex-none inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Envoyer la demande
+                        </button>
+                        
+                        <a href="{% url 'reviews:my_reviews' %}" class="inline-flex justify-center items-center px-4 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Retour à mes avis
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript pour améliorer l'UX -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mise à jour de l'aperçu en temps réel
+    const clientNameField = document.querySelector('input[name="client_name"]');
+    const previewClientName = document.querySelector('[data-preview="client_name"]');
+    
+    if (clientNameField && previewClientName) {
+        clientNameField.addEventListener('input', function() {
+            const name = this.value.trim() || '[Nom du client]';
+            previewClientName.textContent = name;
+        });
+    }
+    
+    // Validation de l'email
+    const emailField = document.querySelector('input[name="client_email"]');
+    if (emailField) {
+        emailField.addEventListener('blur', function() {
+            const email = this.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                this.classList.add('border-red-300');
+                this.classList.remove('border-gray-300');
+            } else {
+                this.classList.remove('border-red-300');
+                this.classList.add('border-gray-300');
+            }
+        });
+    }
+});
+</script>
+{% endblock %} 

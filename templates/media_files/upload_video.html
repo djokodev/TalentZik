@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Vidéo - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-8">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-video text-purple-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h1 class="text-2xl font-bold text-gray-900">Ajouter une vidéo</h1>
+                        <p class="text-gray-600">Partagez vos clips et performances</p>
+                    </div>
+                </div>
+                
+                <!-- Informations sur les limites -->
+                <div class="mt-6 bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-purple-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-purple-800">Informations importantes</h3>
+                            <div class="mt-2 text-sm text-purple-700">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Formats acceptés : MP4, AVI, MOV, WMV</li>
+                                    <li>Taille maximale : 100 MB par fichier</li>
+                                    <li>Limite : 2 fichiers vidéo maximum</li>
+                                    <li>Alternative : Lien YouTube/Vimeo</li>
+                                    <li>Un watermark sera automatiquement ajouté</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulaire d'upload -->
+        <div class="bg-white rounded-lg shadow">
+            <form method="post" enctype="multipart/form-data" class="p-6 space-y-6">
+                {% csrf_token %}
+                
+                <!-- Titre -->
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.title.label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    {{ form.title }}
+                    {% if form.title.help_text %}
+                        <p class="mt-1 text-sm text-gray-500">{{ form.title.help_text }}</p>
+                    {% endif %}
+                    {% if form.title.errors %}
+                        <div class="mt-1 text-sm text-red-600">
+                            {% for error in form.title.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.description.label }}
+                    </label>
+                    {{ form.description }}
+                    {% if form.description.help_text %}
+                        <p class="mt-1 text-sm text-gray-500">{{ form.description.help_text }}</p>
+                    {% endif %}
+                    {% if form.description.errors %}
+                        <div class="mt-1 text-sm text-red-600">
+                            {% for error in form.description.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Choix entre fichier et URL -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="text-sm font-medium text-gray-900 mb-3">Choisissez votre méthode :</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="upload_method" value="file" class="sr-only" checked>
+                            <div class="upload-method-card border-2 border-purple-200 rounded-lg p-4 hover:border-purple-300 transition-colors">
+                                <div class="text-center">
+                                    <i class="fas fa-upload text-2xl text-purple-500 mb-2"></i>
+                                    <h4 class="font-medium text-gray-900">Uploader un fichier</h4>
+                                    <p class="text-sm text-gray-600">Fichier local (MP4, AVI, MOV, WMV)</p>
+                                </div>
+                            </div>
+                        </label>
+                        
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="upload_method" value="url" class="sr-only">
+                            <div class="upload-method-card border-2 border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
+                                <div class="text-center">
+                                    <i class="fas fa-link text-2xl text-gray-400 mb-2"></i>
+                                    <h4 class="font-medium text-gray-900">Lien externe</h4>
+                                    <p class="text-sm text-gray-600">YouTube, Vimeo, etc.</p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Section fichier -->
+                <div id="file-section">
+                    <label for="{{ form.file.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.file.label }}
+                    </label>
+                    
+                    <!-- Zone de drop -->
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-gray-400 transition-colors" id="drop-zone">
+                        <div class="space-y-1 text-center">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="{{ form.file.id_for_label }}" class="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500">
+                                    <span>Choisir un fichier</span>
+                                    {{ form.file }}
+                                </label>
+                                <p class="pl-1">ou glisser-déposer</p>
+                            </div>
+                            <p class="text-xs text-gray-500">MP4, AVI, MOV, WMV jusqu'à 100MB</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Prévisualisation du fichier -->
+                    <div id="file-preview" class="mt-4 hidden">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-video text-purple-500 text-xl mr-3"></i>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-900" id="file-name"></p>
+                                    <p class="text-xs text-gray-500" id="file-size"></p>
+                                </div>
+                                <button type="button" onclick="removeFile()" class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if form.file.help_text %}
+                        <p class="mt-1 text-sm text-gray-500">{{ form.file.help_text }}</p>
+                    {% endif %}
+                    {% if form.file.errors %}
+                        <div class="mt-1 text-sm text-red-600">
+                            {% for error in form.file.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Section URL -->
+                <div id="url-section" class="hidden">
+                    <label for="{{ form.video_url.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.video_url.label }}
+                    </label>
+                    {{ form.video_url }}
+                    {% if form.video_url.help_text %}
+                        <p class="mt-1 text-sm text-gray-500">{{ form.video_url.help_text }}</p>
+                    {% endif %}
+                    {% if form.video_url.errors %}
+                        <div class="mt-1 text-sm text-red-600">
+                            {% for error in form.video_url.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Erreurs générales du formulaire -->
+                {% if form.non_field_errors %}
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-circle text-red-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-red-800">Erreurs de validation</h3>
+                                <div class="mt-2 text-sm text-red-700">
+                                    {% for error in form.non_field_errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Actions -->
+                <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+                    <a href="{% url 'media_files:my_files' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Retour
+                    </a>
+                    
+                    <button type="submit" class="inline-flex items-center px-6 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-purple-600 hover:bg-purple-700" id="submit-btn">
+                        <i class="fas fa-upload mr-2"></i>
+                        <span id="submit-text">Ajouter la vidéo</span>
+                        <i class="fas fa-spinner fa-spin ml-2 hidden" id="submit-spinner"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('{{ form.file.id_for_label }}');
+    const urlInput = document.getElementById('{{ form.video_url.id_for_label }}');
+    const dropZone = document.getElementById('drop-zone');
+    const filePreview = document.getElementById('file-preview');
+    const fileName = document.getElementById('file-name');
+    const fileSize = document.getElementById('file-size');
+    const fileSection = document.getElementById('file-section');
+    const urlSection = document.getElementById('url-section');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = document.getElementById('submit-text');
+    const submitSpinner = document.getElementById('submit-spinner');
+
+    // Gestion du choix de méthode
+    document.querySelectorAll('input[name="upload_method"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const cards = document.querySelectorAll('.upload-method-card');
+            cards.forEach(card => {
+                card.classList.remove('border-purple-500', 'bg-purple-50');
+                card.classList.add('border-gray-200');
+            });
+            
+            if (this.value === 'file') {
+                fileSection.classList.remove('hidden');
+                urlSection.classList.add('hidden');
+                urlInput.value = '';
+                this.closest('label').querySelector('.upload-method-card').classList.add('border-purple-500', 'bg-purple-50');
+            } else {
+                fileSection.classList.add('hidden');
+                urlSection.classList.remove('hidden');
+                fileInput.value = '';
+                removeFile();
+                this.closest('label').querySelector('.upload-method-card').classList.add('border-purple-500', 'bg-purple-50');
+            }
+        });
+    });
+
+    // Initialiser l'affichage
+    document.querySelector('input[name="upload_method"][value="file"]').closest('label').querySelector('.upload-method-card').classList.add('border-purple-500', 'bg-purple-50');
+
+    // Gestion du drag & drop
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropZone.classList.add('border-primary-500', 'bg-primary-50');
+    });
+
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('border-primary-500', 'bg-primary-50');
+    });
+
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('border-primary-500', 'bg-primary-50');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            showFilePreview(files[0]);
+        }
+    });
+
+    // Gestion du changement de fichier
+    fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+            showFilePreview(e.target.files[0]);
+        }
+    });
+
+    function showFilePreview(file) {
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        filePreview.classList.remove('hidden');
+        dropZone.classList.add('hidden');
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    window.removeFile = function() {
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        dropZone.classList.remove('hidden');
+    };
+
+    // Gestion de la soumission du formulaire
+    document.querySelector('form').addEventListener('submit', function() {
+        submitBtn.disabled = true;
+        submitText.textContent = 'Traitement en cours...';
+        submitSpinner.classList.remove('hidden');
+    });
+});
+</script>
+{% endblock %} 

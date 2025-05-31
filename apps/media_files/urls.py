@@ -1,5 +1,5 @@
 """
-URLs pour l'application media_files (gestion des fichiers multimédia)
+URLs pour l'application media_files (portfolio multimédia)
 """
 
 from django.urls import path
@@ -8,6 +8,10 @@ from . import views
 app_name = "media_files"
 
 urlpatterns = [
+    # Vue principale
+    path("", views.MyFilesView.as_view(), name="my_files"),
+    # Alias pour portfolio (compatibilité avec les templates)
+    path("portfolio/", views.MyFilesView.as_view(), name="portfolio"),
     # Upload de fichiers
     path("upload/audio/", views.AudioUploadView.as_view(), name="upload_audio"),
     path("upload/video/", views.VideoUploadView.as_view(), name="upload_video"),
@@ -15,29 +19,30 @@ urlpatterns = [
     path(
         "upload/document/", views.DocumentUploadView.as_view(), name="upload_document"
     ),
-    # Gestion des fichiers
-    path("my-files/", views.MyFilesView.as_view(), name="my_files"),
-    path("audio/<int:pk>/edit/", views.EditAudioView.as_view(), name="edit_audio"),
-    path("video/<int:pk>/edit/", views.EditVideoView.as_view(), name="edit_video"),
-    path("photo/<int:pk>/edit/", views.EditPhotoView.as_view(), name="edit_photo"),
+    # Édition de fichiers
+    path("edit/audio/<int:pk>/", views.EditAudioView.as_view(), name="edit_audio"),
+    path("edit/video/<int:pk>/", views.EditVideoView.as_view(), name="edit_video"),
+    path("edit/photo/<int:pk>/", views.EditPhotoView.as_view(), name="edit_photo"),
     path(
-        "document/<int:pk>/edit/",
+        "edit/document/<int:pk>/",
         views.EditDocumentView.as_view(),
         name="edit_document",
     ),
-    # Suppression
+    # Suppression de fichiers
     path(
-        "audio/<int:pk>/delete/", views.DeleteAudioView.as_view(), name="delete_audio"
+        "delete/audio/<int:pk>/", views.DeleteAudioView.as_view(), name="delete_audio"
     ),
     path(
-        "video/<int:pk>/delete/", views.DeleteVideoView.as_view(), name="delete_video"
+        "delete/video/<int:pk>/", views.DeleteVideoView.as_view(), name="delete_video"
     ),
     path(
-        "photo/<int:pk>/delete/", views.DeletePhotoView.as_view(), name="delete_photo"
+        "delete/photo/<int:pk>/", views.DeletePhotoView.as_view(), name="delete_photo"
     ),
     path(
-        "document/<int:pk>/delete/",
+        "delete/document/<int:pk>/",
         views.DeleteDocumentView.as_view(),
         name="delete_document",
     ),
+    # API pour les statistiques
+    path("api/stats/", views.MediaStatsAPIView.as_view(), name="api_stats"),
 ]

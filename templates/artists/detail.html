@@ -1,0 +1,576 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title }} - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Profil principal -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-8">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Photo et infos principales -->
+                    <div class="lg:w-1/3">
+                        <div class="text-center lg:text-left">
+                            {% if artist.profile_picture %}
+                                <img class="h-48 w-48 rounded-full object-cover mx-auto lg:mx-0 mb-4" src="{{ artist.profile_picture.url }}" alt="{{ artist.display_name }}">
+                            {% else %}
+                                <div class="h-48 w-48 rounded-full bg-primary-100 flex items-center justify-center mx-auto lg:mx-0 mb-4">
+                                    <i class="fas fa-microphone text-primary-600 text-6xl"></i>
+                                </div>
+                            {% endif %}
+                            
+                            <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ artist.display_name }}</h1>
+                            
+                            <div class="flex items-center justify-center lg:justify-start text-gray-600 mb-4">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span>{{ artist.city }}, {{ artist.region }}</span>
+                            </div>
+
+                            <!-- Statut de disponibilité -->
+                            {% if artist.is_available %}
+                                <div class="mb-4">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-check mr-2"></i>
+                                        Disponible pour de nouveaux projets
+                                    </span>
+                                </div>
+                            {% else %}
+                                <div class="mb-4">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                        <i class="fas fa-times mr-2"></i>
+                                        Actuellement occupé
+                                    </span>
+                                </div>
+                            {% endif %}
+
+                            <!-- Actions de contact -->
+                            {% if can_contact %}
+                                <div class="space-y-3 justify-center lg:justify-start">
+                                    {% if artist.whatsapp_number or artist.phone_number %}
+                                        <!-- Bouton WhatsApp principal -->
+                                        <a href="{% url 'artists:whatsapp' artist.pk %}" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                            <i class="fab fa-whatsapp mr-2 text-xl"></i>
+                                            Contacter sur WhatsApp
+                                        </a>
+                                        
+                                        <!-- Bouton contact rapide (caché sur mobile) -->
+                                        <div class="hidden sm:flex flex-wrap gap-2">
+                                            <a href="{% url 'artists:whatsapp' artist.pk %}?direct=true" class="inline-flex items-center px-3 py-2 border border-green-300 text-sm font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                                                <i class="fab fa-whatsapp mr-1"></i>
+                                                Contact rapide
+                                            </a>
+                                            {% if artist.phone_number %}
+                                                <a href="tel:{{ artist.phone_number }}" class="inline-flex items-center px-3 py-2 border border-blue-300 text-sm font-medium rounded-md text-blue-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                                    <i class="fas fa-phone mr-1"></i>
+                                                    Appeler
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <a href="{% url 'artists:contact' artist.pk %}" class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                        <i class="fas fa-envelope mr-2"></i>
+                                        Autres options de contact
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="text-center lg:text-left">
+                                    <p class="text-gray-500 text-sm mb-3">Connectez-vous comme organisateur pour contacter cet artiste</p>
+                                    <a href="{% url 'accounts:login' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700">
+                                        <i class="fas fa-sign-in-alt mr-2"></i>
+                                        Se connecter
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Informations détaillées -->
+                    <div class="lg:w-2/3">
+                        <!-- Statistiques -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-primary-600">{{ artist.rating_average|floatformat:1 }}</div>
+                                <div class="text-sm text-gray-500">Note moyenne</div>
+                                <div class="text-xs text-gray-400">{{ artist.total_reviews }} avis</div>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-primary-600">{{ artist.profile_views }}</div>
+                                <div class="text-sm text-gray-500">Vues profil</div>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-primary-600">{{ artist.whatsapp_clicks.count }}</div>
+                                <div class="text-sm text-gray-500">Contacts</div>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-primary-600">{{ artist.created_at|timesince }}</div>
+                                <div class="text-sm text-gray-500">Sur TalentZik</div>
+                            </div>
+                        </div>
+
+                        <!-- Genres musicaux -->
+                        {% if artist.genres.exists %}
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                                    <i class="fas fa-music mr-2 text-purple-600"></i>
+                                    Genres musicaux
+                                </h3>
+                                <div class="flex flex-wrap gap-2">
+                                    {% for artist_genre in artist.genres.all %}
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                                            <i class="fas fa-music mr-1"></i>
+                                            {{ artist_genre.genre.name }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Rôles artistiques -->
+                        {% if artist.roles.exists %}
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                                    <i class="fas fa-user-tag mr-2 text-blue-600"></i>
+                                    Rôles artistiques
+                                </h3>
+                                <div class="flex flex-wrap gap-2">
+                                    {% for artist_role in artist.roles.all %}
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                            <i class="fas fa-user-tag mr-1"></i>
+                                            {{ artist_role.role.name }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Instruments -->
+                        {% if artist.instruments.exists %}
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                                    <i class="fas fa-guitar mr-2 text-green-600"></i>
+                                    Instruments
+                                </h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    {% for artist_instrument in artist.instruments.all %}
+                                        <div class="flex items-center justify-between bg-green-50 rounded-lg p-3">
+                                            <span class="font-medium text-green-900">{{ artist_instrument.instrument.name }}</span>
+                                            <span class="text-xs px-2 py-1 bg-green-200 text-green-800 rounded-full">
+                                                {{ artist_instrument.get_proficiency_level_display }}
+                                            </span>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Biographie -->
+                        {% if artist.bio %}
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3">À propos</h3>
+                                <div class="prose prose-primary max-w-none">
+                                    <p class="text-gray-700 leading-relaxed">{{ artist.bio|linebreaks }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Informations de contact (partielles) -->
+                        <div class="mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                                <i class="fas fa-address-book mr-2 text-gray-600"></i>
+                                Informations de contact
+                            </h3>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                {% if artist.phone_number or artist.whatsapp_number or artist.website %}
+                                    {% if artist.phone_number %}
+                                        <div class="flex items-center mb-3">
+                                            <i class="fas fa-phone text-blue-500 mr-3 w-5"></i>
+                                            <span class="text-gray-700">Téléphone disponible</span>
+                                            <span class="ml-auto text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                                                Vérifié
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                    {% if artist.whatsapp_number %}
+                                        <div class="flex items-center mb-3">
+                                            <i class="fab fa-whatsapp text-green-500 mr-3 w-5"></i>
+                                            <span class="text-gray-700">WhatsApp disponible</span>
+                                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                                                Direct
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                    {% if artist.website %}
+                                        <div class="flex items-center mb-3">
+                                            <i class="fas fa-globe text-purple-500 mr-3 w-5"></i>
+                                            <a href="{{ artist.website }}" target="_blank" rel="noopener" class="text-purple-600 hover:text-purple-700 font-medium">
+                                                Site web officiel
+                                            </a>
+                                            <i class="fas fa-external-link-alt text-gray-400 ml-2 text-xs"></i>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="text-center py-4">
+                                        <i class="fas fa-info-circle text-gray-400 mb-2 text-2xl"></i>
+                                        <p class="text-gray-500 text-sm">
+                                            Cet artiste n'a pas encore configuré ses informations de contact publiques.
+                                        </p>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="border-t border-gray-200 pt-3 mt-4">
+                                    <p class="text-sm text-gray-500">
+                                        <i class="fas fa-shield-alt mr-1 text-orange-500"></i>
+                                        Les informations de contact complètes sont accessibles aux organisateurs connectés.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Portfolio -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                    <i class="fas fa-folder-open mr-2 text-orange-600"></i>
+                    Portfolio
+                </h2>
+                
+                <!-- Statistiques du portfolio -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-orange-50 rounded-lg p-4 text-center border border-orange-100">
+                        <div class="text-xl font-bold text-orange-600">{{ artist.audio_files.count }}</div>
+                        <div class="text-sm text-orange-700">Audio</div>
+                    </div>
+                    <div class="bg-blue-50 rounded-lg p-4 text-center border border-blue-100">
+                        <div class="text-xl font-bold text-blue-600">{{ artist.video_files.count }}</div>
+                        <div class="text-sm text-blue-700">Vidéo</div>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4 text-center border border-green-100">
+                        <div class="text-xl font-bold text-green-600">{{ artist.photo_files.count }}</div>
+                        <div class="text-sm text-green-700">Photos</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4 text-center border border-purple-100">
+                        <div class="text-xl font-bold text-purple-600">{{ artist.documents.count }}</div>
+                        <div class="text-sm text-purple-700">Documents</div>
+                    </div>
+                </div>
+
+                <!-- Photos récentes -->
+                {% if artist.photo_files.exists %}
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                            <i class="fas fa-camera mr-2 text-green-600"></i>
+                            Photos récentes
+                        </h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                            {% for photo in artist.photo_files.all|slice:":6" %}
+                                <div class="relative group bg-gray-100 rounded-lg overflow-hidden aspect-square cursor-pointer hover:shadow-lg transition-all duration-200">
+                                    <img src="{{ photo.file.url }}" alt="{{ photo.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
+                                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center">
+                                        <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                            <i class="fas fa-expand text-white text-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if artist.photo_files.count > 6 %}
+                            <div class="text-center mt-4">
+                                <span class="text-sm text-gray-500">
+                                    <i class="fas fa-images mr-1"></i>
+                                    Et {{ artist.photo_files.count|add:"-6" }} autres photos...
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <!-- Fichiers audio récents -->
+                {% if artist.audio_files.exists %}
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                            <i class="fas fa-music mr-2 text-orange-600"></i>
+                            Extraits audio
+                        </h3>
+                        <div class="space-y-3">
+                            {% for audio in artist.audio_files.all|slice:":2" %}
+                                <div class="bg-orange-50 rounded-lg p-4 border border-orange-100">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-medium text-orange-900">{{ audio.title }}</h4>
+                                        {% if audio.duration %}
+                                            <span class="text-xs text-orange-600 bg-orange-200 px-2 py-1 rounded-full">
+                                                {{ audio.get_duration_display }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                    {% if audio.description %}
+                                        <p class="text-sm text-orange-700 mb-2">{{ audio.description|truncatewords:15 }}</p>
+                                    {% endif %}
+                                    <audio controls class="w-full max-w-md">
+                                        <source src="{{ audio.file.url }}" type="audio/mpeg">
+                                        Votre navigateur ne supporte pas l'élément audio.
+                                    </audio>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if artist.audio_files.count > 2 %}
+                            <div class="text-center mt-4">
+                                <span class="text-sm text-gray-500">
+                                    <i class="fas fa-music mr-1"></i>
+                                    Et {{ artist.audio_files.count|add:"-2" }} autres fichiers audio...
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <!-- Vidéos récentes -->
+                {% if artist.video_files.exists %}
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                            <i class="fas fa-video mr-2 text-blue-600"></i>
+                            Vidéos
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {% for video in artist.video_files.all|slice:":2" %}
+                                <div class="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                                    <h4 class="font-medium text-blue-900 mb-2">{{ video.title }}</h4>
+                                    {% if video.description %}
+                                        <p class="text-sm text-blue-700 mb-3">{{ video.description|truncatewords:10 }}</p>
+                                    {% endif %}
+                                    {% if video.file %}
+                                        <video controls class="w-full rounded-lg">
+                                            <source src="{{ video.file.url }}" type="video/mp4">
+                                            Votre navigateur ne supporte pas l'élément vidéo.
+                                        </video>
+                                    {% elif video.video_url %}
+                                        <div class="bg-blue-100 rounded-lg p-3 text-center">
+                                            <a href="{{ video.video_url }}" target="_blank" class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-external-link-alt mr-2"></i>
+                                                Voir la vidéo
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if artist.video_files.count > 2 %}
+                            <div class="text-center mt-4">
+                                <span class="text-sm text-gray-500">
+                                    <i class="fas fa-video mr-1"></i>
+                                    Et {{ artist.video_files.count|add:"-2" }} autres vidéos...
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <!-- Message si pas de contenu -->
+                {% if not artist.photo_files.exists and not artist.audio_files.exists and not artist.video_files.exists %}
+                    <div class="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
+                        <div class="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-gray-100 mb-4">
+                            <i class="fas fa-photo-video text-gray-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Portfolio en construction</h3>
+                        <p class="text-gray-500">
+                            Cet artiste n'a pas encore ajouté de contenu à son portfolio.
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Section Avis et témoignages -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <h2 class="text-2xl font-bold text-gray-900 mr-4">
+                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                            Avis et témoignages
+                        </h2>
+                        {% if artist.total_reviews > 0 %}
+                            <div class="flex items-center">
+                                <span class="text-2xl font-bold text-gray-900 mr-2">{{ artist.rating_average|floatformat:1 }}</span>
+                                <div class="flex text-yellow-400 mr-2">
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= artist.rating_average|floatformat:0 %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <span class="text-gray-500">({{ artist.total_reviews }} avis)</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Bouton pour laisser un avis (organisateurs seulement) -->
+                    {% if user.is_authenticated and user.is_organizer and user != artist.user %}
+                        <a href="{% url 'reviews:leave_review' artist.pk %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            <i class="fas fa-star mr-2"></i>
+                            Laisser un avis
+                        </a>
+                    {% endif %}
+                </div>
+
+                <!-- Aperçu des avis récents -->
+                {% if artist.reviews.exists %}
+                    <div class="space-y-6">
+                        {% for review in artist.reviews.all|slice:":3" %}
+                            <div class="border-l-4 border-primary-200 bg-gray-50 rounded-r-lg p-4">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <div class="flex text-yellow-400 mr-2">
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= review.rating %}
+                                                    <i class="fas fa-star text-xs"></i>
+                                                {% else %}
+                                                    <i class="far fa-star text-xs"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <span class="font-medium text-gray-900">{{ review.organizer.get_display_name }}</span>
+                                        {% if review.event_type %}
+                                            <span class="mx-2 text-gray-400">•</span>
+                                            <span class="text-sm text-gray-600">{{ review.get_event_type_display }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <span class="text-sm text-gray-500">{{ review.created_at|date:"d M Y" }}</span>
+                                </div>
+                                
+                                {% if review.comment %}
+                                    <p class="text-gray-700 mb-3">{{ review.comment|truncatewords:30 }}</p>
+                                {% endif %}
+                                
+                                {% if review.event_location %}
+                                    <p class="text-sm text-gray-500">
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        {{ review.event_location }}
+                                    </p>
+                                {% endif %}
+
+                                <!-- Réponse de l'artiste -->
+                                {% if review.artist_response %}
+                                    <div class="mt-3 ml-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-reply text-blue-600 mr-2"></i>
+                                            <span class="font-medium text-blue-900">Réponse de l'artiste</span>
+                                        </div>
+                                        <p class="text-blue-800 text-sm">{{ review.artist_response.response_text|truncatewords:20 }}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <!-- Lien vers tous les avis -->
+                        {% if artist.reviews.count > 3 %}
+                            <div class="text-center pt-4 border-t border-gray-200">
+                                <a href="{% url 'reviews:artist_reviews' artist.pk %}" class="inline-flex items-center text-primary-600 hover:text-primary-800 font-medium">
+                                    <i class="fas fa-eye mr-2"></i>
+                                    Voir tous les {{ artist.reviews.count }} avis
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <!-- Pas encore d'avis -->
+                    <div class="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
+                        <div class="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-gray-100 mb-4">
+                            <i class="fas fa-star text-gray-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun avis pour le moment</h3>
+                        <p class="text-gray-500 mb-4">
+                            Soyez le premier à partager votre expérience avec cet artiste !
+                        </p>
+                        {% if user.is_authenticated and user.is_organizer and user != artist.user %}
+                            <a href="{% url 'reviews:leave_review' artist.pk %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                <i class="fas fa-star mr-2"></i>
+                                Laisser le premier avis
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Artistes similaires -->
+        {% if similar_artists %}
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Artistes similaires</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {% for similar_artist in similar_artists %}
+                            <div class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                                <div class="text-center">
+                                    {% if similar_artist.profile_picture %}
+                                        <img class="h-16 w-16 rounded-full object-cover mx-auto mb-3" src="{{ similar_artist.profile_picture.url }}" alt="{{ similar_artist.display_name }}">
+                                    {% else %}
+                                        <div class="h-16 w-16 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-3">
+                                            <i class="fas fa-microphone text-primary-600"></i>
+                                        </div>
+                                    {% endif %}
+                                    <h3 class="font-semibold text-gray-900 mb-1">
+                                        <a href="{% url 'artists:detail' similar_artist.pk %}" class="hover:text-primary-600">
+                                            {{ similar_artist.display_name }}
+                                        </a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 mb-2">{{ similar_artist.city }}</p>
+                                    {% if similar_artist.rating_average > 0 %}
+                                        <div class="flex items-center justify-center text-sm">
+                                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                            <span>{{ similar_artist.rating_average|floatformat:1 }}</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Widget WhatsApp flottant (mobile) -->
+{% if can_contact and artist.whatsapp_number %}
+    <div class="fixed bottom-4 right-4 z-50 sm:hidden">
+        <a href="{% url 'artists:whatsapp' artist.pk %}?direct=true" 
+           class="flex items-center justify-center w-14 h-14 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-200 transition-all duration-300 hover:scale-110"
+           aria-label="Contacter {{ artist.get_display_name }} sur WhatsApp">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+{% endif %}
+
+<!-- Widget statistiques WhatsApp (pour l'artiste propriétaire) -->
+{% if user.is_authenticated and user.is_artist and user.artist_profile == artist %}
+    <div class="fixed bottom-4 left-4 z-40 hidden lg:block">
+        <div class="bg-white rounded-lg shadow-lg border border-gray-200 p-4 max-w-xs">
+            <div class="flex items-center justify-between mb-2">
+                <h4 class="font-medium text-gray-900 text-sm">Vos statistiques</h4>
+                <a href="{% url 'artists:whatsapp_stats' %}" class="text-green-600 hover:text-green-700">
+                    <i class="fas fa-chart-line text-sm"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+                <div class="text-center">
+                    <div class="font-bold text-green-600">{{ artist.whatsapp_clicks.count }}</div>
+                    <div class="text-gray-500">Contacts WhatsApp</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-bold text-blue-600">{{ artist.profile_views }}</div>
+                    <div class="text-gray-500">Vues de profil</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %} 

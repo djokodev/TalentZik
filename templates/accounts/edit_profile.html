@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifier mon profil - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-user-edit text-orange-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Modifier mon profil</h1>
+                        <p class="text-gray-600">Mettez à jour vos informations personnelles et professionnelles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-6 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-50 border border-green-200 text-green-800{% elif message.tags == 'error' %}bg-red-50 border border-red-200 text-red-800{% else %}bg-blue-50 border border-blue-200 text-blue-800{% endif %}">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            {% if message.tags == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif message.tags == 'error' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% else %}
+                                <i class="fas fa-info-circle"></i>
+                            {% endif %}
+                        </div>
+                        <div class="ml-3">
+                            {{ message }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Formulaire -->
+        <div class="bg-white rounded-lg shadow">
+            <form method="post" enctype="multipart/form-data" class="divide-y divide-gray-200">
+                {% csrf_token %}
+                
+                <!-- Informations de base -->
+                <div class="px-6 py-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-6">
+                        <i class="fas fa-user mr-2 text-orange-600"></i>
+                        Informations personnelles
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Photo de profil -->
+                        {% if user.user_type == 'artist' %}
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Photo de profil
+                            </label>
+                            <div class="flex items-center space-x-6">
+                                {% if user.artist_profile.profile_picture %}
+                                    <img src="{{ user.artist_profile.profile_picture.url }}" alt="Photo de profil" class="w-20 h-20 rounded-full object-cover">
+                                {% else %}
+                                    <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-gray-400 text-2xl"></i>
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    {{ form.profile_picture }}
+                                    <p class="text-sm text-gray-500 mt-1">JPG, PNG ou GIF. Taille max : 5MB</p>
+                                </div>
+                            </div>
+                            {% if form.profile_picture.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.profile_picture.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Prénom -->
+                        <div>
+                            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.first_name.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.first_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Nom -->
+                        <div>
+                            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.last_name.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.last_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Email -->
+                        <div>
+                            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.email.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.email.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Téléphone -->
+                        <div>
+                            <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.phone_number.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.phone_number }}
+                            {% if form.phone_number.help_text %}
+                                <p class="mt-1 text-sm text-gray-500">{{ form.phone_number.help_text }}</p>
+                            {% endif %}
+                            {% if form.phone_number.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.phone_number.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Ville -->
+                        <div>
+                            <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.city.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.city }}
+                            {% if form.city.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.city.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informations spécifiques selon le type d'utilisateur -->
+                {% if user.user_type == 'artist' %}
+                <!-- Informations artistiques -->
+                <div class="px-6 py-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-6">
+                        <i class="fas fa-music mr-2 text-orange-600"></i>
+                        Informations artistiques
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Nom d'artiste -->
+                        <div>
+                            <label for="{{ form.stage_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.stage_name.label }}
+                            </label>
+                            {{ form.stage_name }}
+                            {% if form.stage_name.help_text %}
+                                <p class="mt-1 text-sm text-gray-500">{{ form.stage_name.help_text }}</p>
+                            {% endif %}
+                            {% if form.stage_name.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.stage_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Bio -->
+                    <div class="mt-6">
+                        <label for="{{ form.bio.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-user-circle mr-1 text-orange-500"></i>
+                            {{ form.bio.label }}
+                        </label>
+                        {{ form.bio }}
+                        {% if form.bio.help_text %}
+                            <p class="mt-1 text-sm text-gray-500">{{ form.bio.help_text }}</p>
+                        {% endif %}
+                        {% if form.bio.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.bio.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Sections spécialisées avec design amélioré -->
+                
+                <!-- Rôles/Spécialités -->
+                <div class="px-6 py-6 bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user-tag text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-900">{{ form.roles.label }}</h3>
+                            <p class="text-sm text-blue-700">Définissez vos spécialités musicales</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                        {{ form.roles }}
+                        {% if form.roles.help_text %}
+                            <p class="mt-2 text-sm text-blue-600">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                {{ form.roles.help_text }}
+                            </p>
+                        {% endif %}
+                        {% if form.roles.errors %}
+                            <div class="mt-2 text-sm text-red-600">
+                                {% for error in form.roles.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Genres musicaux -->
+                <div class="px-6 py-6 bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-music text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-purple-900">{{ form.genres.label }}</h3>
+                            <p class="text-sm text-purple-700">Quels styles musicaux représentent-ils votre art ?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                        {{ form.genres }}
+                        {% if form.genres.help_text %}
+                            <p class="mt-2 text-sm text-purple-600">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                {{ form.genres.help_text }}
+                            </p>
+                        {% endif %}
+                        {% if form.genres.errors %}
+                            <div class="mt-2 text-sm text-red-600">
+                                {% for error in form.genres.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Instruments -->
+                <div class="px-6 py-6 bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-guitar text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-green-900">{{ form.instruments.label }}</h3>
+                            <p class="text-sm text-green-700">Quels instruments maîtrisez-vous ?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                        {{ form.instruments }}
+                        {% if form.instruments.help_text %}
+                            <p class="mt-2 text-sm text-green-600">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                {{ form.instruments.help_text }}
+                            </p>
+                        {% endif %}
+                        {% if form.instruments.errors %}
+                            <div class="mt-2 text-sm text-red-600">
+                                {% for error in form.instruments.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% elif user.user_type == 'organizer' %}
+                <!-- Informations d'organisateur -->
+                <div class="px-6 py-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-6">
+                        <i class="fas fa-building mr-2 text-orange-600"></i>
+                        Informations d'organisation
+                    </h3>
+                    
+                    <div>
+                        <label for="{{ form.organization_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.organization_name.label }}
+                        </label>
+                        {{ form.organization_name }}
+                        {% if form.organization_name.help_text %}
+                            <p class="mt-1 text-sm text-gray-500">{{ form.organization_name.help_text }}</p>
+                        {% endif %}
+                        {% if form.organization_name.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.organization_name.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Erreurs générales -->
+                {% if form.non_field_errors %}
+                    <div class="px-6 py-6">
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800">Erreurs de validation</h3>
+                                    <div class="mt-2 text-sm text-red-700">
+                                        {% for error in form.non_field_errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Actions -->
+                <div class="px-6 py-4 flex items-center justify-between">
+                    <a href="{% url 'accounts:profile' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Retour au profil
+                    </a>
+                    
+                    <button type="submit" class="inline-flex items-center px-6 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-200">
+                        <i class="fas fa-save mr-2"></i>
+                        Enregistrer les modifications
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Section supplémentaire -->
+        <div class="mt-8 bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">
+                <i class="fas fa-cog mr-2 text-gray-600"></i>
+                Actions du compte
+            </h3>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'accounts:change_password' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                    <i class="fas fa-key mr-2"></i>
+                    Changer le mot de passe
+                </a>
+                {% if user.user_type == 'artist' %}
+                <a href="{% url 'media_files:portfolio' %}" class="inline-flex items-center px-4 py-2 border border-orange-300 rounded-lg text-sm font-medium text-orange-700 bg-orange-50 hover:bg-orange-100">
+                    <i class="fas fa-folder-open mr-2"></i>
+                    Gérer mon portfolio
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

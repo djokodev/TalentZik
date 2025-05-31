@@ -43,7 +43,9 @@ class MediaFileBase(models.Model):
     """
 
     artist = models.ForeignKey(
-        "accounts.ArtistProfile", on_delete=models.CASCADE, verbose_name=_("Artiste")
+        "accounts.ArtistProfile",
+        on_delete=models.CASCADE,
+        verbose_name=_("Artiste"),
     )
     title = models.CharField(
         _("Titre"), max_length=200, help_text=_("Titre du fichier")
@@ -91,6 +93,12 @@ class AudioFile(MediaFileBase):
     Fichiers audio des artistes
     """
 
+    artist = models.ForeignKey(
+        "accounts.ArtistProfile",
+        on_delete=models.CASCADE,
+        verbose_name=_("Artiste"),
+        related_name="audio_files",
+    )
     file = models.FileField(
         _("Fichier audio"),
         upload_to="media/audio/%Y/%m/",
@@ -133,6 +141,12 @@ class VideoFile(MediaFileBase):
     Fichiers vidéo des artistes
     """
 
+    artist = models.ForeignKey(
+        "accounts.ArtistProfile",
+        on_delete=models.CASCADE,
+        verbose_name=_("Artiste"),
+        related_name="video_files",
+    )
     file = models.FileField(
         _("Fichier vidéo"),
         upload_to="media/video/%Y/%m/",
@@ -216,6 +230,12 @@ class PhotoFile(MediaFileBase):
     Photos des artistes
     """
 
+    artist = models.ForeignKey(
+        "accounts.ArtistProfile",
+        on_delete=models.CASCADE,
+        verbose_name=_("Artiste"),
+        related_name="photo_files",
+    )
     file = models.ImageField(
         _("Photo"),
         upload_to="media/photos/%Y/%m/",
@@ -266,6 +286,12 @@ class DocumentFile(MediaFileBase):
         ("other", _("Autre")),
     ]
 
+    artist = models.ForeignKey(
+        "accounts.ArtistProfile",
+        on_delete=models.CASCADE,
+        verbose_name=_("Artiste"),
+        related_name="documents",
+    )
     file = models.FileField(
         _("Document"),
         upload_to="media/documents/%Y/%m/",

@@ -29,13 +29,14 @@ admin.site.index_title = "Bienvenue dans l'administration TalentZik"
 urlpatterns = [
     # Administration Django
     path("admin/", admin.site.urls),
-    # Page d'accueil temporaire
+    # Page d'accueil
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     # Applications
     path("accounts/", include("apps.accounts.urls")),
     path("artists/", include("apps.artists.urls")),
     path("reviews/", include("apps.reviews.urls")),
     path("media/", include("apps.media_files.urls")),
+    path("about/", TemplateView.as_view(template_name="about.html"), name="about"),
 ]
 
 # Servir les fichiers médias en développement

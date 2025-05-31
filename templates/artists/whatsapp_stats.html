@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title }} - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-8">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4">
+                            <i class="fab fa-whatsapp text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Statistiques WhatsApp</h1>
+                            <p class="text-gray-600">Analysez l'engagement de vos contacts WhatsApp</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-right">
+                        <div class="text-sm text-gray-500">Dernière mise à jour</div>
+                        <div class="font-medium text-gray-900">{{ "now"|date:"d M Y à H:i" }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Métriques principales -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total des clics -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fab fa-whatsapp text-green-600"></i>
+                        </div>
+                    </div>
+                    <div class="ml-4 flex-1">
+                        <div class="text-sm font-medium text-gray-500">Total des contacts</div>
+                        <div class="text-2xl font-bold text-gray-900">{{ total_clicks }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts récents -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-calendar-week text-blue-600"></i>
+                        </div>
+                    </div>
+                    <div class="ml-4 flex-1">
+                        <div class="text-sm font-medium text-gray-500">30 derniers jours</div>
+                        <div class="text-2xl font-bold text-gray-900">{{ recent_clicks_count }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Taux de conversion -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-percentage text-purple-600"></i>
+                        </div>
+                    </div>
+                    <div class="ml-4 flex-1">
+                        <div class="text-sm font-medium text-gray-500">Taux de conversion</div>
+                        <div class="text-2xl font-bold text-gray-900">{{ conversion_rate }}%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vues de profil -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-eye text-orange-600"></i>
+                        </div>
+                    </div>
+                    <div class="ml-4 flex-1">
+                        <div class="text-sm font-medium text-gray-500">Vues de profil</div>
+                        <div class="text-2xl font-bold text-gray-900">{{ artist.profile_views }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Graphique des clics quotidiens -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-chart-line text-green-600 mr-2"></i>
+                        Activité des 7 derniers jours
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        {% for date, count in daily_clicks.items %}
+                            <div class="flex items-center">
+                                <div class="w-24 text-sm text-gray-600">
+                                    {{ date|date:"d M" }}
+                                </div>
+                                <div class="flex-1 ml-4">
+                                    <div class="bg-gray-200 rounded-full h-3">
+                                        {% if count > 0 %}
+                                            <div class="bg-green-500 h-3 rounded-full" style="width: {% widthratio count 10 100 %}%;"></div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="w-8 text-right text-sm font-medium text-gray-900">
+                                    {{ count }}
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="text-center py-8 text-gray-500">
+                                <i class="fas fa-chart-line text-4xl mb-4"></i>
+                                <p>Aucune activité cette semaine</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top utilisateurs -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-users text-blue-600 mr-2"></i>
+                        Utilisateurs les plus actifs
+                    </h3>
+                </div>
+                <div class="p-6">
+                    {% if top_clickers %}
+                        <div class="space-y-4">
+                            {% for clicker in top_clickers %}
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-gray-900">
+                                                {{ clicker.clicker__first_name }} {{ clicker.clicker__last_name }}
+                                            </div>
+                                            <div class="text-sm text-gray-500">{{ clicker.clicker__email }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-bold text-blue-600">{{ clicker.click_count }}</div>
+                                        <div class="text-xs text-gray-500">contact{{ clicker.click_count|pluralize }}</div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-users text-4xl mb-4"></i>
+                            <p>Aucun utilisateur connecté n'a encore cliqué</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Informations supplémentaires -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <!-- Contacts anonymes -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-user-secret text-gray-600 mr-2"></i>
+                        Contacts anonymes
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gray-900 mb-2">{{ anonymous_clicks }}</div>
+                        <p class="text-gray-600">Visiteurs non connectés qui ont cliqué sur votre bouton WhatsApp</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conseils d'optimisation -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+                        Conseils d'optimisation
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-3 text-sm text-gray-700">
+                        {% if conversion_rate < 5 %}
+                            <div class="flex items-start">
+                                <i class="fas fa-arrow-up text-green-500 mt-1 mr-2"></i>
+                                <span>Votre taux de conversion est faible. Ajoutez plus de contenu à votre portfolio pour attirer l'attention.</span>
+                            </div>
+                        {% endif %}
+                        
+                        {% if artist.whatsapp_number %}
+                            <div class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Parfait ! Votre numéro WhatsApp est configuré.</span>
+                            </div>
+                        {% else %}
+                            <div class="flex items-start">
+                                <i class="fas fa-exclamation-triangle text-yellow-500 mt-1 mr-2"></i>
+                                <span>Ajoutez votre numéro WhatsApp dans votre profil pour de meilleurs résultats.</span>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-star text-blue-500 mt-1 mr-2"></i>
+                            <span>Répondez rapidement aux messages WhatsApp pour maintenir un bon taux d'engagement.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="bg-white rounded-lg shadow mt-8">
+            <div class="px-6 py-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-tools text-primary-600 mr-2"></i>
+                    Actions rapides
+                </h3>
+                <div class="flex flex-wrap gap-4">
+                    <a href="{% url 'accounts:edit_profile' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        <i class="fas fa-edit mr-2"></i>
+                        Modifier mon profil
+                    </a>
+                    
+                    <a href="{% url 'media_files:my_files' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        <i class="fas fa-folder mr-2"></i>
+                        Gérer mon portfolio
+                    </a>
+                    
+                    <a href="{% url 'reviews:request_review' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        <i class="fas fa-star mr-2"></i>
+                        Demander des avis
+                    </a>
+                    
+                    <a href="{% url 'artists:detail' artist.pk %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        <i class="fas fa-eye mr-2"></i>
+                        Voir mon profil public
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

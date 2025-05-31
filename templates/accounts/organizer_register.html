@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+
+{% block title %}Inscription Organisateur - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête -->
+        <div class="text-center mb-8">
+            <div class="flex justify-center mb-4">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-calendar-alt text-orange-600 text-2xl"></i>
+                </div>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Inscription Organisateur</h1>
+            <p class="text-gray-600">Créez votre compte pour découvrir et contacter des artistes camerounais</p>
+        </div>
+
+        <!-- Formulaire d'inscription -->
+        <div class="bg-white rounded-lg shadow p-8">
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Erreurs générales -->
+                {% if form.non_field_errors %}
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-circle text-red-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-red-800">Erreurs de validation</h3>
+                                <div class="mt-2 text-sm text-red-700">
+                                    {% for error in form.non_field_errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <!-- Informations personnelles -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">
+                        <i class="fas fa-user mr-2 text-orange-600"></i>
+                        Informations personnelles
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.first_name.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.first_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.last_name.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.last_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.email.label }}
+                            <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.email.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Informations d'organisation -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">
+                        <i class="fas fa-building mr-2 text-orange-600"></i>
+                        Informations d'organisation
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="{{ form.organization_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.organization_name.label }}
+                            </label>
+                            {{ form.organization_name }}
+                            {% if form.organization_name.help_text %}
+                                <p class="mt-1 text-sm text-gray-500">{{ form.organization_name.help_text }}</p>
+                            {% endif %}
+                            {% if form.organization_name.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.organization_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.organization_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.organization_type.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.organization_type }}
+                            {% if form.organization_type.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.organization_type.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.phone_number.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.phone_number }}
+                            {% if form.phone_number.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.phone_number.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.whatsapp_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.whatsapp_number.label }}
+                            </label>
+                            {{ form.whatsapp_number }}
+                            {% if form.whatsapp_number.help_text %}
+                                <p class="mt-1 text-sm text-gray-500">{{ form.whatsapp_number.help_text }}</p>
+                            {% endif %}
+                            {% if form.whatsapp_number.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.whatsapp_number.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.city.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.city }}
+                            {% if form.city.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.city.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.region.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.region.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.region }}
+                            {% if form.region.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.region.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mot de passe -->
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">
+                        <i class="fas fa-lock mr-2 text-orange-600"></i>
+                        Sécurité
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.password1.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.password1 }}
+                            {% if form.password1.help_text %}
+                                <p class="mt-1 text-sm text-gray-500">{{ form.password1.help_text }}</p>
+                            {% endif %}
+                            {% if form.password1.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.password1.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.password2.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.password2.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+                    <a href="{% url 'accounts:register' %}" class="text-sm text-gray-600 hover:text-gray-900">
+                        ← Retour au choix du type de compte
+                    </a>
+                    
+                    <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg text-base font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-200">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Créer mon compte organisateur
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Liens utiles -->
+        <div class="text-center mt-8">
+            <p class="text-gray-600">
+                Vous avez déjà un compte ?
+                <a href="{% url 'accounts:login' %}" class="font-medium text-orange-600 hover:text-orange-500">
+                    Connectez-vous
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %} 

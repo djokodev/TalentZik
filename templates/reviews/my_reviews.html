@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+
+{% block title %}Mes Avis - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-star text-orange-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Mes Avis</h1>
+                            <p class="text-gray-600">
+                                {% if user.user_type == 'artist' %}
+                                    Consultez les avis que vous avez reçus
+                                {% else %}
+                                    Gérez les avis que vous avez donnés
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Statistiques rapides -->
+                    <div class="flex items-center space-x-6">
+                        {% if user.user_type == 'artist' %}
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-orange-600">{{ reviews_received.count }}</div>
+                                <div class="text-sm text-gray-500">Avis reçus</div>
+                            </div>
+                            {% if average_rating %}
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-orange-600">{{ average_rating|floatformat:1 }}/5</div>
+                                <div class="text-sm text-gray-500">Note moyenne</div>
+                            </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-orange-600">{{ reviews_given.count }}</div>
+                                <div class="text-sm text-gray-500">Avis donnés</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-6 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-50 border border-green-200 text-green-800{% elif message.tags == 'error' %}bg-red-50 border border-red-200 text-red-800{% else %}bg-blue-50 border border-blue-200 text-blue-800{% endif %}">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            {% if message.tags == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif message.tags == 'error' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% else %}
+                                <i class="fas fa-info-circle"></i>
+                            {% endif %}
+                        </div>
+                        <div class="ml-3">
+                            {{ message }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Contenu principal -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Liste des avis -->
+            <div class="lg:col-span-2">
+                {% if user.user_type == 'artist' %}
+                    <!-- Avis reçus par l'artiste -->
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-900">
+                                <i class="fas fa-comments mr-2 text-orange-600"></i>
+                                Avis reçus
+                            </h2>
+                        </div>
+                        
+                        <div class="divide-y divide-gray-200">
+                            {% for review in reviews_received %}
+                                <div class="p-6">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1">
+                                            <!-- En-tête de l'avis -->
+                                            <div class="flex items-center justify-between mb-3">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                                                        <i class="fas fa-user text-gray-400"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium text-gray-900">
+                                                            {{ review.reviewer.get_full_name|default:review.reviewer.username }}
+                                                        </p>
+                                                        <p class="text-sm text-gray-500">{{ review.created_at|date:"d M Y à H:i" }}</p>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Note -->
+                                                <div class="flex items-center">
+                                                    {% for i in "12345" %}
+                                                        {% if forloop.counter <= review.rating %}
+                                                            <i class="fas fa-star text-yellow-400"></i>
+                                                        {% else %}
+                                                            <i class="far fa-star text-gray-300"></i>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    <span class="ml-2 text-sm font-medium text-gray-900">{{ review.rating }}/5</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Contenu de l'avis -->
+                                            {% if review.comment %}
+                                                <p class="text-gray-700 leading-relaxed">{{ review.comment }}</p>
+                                            {% else %}
+                                                <p class="text-gray-500 italic">Aucun commentaire fourni</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="p-8 text-center">
+                                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <i class="fas fa-star text-gray-400 text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun avis pour le moment</h3>
+                                    <p class="text-gray-500">Vous n'avez pas encore reçu d'avis. Continuez à créer de la belle musique !</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                {% else %}
+                    <!-- Avis donnés par l'organisateur -->
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-900">
+                                <i class="fas fa-edit mr-2 text-orange-600"></i>
+                                Avis donnés
+                            </h2>
+                        </div>
+                        
+                        <div class="divide-y divide-gray-200">
+                            {% for review in reviews_given %}
+                                <div class="p-6">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1">
+                                            <!-- En-tête de l'avis -->
+                                            <div class="flex items-center justify-between mb-3">
+                                                <div class="flex items-center">
+                                                    {% if review.artist.artist_profile.profile_picture %}
+                                                        <img src="{{ review.artist.artist_profile.profile_picture.url }}" alt="{{ review.artist.artist_profile.stage_name }}" class="w-10 h-10 rounded-full object-cover mr-3">
+                                                    {% else %}
+                                                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                                                            <i class="fas fa-user text-gray-400"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                    <div>
+                                                        <a href="{% url 'artists:profile' review.artist.artist_profile.slug %}" class="hover:text-orange-600">
+                                                            {{ review.artist.artist_profile.stage_name }}
+                                                        </a>
+                                                        <p class="text-sm text-gray-500">Avis donné le {{ review.created_at|date:"d M Y" }}</p>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Note et actions -->
+                                                <div class="flex items-center space-x-3">
+                                                    <div class="flex items-center">
+                                                        {% for i in "12345" %}
+                                                            {% if forloop.counter <= review.rating %}
+                                                                <i class="fas fa-star text-yellow-400"></i>
+                                                            {% else %}
+                                                                <i class="far fa-star text-gray-300"></i>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        <span class="ml-2 text-sm font-medium text-gray-900">{{ review.rating }}/5</span>
+                                                    </div>
+                                                    
+                                                    <!-- Actions -->
+                                                    <div class="flex items-center space-x-2">
+                                                        <a href="#" class="text-sm text-orange-600 hover:text-orange-800">Modifier</a>
+                                                        <span class="text-gray-300">|</span>
+                                                        <a href="#" class="text-sm text-red-600 hover:text-red-800">Supprimer</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Contenu de l'avis -->
+                                            {% if review.comment %}
+                                                <p class="text-gray-700 leading-relaxed">{{ review.comment }}</p>
+                                            {% else %}
+                                                <p class="text-gray-500 italic">Aucun commentaire fourni</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="p-8 text-center">
+                                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <i class="fas fa-edit text-gray-400 text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun avis donné</h3>
+                                    <p class="text-gray-500 mb-4">Vous n'avez pas encore donné d'avis sur des artistes.</p>
+                                    <a href="{% url 'artists:search' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
+                                        <i class="fas fa-search mr-2"></i>
+                                        Découvrir des artistes
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Sidebar avec informations complémentaires -->
+            <div class="space-y-6">
+                
+                <!-- Statistiques détaillées -->
+                {% if user.user_type == 'artist' and reviews_received %}
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                            <i class="fas fa-chart-bar mr-2 text-orange-600"></i>
+                            Statistiques détaillées
+                        </h3>
+                        
+                        <!-- Répartition des notes -->
+                        <div class="space-y-3">
+                            {% for rating, count in rating_distribution.items %}
+                                <div class="flex items-center">
+                                    <span class="text-sm font-medium text-gray-700 w-8">{{ rating }}★</span>
+                                    <div class="flex-1 mx-3">
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-orange-600 h-2 rounded-full rating-bar" data-count="{{ count }}" data-total="{{ reviews_received.count }}"></div>
+                                        </div>
+                                    </div>
+                                    <span class="text-sm text-gray-500 w-8">{{ count }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <!-- Conseils -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-lightbulb mr-2 text-orange-600"></i>
+                        Conseils
+                    </h3>
+                    
+                    {% if user.user_type == 'artist' %}
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                Répondez poliment aux avis pour montrer votre professionnalisme
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                Utilisez les retours pour améliorer vos performances
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                Un profil avec de bons avis attire plus d'organisateurs
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                Donnez des avis constructifs et honnêtes
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                Aidez la communauté en partageant votre expérience
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                Les artistes apprécient les commentaires détaillés
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+                
+                <!-- Actions rapides -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-bolt mr-2 text-orange-600"></i>
+                        Actions rapides
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        {% if user.user_type == 'artist' %}
+                            <a href="{% url 'accounts:profile' %}" class="block w-full text-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                                <i class="fas fa-user mr-2"></i>
+                                Voir mon profil
+                            </a>
+                            <a href="{% url 'media_files:portfolio' %}" class="block w-full text-center px-4 py-2 border border-orange-300 rounded-lg text-sm font-medium text-orange-700 bg-orange-50 hover:bg-orange-100">
+                                <i class="fas fa-folder-open mr-2"></i>
+                                Mon portfolio
+                            </a>
+                        {% else %}
+                            <a href="{% url 'artists:search' %}" class="block w-full text-center px-4 py-2 border border-orange-300 rounded-lg text-sm font-medium text-orange-700 bg-orange-50 hover:bg-orange-100">
+                                <i class="fas fa-search mr-2"></i>
+                                Chercher des artistes
+                            </a>
+                            <a href="{% url 'accounts:profile' %}" class="block w-full text-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                                <i class="fas fa-user mr-2"></i>
+                                Mon profil
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Template pour les modales (à développer dans l'étape 5) -->
+<div id="reviewModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <!-- Contenu de la modale sera ajouté lors de l'étape 5 -->
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Calculer les largeurs des barres de progression
+    const ratingBars = document.querySelectorAll('.rating-bar');
+    
+    ratingBars.forEach(function(bar) {
+        const count = parseInt(bar.getAttribute('data-count'));
+        const total = parseInt(bar.getAttribute('data-total'));
+        
+        let percentage = 0;
+        if (total > 0) {
+            percentage = (count / total) * 100;
+        }
+        
+        bar.style.width = percentage + '%';
+    });
+});
+</script>
+{% endblock %} 

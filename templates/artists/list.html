@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title }} - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ page_title }}</h1>
+            <p class="text-gray-600 mb-4">{{ page_description }}</p>
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
+                <i class="fas fa-users mr-2"></i>
+                {{ total_artists }} artiste{{ total_artists|pluralize }} inscrit{{ total_artists|pluralize }}
+            </div>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="bg-white rounded-lg shadow mb-6 p-6">
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'artists:search' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        <i class="fas fa-search mr-2"></i>
+                        Recherche avancée
+                    </a>
+                    <a href="{% url 'artists:search' %}?is_available=on" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        <i class="fas fa-check-circle mr-2 text-green-500"></i>
+                        Seulement disponibles
+                    </a>
+                </div>
+                
+                <!-- Filtres rapides -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-gray-500">Filtrer par région :</span>
+                    <select onchange="if(this.value) window.location.href='{% url 'artists:search' %}?region=' + this.value" class="text-sm border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                        <option value="">Toutes</option>
+                        <option value="centre">Centre</option>
+                        <option value="littoral">Littoral</option>
+                        <option value="ouest">Ouest</option>
+                        <option value="nord-ouest">Nord-Ouest</option>
+                        <option value="sud-ouest">Sud-Ouest</option>
+                        <option value="adamaoua">Adamaoua</option>
+                        <option value="nord">Nord</option>
+                        <option value="extreme-nord">Extrême-Nord</option>
+                        <option value="est">Est</option>
+                        <option value="sud">Sud</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grille des artistes -->
+        {% if artists %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {% for artist in artists %}
+                    <div class="bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                        <div class="p-6">
+                            <!-- Photo de profil -->
+                            <div class="flex items-center mb-4">
+                                {% if artist.profile_picture %}
+                                    <img class="h-16 w-16 rounded-full object-cover" src="{{ artist.profile_picture.url }}" alt="{{ artist.display_name }}">
+                                {% else %}
+                                    <div class="h-16 w-16 rounded-full bg-primary-100 flex items-center justify-center">
+                                        <i class="fas fa-microphone text-primary-600 text-xl"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="ml-4 flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-900">
+                                        <a href="{% url 'artists:detail' artist.pk %}" class="hover:text-primary-600">
+                                            {{ artist.display_name }}
+                                        </a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500">
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        {{ artist.city }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Badge de disponibilité -->
+                            {% if artist.is_available %}
+                                <div class="mb-3">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-check mr-1"></i>
+                                        Disponible
+                                    </span>
+                                </div>
+                            {% else %}
+                                <div class="mb-3">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-500">
+                                        <i class="fas fa-clock mr-1"></i>
+                                        Occupé
+                                    </span>
+                                </div>
+                            {% endif %}
+
+                            <!-- Genres musicaux -->
+                            {% if artist.genres.all %}
+                                <div class="mb-4">
+                                    <div class="flex flex-wrap gap-1">
+                                        {% for genre in artist.genres.all|slice:":2" %}
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                                {{ genre.name }}
+                                            </span>
+                                        {% endfor %}
+                                        {% if artist.genres.count > 2 %}
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                +{{ artist.genres.count|add:"-2" }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <!-- Statistiques -->
+                            <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                                <div class="flex items-center">
+                                    {% if artist.rating_average > 0 %}
+                                        <div class="flex items-center">
+                                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                            <span class="font-medium">{{ artist.rating_average|floatformat:1 }}</span>
+                                            <span class="ml-1">({{ artist.total_reviews }})</span>
+                                        </div>
+                                    {% else %}
+                                        <span class="text-gray-400">Nouveau</span>
+                                    {% endif %}
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-eye mr-1"></i>
+                                    {{ artist.profile_views }}
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex gap-2">
+                                <a href="{% url 'artists:detail' artist.pk %}" class="flex-1 inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                    <i class="fas fa-eye mr-2"></i>
+                                    Voir profil
+                                </a>
+                                {% if artist.whatsapp_number or artist.phone_number %}
+                                    <a href="{% url 'artists:whatsapp' artist.pk %}" class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" title="Contacter sur WhatsApp">
+                                        <i class="fab fa-whatsapp text-green-500"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+                <div class="mt-12 flex justify-center">
+                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Précédent</span>
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        {% endif %}
+
+                        {% for page_num in paginator.page_range %}
+                            {% if page_num == page_obj.number %}
+                                <span class="relative inline-flex items-center px-4 py-2 border border-primary-500 bg-primary-50 text-sm font-medium text-primary-600">
+                                    {{ page_num }}
+                                </span>
+                            {% elif page_num > page_obj.number|add:'-3' and page_num < page_obj.number|add:'3' %}
+                                <a href="?page={{ page_num }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    {{ page_num }}
+                                </a>
+                            {% elif page_num == 1 or page_num == paginator.num_pages %}
+                                <a href="?page={{ page_num }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    {{ page_num }}
+                                </a>
+                            {% elif page_num == page_obj.number|add:'-4' or page_num == page_obj.number|add:'4' %}
+                                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                                    ...
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Suivant</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        {% endif %}
+                    </nav>
+                </div>
+            {% endif %}
+        {% else %}
+            <!-- Aucun artiste -->
+            <div class="bg-white rounded-lg shadow p-12 text-center">
+                <div class="mx-auto h-24 w-24 flex items-center justify-center rounded-full bg-gray-100 mb-4">
+                    <i class="fas fa-microphone text-gray-400 text-3xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun artiste inscrit</h3>
+                <p class="text-gray-500 mb-6">
+                    Il n'y a pas encore d'artistes inscrits sur la plateforme.
+                </p>
+                {% if user.is_authenticated and not user.artist_profile %}
+                    <a href="{% url 'accounts:register' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Devenir artiste
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

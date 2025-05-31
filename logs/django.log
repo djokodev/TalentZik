@@ -1,0 +1,1088 @@
+INFO 2025-05-30 23:35:58,724 autoreload 20740 22396 Watching for file changes with StatReloader
+INFO 2025-05-30 23:36:03,661 autoreload 20740 22396 D:\projects\TalentZik\config\urls.py changed, reloading.
+INFO 2025-05-30 23:41:16,245 autoreload 23324 24060 Watching for file changes with StatReloader
+INFO 2025-05-30 23:49:38,112 autoreload 23324 24060 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-30 23:49:40,311 autoreload 21792 22560 Watching for file changes with StatReloader
+INFO 2025-05-30 23:49:44,252 autoreload 21792 22560 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-30 23:49:45,484 autoreload 11936 22720 Watching for file changes with StatReloader
+INFO 2025-05-31 00:19:32,680 autoreload 3696 20100 Watching for file changes with StatReloader
+INFO 2025-05-31 00:28:23,791 autoreload 19920 24264 Watching for file changes with StatReloader
+INFO 2025-05-31 00:28:26,189 basehttp 19920 1552 "GET / HTTP/1.1" 200 16006
+WARNING 2025-05-31 00:28:26,266 basehttp 19920 1552 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-05-31 00:28:27,955 log 19920 25524 Not Found: /favicon.ico
+WARNING 2025-05-31 00:28:27,957 basehttp 19920 25524 "GET /favicon.ico HTTP/1.1" 404 2907
+INFO 2025-05-31 00:29:39,711 basehttp 19920 25524 "GET /accounts/register/ HTTP/1.1" 200 14869
+WARNING 2025-05-31 00:29:39,797 basehttp 19920 25524 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:29:59,126 basehttp 19920 9684 "GET /accounts/register/artist/ HTTP/1.1" 200 19158
+WARNING 2025-05-31 00:29:59,167 basehttp 19920 9684 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:30:27,910 log 19920 23952 Internal Server Error: /accounts/register/organizer/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/organizer_register.html
+ERROR 2025-05-31 00:30:27,914 basehttp 19920 23952 "GET /accounts/register/organizer/ HTTP/1.1" 500 93406
+INFO 2025-05-31 00:31:59,058 basehttp 19920 23952 "GET /accounts/login/ HTTP/1.1" 200 12141
+WARNING 2025-05-31 00:31:59,109 basehttp 19920 23952 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:32:09,223 log 19920 24604 Internal Server Error: /artists/search/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 104, in get_context_data
+    "top_genres": MusicGenre.objects.annotate(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1590, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1638, in _annotate
+    clone.query.add_annotation(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1976, in resolve_ref
+    join_info = self.setup_joins(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1823, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1724, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'artistprofile' into field. Choices are: artists, created_at, description, id, is_active, is_traditional, name, slug
+ERROR 2025-05-31 00:32:09,234 basehttp 19920 24604 "GET /artists/search/ HTTP/1.1" 500 144047
+INFO 2025-05-31 00:32:50,654 basehttp 19920 24604 "GET /accounts/login/ HTTP/1.1" 200 12141
+INFO 2025-05-31 00:32:57,209 basehttp 19920 24604 "GET /artists/ HTTP/1.1" 200 12489
+WARNING 2025-05-31 00:32:57,262 basehttp 19920 24604 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:33:03,960 log 19920 25132 Internal Server Error: /artists/search/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 104, in get_context_data
+    "top_genres": MusicGenre.objects.annotate(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1590, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1638, in _annotate
+    clone.query.add_annotation(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1976, in resolve_ref
+    join_info = self.setup_joins(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1823, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1724, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'artistprofile' into field. Choices are: artists, created_at, description, id, is_active, is_traditional, name, slug
+ERROR 2025-05-31 00:33:03,968 basehttp 19920 25132 "GET /artists/search/ HTTP/1.1" 500 144040
+INFO 2025-05-31 00:33:07,117 basehttp 19920 25132 "GET /artists/ HTTP/1.1" 200 12489
+WARNING 2025-05-31 00:33:07,163 basehttp 19920 25132 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:33:09,194 log 19920 23016 Internal Server Error: /artists/search/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 104, in get_context_data
+    "top_genres": MusicGenre.objects.annotate(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1590, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1638, in _annotate
+    clone.query.add_annotation(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1976, in resolve_ref
+    join_info = self.setup_joins(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1823, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1724, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'artistprofile' into field. Choices are: artists, created_at, description, id, is_active, is_traditional, name, slug
+ERROR 2025-05-31 00:33:09,200 basehttp 19920 23016 "GET /artists/search/ HTTP/1.1" 500 144040
+INFO 2025-05-31 00:33:23,610 basehttp 19920 23016 "GET / HTTP/1.1" 200 16006
+WARNING 2025-05-31 00:33:23,660 basehttp 19920 23016 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:33:57,720 basehttp 19920 22616 "GET /accounts/login/ HTTP/1.1" 200 12141
+WARNING 2025-05-31 00:33:57,788 basehttp 19920 22616 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:34:00,904 basehttp 19920 13796 "GET /accounts/register/ HTTP/1.1" 200 14869
+WARNING 2025-05-31 00:34:00,948 basehttp 19920 13796 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:34:02,265 basehttp 19920 24400 "GET /accounts/register/artist/ HTTP/1.1" 200 19158
+WARNING 2025-05-31 00:34:02,312 basehttp 19920 24400 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:34:38,565 basehttp 19920 25244 "POST /accounts/register/artist/ HTTP/1.1" 302 0
+INFO 2025-05-31 00:34:38,577 basehttp 19920 25244 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 00:34:38,593 basehttp 19920 25244 "GET /accounts/profile/ HTTP/1.1" 200 24206
+WARNING 2025-05-31 00:34:38,661 basehttp 19920 25244 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:36:16,771 basehttp 19920 23136 "GET /media/ HTTP/1.1" 200 26012
+WARNING 2025-05-31 00:36:16,814 basehttp 19920 23136 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:36:21,295 basehttp 19920 21136 "GET /media/ HTTP/1.1" 200 26012
+WARNING 2025-05-31 00:36:21,340 basehttp 19920 21136 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:36:31,110 basehttp 19920 21476 "GET /media/upload/audio/ HTTP/1.1" 200 23835
+WARNING 2025-05-31 00:36:31,155 basehttp 19920 21476 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:36:50,247 log 19920 21904 Internal Server Error: /accounts/profile/edit/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/edit_profile.html
+ERROR 2025-05-31 00:36:50,251 basehttp 19920 21904 "GET /accounts/profile/edit/ HTTP/1.1" 500 93408
+INFO 2025-05-31 00:37:44,086 basehttp 19920 21904 "GET /accounts/profile/ HTTP/1.1" 200 23213
+ERROR 2025-05-31 00:39:20,068 log 19920 21904 Internal Server Error: /accounts/password/change/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/change_password.html
+ERROR 2025-05-31 00:39:20,071 basehttp 19920 21904 "GET /accounts/password/change/ HTTP/1.1" 500 93486
+ERROR 2025-05-31 00:40:25,730 log 19920 21904 Internal Server Error: /reviews/my-reviews/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: reviews/my_reviews.html
+ERROR 2025-05-31 00:40:25,734 basehttp 19920 21904 "GET /reviews/my-reviews/ HTTP/1.1" 500 93330
+INFO 2025-05-31 00:40:56,567 basehttp 19920 21904 "GET /media/ HTTP/1.1" 200 26012
+WARNING 2025-05-31 00:40:56,619 basehttp 19920 21904 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:40:59,300 basehttp 19920 20112 "GET /media/upload/video/ HTTP/1.1" 200 27772
+WARNING 2025-05-31 00:40:59,338 basehttp 19920 20112 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:41:02,365 basehttp 19920 5700 "GET /media/upload/photo/ HTTP/1.1" 200 25421
+WARNING 2025-05-31 00:41:02,410 basehttp 19920 5700 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:41:06,450 log 19920 8532 Internal Server Error: /media/upload/document/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: media_files/upload_document.html
+ERROR 2025-05-31 00:41:06,455 basehttp 19920 8532 "GET /media/upload/document/ HTTP/1.1" 500 93499
+INFO 2025-05-31 00:41:29,905 basehttp 19920 8532 "GET /media/upload/audio/ HTTP/1.1" 200 23835
+WARNING 2025-05-31 00:41:29,953 basehttp 19920 8532 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:41:32,816 basehttp 19920 20544 "GET /media/upload/video/ HTTP/1.1" 200 27772
+WARNING 2025-05-31 00:41:32,862 basehttp 19920 20544 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:41:34,721 basehttp 19920 11316 "GET /media/upload/photo/ HTTP/1.1" 200 25421
+WARNING 2025-05-31 00:41:34,762 basehttp 19920 11316 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:41:39,660 basehttp 19920 8952 "GET /media/upload/photo/ HTTP/1.1" 200 25421
+WARNING 2025-05-31 00:41:39,709 basehttp 19920 8952 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:42:05,401 services 19920 21596 Erreur lors de l'optimisation d'image : [Errno 2] No such file or directory: 'D:\\projects\\TalentZik\\media\\TMAR9769 - Copy.JPG'
+INFO 2025-05-31 00:42:05,427 basehttp 19920 21596 "POST /media/upload/photo/ HTTP/1.1" 302 0
+INFO 2025-05-31 00:42:05,447 basehttp 19920 21596 "GET /media/ HTTP/1.1" 200 28182
+WARNING 2025-05-31 00:42:05,494 basehttp 19920 11704 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:42:05,610 basehttp 19920 21596 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 200 54765
+INFO 2025-05-31 00:42:18,862 basehttp 19920 21596 "GET /media/upload/photo/ HTTP/1.1" 200 25421
+INFO 2025-05-31 00:42:19,659 basehttp 19920 21596 "GET /media/ HTTP/1.1" 200 27304
+INFO 2025-05-31 00:42:22,927 basehttp 19920 4708 "GET /accounts/profile/ HTTP/1.1" 200 23213
+WARNING 2025-05-31 00:42:22,959 basehttp 19920 4708 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:42:24,795 basehttp 19920 13172 "GET /media/ HTTP/1.1" 200 27304
+INFO 2025-05-31 00:42:24,839 basehttp 19920 15892 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+WARNING 2025-05-31 00:42:24,851 basehttp 19920 13172 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:44:23,279 basehttp 19920 15892 "GET / HTTP/1.1" 200 20708
+WARNING 2025-05-31 00:44:23,347 basehttp 19920 15892 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:44:59,079 basehttp 19920 11268 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 00:44:59,094 basehttp 19920 11268 "GET / HTTP/1.1" 200 16870
+WARNING 2025-05-31 00:44:59,171 basehttp 19920 11268 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:49:41,138 basehttp 19920 11416 "GET /artists/ HTTP/1.1" 200 15784
+WARNING 2025-05-31 00:49:41,200 basehttp 19920 11416 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:49:51,683 log 19920 24448 Internal Server Error: /artists/1/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\detail.py", line 109, in get
+    context = self.get_context_data(object=self.object)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 199, in get_context_data
+    "page_title": f"Profil de {artist.display_name}",
+AttributeError: 'ArtistProfile' object has no attribute 'display_name'
+ERROR 2025-05-31 00:49:51,687 basehttp 19920 24448 "GET /artists/1/ HTTP/1.1" 500 93356
+ERROR 2025-05-31 00:50:16,093 log 19920 24448 Internal Server Error: /artists/1/whatsapp/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 240, in get
+    WhatsAppClick.objects.create(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 656, in create
+    obj = self.model(**kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 567, in __init__
+    raise TypeError(
+TypeError: WhatsAppClick() got unexpected keyword arguments: 'clicked_by', 'clicked_from_ip'
+ERROR 2025-05-31 00:50:16,098 basehttp 19920 24448 "GET /artists/1/whatsapp/ HTTP/1.1" 500 103887
+ERROR 2025-05-31 00:50:25,548 log 19920 24448 Internal Server Error: /artists/search/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 72, in get_context_data
+    queryset = form.filter_queryset(queryset)
+  File "D:\projects\TalentZik\apps\artists\forms.py", line 255, in filter_queryset
+    queryset = queryset.order_by(sort_by)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1659, in order_by
+    obj.query.add_ordering(*field_names)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 2221, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\query.py", line 1724, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword '' into field. Choices are: audiofile, bio, city, created_at, documentfile, genres, id, instruments, is_available, media_quota, phone_number, photofile, profile_picture, profile_views, profile_views_log, rating_average, region, review_requests, review_stats, reviews, roles, stage_name, total_reviews, updated_at, user, user_id, videofile, whatsapp_clicks, whatsapp_number
+ERROR 2025-05-31 00:50:25,553 basehttp 19920 24448 "GET /artists/search/?is_available=on HTTP/1.1" 500 114431
+INFO 2025-05-31 00:50:42,459 autoreload 19920 24264 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 00:50:43,877 autoreload 18384 2040 Watching for file changes with StatReloader
+INFO 2025-05-31 00:50:48,518 autoreload 18384 2040 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 00:50:49,727 autoreload 23336 20108 Watching for file changes with StatReloader
+INFO 2025-05-31 00:51:05,099 autoreload 23336 20108 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 00:51:07,104 autoreload 24364 23036 Watching for file changes with StatReloader
+INFO 2025-05-31 00:51:09,579 autoreload 24364 23036 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 00:51:10,959 autoreload 14148 24328 Watching for file changes with StatReloader
+INFO 2025-05-31 00:56:33,848 basehttp 14148 23816 "GET / HTTP/1.1" 200 16006
+WARNING 2025-05-31 00:56:33,903 basehttp 14148 23816 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:56:38,306 basehttp 14148 11540 "GET /artists/search/ HTTP/1.1" 200 29755
+WARNING 2025-05-31 00:56:38,351 basehttp 14148 11540 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:57:21,403 log 14148 24992 Internal Server Error: /artists/1/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\detail.py", line 109, in get
+    context = self.get_context_data(object=self.object)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 197, in get_context_data
+    "page_title": f"Profil de {artist.display_name}",
+AttributeError: 'ArtistProfile' object has no attribute 'display_name'
+ERROR 2025-05-31 00:57:21,407 basehttp 14148 24992 "GET /artists/1/ HTTP/1.1" 500 93363
+INFO 2025-05-31 00:57:27,906 basehttp 14148 24992 "GET /accounts/login/ HTTP/1.1" 200 12141
+WARNING 2025-05-31 00:57:27,957 basehttp 14148 24992 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:57:30,067 basehttp 14148 1256 "GET /accounts/register/ HTTP/1.1" 200 14869
+WARNING 2025-05-31 00:57:30,103 basehttp 14148 1256 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:57:31,642 basehttp 14148 16604 "GET /accounts/register/organizer/ HTTP/1.1" 200 17864
+WARNING 2025-05-31 00:57:31,687 basehttp 14148 16604 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:57:49,552 basehttp 14148 20884 "GET /accounts/login/ HTTP/1.1" 200 12141
+WARNING 2025-05-31 00:57:49,597 basehttp 14148 20884 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:58:05,876 basehttp 14148 8360 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 00:58:05,895 basehttp 14148 8360 "GET /accounts/profile/ HTTP/1.1" 200 24119
+WARNING 2025-05-31 00:58:05,945 basehttp 14148 8360 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:58:16,981 log 14148 10700 Internal Server Error: /accounts/profile/edit/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'portfolio' not found. 'portfolio' is not a valid view function or pattern name.
+ERROR 2025-05-31 00:58:16,994 basehttp 14148 10700 "GET /accounts/profile/edit/ HTTP/1.1" 500 203278
+ERROR 2025-05-31 00:58:42,669 log 14148 10700 Internal Server Error: /accounts/profile/edit/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'portfolio' not found. 'portfolio' is not a valid view function or pattern name.
+ERROR 2025-05-31 00:58:42,678 basehttp 14148 10700 "GET /accounts/profile/edit/ HTTP/1.1" 500 203278
+INFO 2025-05-31 00:59:25,163 basehttp 14148 10700 "GET /accounts/profile/ HTTP/1.1" 200 23213
+INFO 2025-05-31 00:59:27,804 basehttp 14148 10700 "GET /accounts/password/change/ HTTP/1.1" 200 19850
+WARNING 2025-05-31 00:59:27,840 basehttp 14148 10700 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 00:59:36,588 basehttp 14148 25532 "GET /accounts/password/change/ HTTP/1.1" 200 19850
+WARNING 2025-05-31 00:59:36,623 basehttp 14148 25532 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 00:59:50,108 log 14148 25124 Internal Server Error: /reviews/my-reviews/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'div'
+ERROR 2025-05-31 00:59:50,120 basehttp 14148 25124 "GET /reviews/my-reviews/ HTTP/1.1" 500 281190
+ERROR 2025-05-31 01:00:50,898 log 14148 25124 Internal Server Error: /reviews/my-reviews/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'div'
+ERROR 2025-05-31 01:00:50,913 basehttp 14148 25124 "GET /reviews/my-reviews/ HTTP/1.1" 500 281190
+INFO 2025-05-31 01:01:05,078 basehttp 14148 25124 "GET /media/ HTTP/1.1" 200 27304
+INFO 2025-05-31 01:01:05,174 basehttp 14148 18212 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+WARNING 2025-05-31 01:01:05,195 basehttp 14148 25124 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:02:45,113 autoreload 14148 24328 D:\projects\TalentZik\apps\media_files\urls.py changed, reloading.
+INFO 2025-05-31 01:02:46,354 autoreload 22016 19496 Watching for file changes with StatReloader
+INFO 2025-05-31 01:04:10,644 autoreload 22016 19496 D:\projects\TalentZik\apps\media_files\views.py changed, reloading.
+INFO 2025-05-31 01:04:11,918 autoreload 5584 17412 Watching for file changes with StatReloader
+INFO 2025-05-31 01:04:19,210 autoreload 5584 17412 D:\projects\TalentZik\apps\media_files\views.py changed, reloading.
+INFO 2025-05-31 01:04:20,298 autoreload 24984 24420 Watching for file changes with StatReloader
+INFO 2025-05-31 01:04:46,264 autoreload 24916 7768 Watching for file changes with StatReloader
+INFO 2025-05-31 01:04:55,065 basehttp 24984 18200 "GET /accounts/profile/ HTTP/1.1" 200 23213
+WARNING 2025-05-31 01:04:55,171 basehttp 24984 18200 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:04:57,121 basehttp 24984 22540 "GET /accounts/profile/edit/ HTTP/1.1" 200 24820
+WARNING 2025-05-31 01:04:57,245 basehttp 24984 22540 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:05:32,950 basehttp 24984 4456 "GET /accounts/profile/edit/ HTTP/1.1" 200 24820
+WARNING 2025-05-31 01:05:32,996 basehttp 24984 4456 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:09:20,935 basehttp 24984 732 "POST /accounts/profile/edit/ HTTP/1.1" 200 24820
+WARNING 2025-05-31 01:09:20,986 basehttp 24984 732 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:10:19,945 autoreload 24984 24420 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-05-31 01:10:21,519 autoreload 5764 7872 Watching for file changes with StatReloader
+INFO 2025-05-31 01:10:46,739 autoreload 5764 7872 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 01:10:48,132 autoreload 23836 17452 Watching for file changes with StatReloader
+INFO 2025-05-31 01:10:50,438 autoreload 23836 17452 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 01:10:51,729 autoreload 8784 23452 Watching for file changes with StatReloader
+INFO 2025-05-31 01:11:01,832 autoreload 8784 23452 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 01:11:03,765 autoreload 1184 7560 Watching for file changes with StatReloader
+INFO 2025-05-31 01:11:10,145 autoreload 1184 7560 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 01:11:12,291 autoreload 24856 23468 Watching for file changes with StatReloader
+INFO 2025-05-31 01:22:06,572 basehttp 24856 3996 "POST /accounts/profile/edit/ HTTP/1.1" 200 47423
+WARNING 2025-05-31 01:22:06,681 basehttp 24856 3996 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:24:17,057 autoreload 24856 23468 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 01:24:18,552 autoreload 23912 18384 Watching for file changes with StatReloader
+INFO 2025-05-31 01:24:21,004 autoreload 23912 18384 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 01:24:22,197 autoreload 24456 19792 Watching for file changes with StatReloader
+INFO 2025-05-31 01:24:32,293 autoreload 24456 19792 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 01:24:34,013 autoreload 23416 17316 Watching for file changes with StatReloader
+INFO 2025-05-31 01:24:43,118 autoreload 23416 17316 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 01:24:44,251 autoreload 8988 19652 Watching for file changes with StatReloader
+INFO 2025-05-31 01:24:57,413 autoreload 8988 19652 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 01:24:59,174 autoreload 9076 6732 Watching for file changes with StatReloader
+INFO 2025-05-31 01:25:07,262 autoreload 9076 6732 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 01:25:08,986 autoreload 8412 24208 Watching for file changes with StatReloader
+INFO 2025-05-31 01:28:23,113 basehttp 8412 24724 "POST /accounts/profile/edit/ HTTP/1.1" 200 47287
+WARNING 2025-05-31 01:28:23,192 basehttp 8412 24724 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:28:28,136 basehttp 8412 21764 "GET / HTTP/1.1" 200 20708
+WARNING 2025-05-31 01:28:28,169 basehttp 8412 21764 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:28:34,497 basehttp 8412 1792 "GET /accounts/profile/ HTTP/1.1" 200 23213
+WARNING 2025-05-31 01:28:34,529 basehttp 8412 1792 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:28:37,229 basehttp 8412 9448 "GET /accounts/profile/edit/ HTTP/1.1" 200 42435
+WARNING 2025-05-31 01:28:37,259 basehttp 8412 9448 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:30:30,145 basehttp 8412 22628 "POST /accounts/profile/edit/ HTTP/1.1" 302 0
+INFO 2025-05-31 01:30:30,163 basehttp 8412 22628 "GET /accounts/profile/ HTTP/1.1" 200 23928
+WARNING 2025-05-31 01:30:30,226 basehttp 8412 16288 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:30:30,372 basehttp 8412 22628 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 200 94319
+INFO 2025-05-31 01:30:40,052 basehttp 8412 22628 "GET / HTTP/1.1" 200 20590
+INFO 2025-05-31 01:30:40,081 basehttp 8412 1552 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:30:40,087 basehttp 8412 22628 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:30:43,093 basehttp 8412 1552 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 01:30:43,102 basehttp 8412 1552 "GET / HTTP/1.1" 200 16870
+WARNING 2025-05-31 01:30:43,137 basehttp 8412 1552 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:30:45,979 basehttp 8412 25276 "GET /artists/search/ HTTP/1.1" 200 32898
+INFO 2025-05-31 01:30:46,007 basehttp 8412 16548 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:30:46,014 basehttp 8412 25276 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:30:52,167 basehttp 8412 16548 "GET /artists/search/ HTTP/1.1" 200 32898
+INFO 2025-05-31 01:30:52,195 basehttp 8412 20884 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:30:52,202 basehttp 8412 16548 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:30:55,290 basehttp 8412 20884 "GET /artists/1/ HTTP/1.1" 200 18811
+INFO 2025-05-31 01:30:55,322 basehttp 8412 19740 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:30:55,331 basehttp 8412 20884 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:31:04,009 basehttp 8412 19740 "GET /artists/1/ HTTP/1.1" 200 18811
+INFO 2025-05-31 01:31:04,040 basehttp 8412 24600 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:31:04,051 basehttp 8412 19740 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:32:05,087 basehttp 8412 24600 "GET /accounts/login/ HTTP/1.1" 200 12141
+WARNING 2025-05-31 01:32:05,157 basehttp 8412 24600 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:32:20,829 basehttp 8412 11680 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 01:32:20,839 basehttp 8412 11680 "GET /accounts/profile/ HTTP/1.1" 200 23957
+INFO 2025-05-31 01:32:20,870 basehttp 8412 10564 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:32:20,876 basehttp 8412 11680 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:32:25,413 basehttp 8412 10564 "GET /accounts/profile/edit/ HTTP/1.1" 200 42294
+WARNING 2025-05-31 01:32:25,447 basehttp 8412 10564 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:33:49,190 basehttp 8412 1256 "GET /accounts/profile/ HTTP/1.1" 200 23051
+INFO 2025-05-31 01:33:53,360 basehttp 8412 1256 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 01:33:53,366 basehttp 8412 1256 "GET / HTTP/1.1" 200 16870
+WARNING 2025-05-31 01:33:53,404 basehttp 8412 1256 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:33:56,167 basehttp 8412 15976 "GET /artists/search/ HTTP/1.1" 200 32898
+INFO 2025-05-31 01:33:56,226 basehttp 8412 10500 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:33:56,233 basehttp 8412 15976 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:36:09,505 basehttp 8412 10500 "GET /artists/1/ HTTP/1.1" 200 18819
+INFO 2025-05-31 01:36:09,553 basehttp 8412 11276 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:36:09,567 basehttp 8412 10500 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:37:59,703 basehttp 8412 11276 "GET /accounts/login/ HTTP/1.1" 200 12141
+WARNING 2025-05-31 01:37:59,767 basehttp 8412 11276 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:38:06,977 basehttp 8412 8148 "POST /accounts/login/ HTTP/1.1" 200 12871
+WARNING 2025-05-31 01:38:07,021 basehttp 8412 8148 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:38:18,523 basehttp 8412 13596 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 01:38:18,533 basehttp 8412 13596 "GET /accounts/profile/ HTTP/1.1" 200 23957
+INFO 2025-05-31 01:38:18,569 basehttp 8412 18232 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:38:18,575 basehttp 8412 13596 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:38:20,450 basehttp 8412 18232 "GET /accounts/profile/edit/ HTTP/1.1" 200 42294
+WARNING 2025-05-31 01:38:20,485 basehttp 8412 18232 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:38:24,782 basehttp 8412 2496 "GET /accounts/profile/ HTTP/1.1" 200 23051
+INFO 2025-05-31 01:38:26,985 basehttp 8412 2496 "GET /media/ HTTP/1.1" 200 30674
+WARNING 2025-05-31 01:38:27,029 basehttp 8412 2496 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:38:36,575 basehttp 8412 23412 "GET /media/upload/photo/ HTTP/1.1" 200 25303
+WARNING 2025-05-31 01:38:36,611 basehttp 8412 23412 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 01:39:34,807 services 8412 10852 Erreur lors de l'optimisation d'image : [Errno 2] No such file or directory: 'D:\\projects\\TalentZik\\media\\WhatsApp Image 2025-03-31 at 16.01.12_f4506dfa.jpg'
+INFO 2025-05-31 01:39:34,839 basehttp 8412 10852 "POST /media/upload/photo/ HTTP/1.1" 302 0
+INFO 2025-05-31 01:39:34,867 basehttp 8412 10852 "GET /media/ HTTP/1.1" 200 32156
+INFO 2025-05-31 01:39:34,947 basehttp 8412 2496 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:39:34,952 basehttp 8412 10852 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:39:45,631 basehttp 8412 2496 "GET /media/ HTTP/1.1" 200 30674
+WARNING 2025-05-31 01:39:45,662 basehttp 8412 2496 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:40:18,619 basehttp 8412 1964 "GET /media/ HTTP/1.1" 200 30674
+WARNING 2025-05-31 01:40:18,674 basehttp 8412 1964 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:44:03,055 autoreload 14280 19916 Watching for file changes with StatReloader
+INFO 2025-05-31 01:44:24,633 basehttp 8412 8144 "GET /media/ HTTP/1.1" 200 30674
+INFO 2025-05-31 01:44:24,692 basehttp 8412 316 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:44:24,706 basehttp 8412 8144 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:46:49,684 basehttp 8412 316 "GET / HTTP/1.1" 200 20590
+INFO 2025-05-31 01:46:49,727 basehttp 8412 4100 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:46:49,741 basehttp 8412 316 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:46:51,615 basehttp 8412 4100 "GET /artists/search/ HTTP/1.1" 200 40020
+WARNING 2025-05-31 01:46:51,718 basehttp 8412 4100 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:47:07,427 basehttp 8412 25492 "GET /artists/1/ HTTP/1.1" 200 26895
+WARNING 2025-05-31 01:47:07,456 basehttp 8412 25492 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:49:00,839 autoreload 8412 24208 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:49:01,953 autoreload 4356 13444 Watching for file changes with StatReloader
+INFO 2025-05-31 01:49:06,557 autoreload 4356 13444 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:49:07,624 autoreload 9280 14100 Watching for file changes with StatReloader
+INFO 2025-05-31 01:49:16,450 autoreload 9280 14100 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:49:17,678 autoreload 23468 17300 Watching for file changes with StatReloader
+INFO 2025-05-31 01:49:23,217 autoreload 23468 17300 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:49:24,476 autoreload 25148 7520 Watching for file changes with StatReloader
+INFO 2025-05-31 01:49:35,345 autoreload 25148 7520 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:49:37,457 autoreload 22688 5084 Watching for file changes with StatReloader
+INFO 2025-05-31 01:49:41,333 autoreload 22688 5084 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:49:42,672 autoreload 16540 17108 Watching for file changes with StatReloader
+INFO 2025-05-31 01:49:45,110 autoreload 16540 17108 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:49:46,417 autoreload 24600 7832 Watching for file changes with StatReloader
+INFO 2025-05-31 01:50:02,901 autoreload 24600 7832 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:50:04,499 autoreload 12208 22948 Watching for file changes with StatReloader
+INFO 2025-05-31 01:50:08,642 autoreload 12208 22948 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 01:50:09,774 autoreload 24164 2376 Watching for file changes with StatReloader
+INFO 2025-05-31 01:52:49,942 basehttp 24164 12300 "GET /artists/1/ HTTP/1.1" 200 26895
+INFO 2025-05-31 01:52:49,988 basehttp 24164 17852 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:52:50,007 basehttp 24164 12300 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:53:03,456 basehttp 24164 17852 "GET /accounts/profile/ HTTP/1.1" 200 23320
+WARNING 2025-05-31 01:53:03,496 basehttp 24164 17852 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:53:09,445 basehttp 24164 18556 "GET /accounts/profile/edit/ HTTP/1.1" 200 44661
+WARNING 2025-05-31 01:53:09,477 basehttp 24164 18556 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:53:14,411 basehttp 24164 13988 "GET /media/ HTTP/1.1" 200 40635
+INFO 2025-05-31 01:53:14,453 basehttp 24164 8916 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+WARNING 2025-05-31 01:53:14,459 basehttp 24164 13988 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:53:14,560 basehttp 24164 17504 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 200 94319
+INFO 2025-05-31 01:53:41,048 basehttp 24164 17504 "GET / HTTP/1.1" 200 20590
+WARNING 2025-05-31 01:53:41,094 basehttp 24164 17504 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:53:42,682 basehttp 24164 8916 "GET /artists/search/ HTTP/1.1" 200 40020
+WARNING 2025-05-31 01:53:42,721 basehttp 24164 8916 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:53:44,569 basehttp 24164 7460 "GET /artists/search/ HTTP/1.1" 200 40020
+WARNING 2025-05-31 01:53:44,599 basehttp 24164 7460 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:53:46,471 basehttp 24164 21112 "GET /artists/1/ HTTP/1.1" 200 26895
+WARNING 2025-05-31 01:53:46,508 basehttp 24164 21112 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:53:51,952 basehttp 24164 8232 "GET /artists/1/ HTTP/1.1" 200 26895
+WARNING 2025-05-31 01:53:51,986 basehttp 24164 8232 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:54:43,077 basehttp 24164 25492 "GET /artists/1/ HTTP/1.1" 200 26895
+WARNING 2025-05-31 01:54:43,154 basehttp 24164 25492 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:57:04,542 basehttp 24164 1404 "GET /accounts/profile/ HTTP/1.1" 200 23320
+INFO 2025-05-31 01:57:04,590 basehttp 24164 11356 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:57:04,612 basehttp 24164 1404 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:57:06,950 basehttp 24164 11356 "GET /media/ HTTP/1.1" 200 40635
+INFO 2025-05-31 01:57:06,982 basehttp 24164 7768 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:57:06,987 basehttp 24164 11356 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:57:44,735 basehttp 24164 7768 "GET /media/upload/video/ HTTP/1.1" 200 27654
+WARNING 2025-05-31 01:57:44,820 basehttp 24164 7768 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:58:14,546 basehttp 24164 7520 "POST /media/upload/video/ HTTP/1.1" 200 28920
+WARNING 2025-05-31 01:58:14,586 basehttp 24164 7520 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 01:59:33,872 services 24164 25148 Erreur lors de la lecture de la durée vidéo : ffprobe error (see stderr output for detail)
+ERROR 2025-05-31 01:59:43,135 services 24164 25148 Erreur lors de la génération de miniature : ffmpeg error (see stderr output for detail)
+INFO 2025-05-31 01:59:43,242 services 24164 25148 Watermark par défaut créé : D:\projects\TalentZik\staticfiles\images\watermark.png
+ERROR 2025-05-31 01:59:43,473 services 24164 25148 Erreur lors du watermarking vidéo : ffmpeg error (see stderr output for detail)
+INFO 2025-05-31 01:59:43,612 basehttp 24164 25148 "POST /media/upload/video/ HTTP/1.1" 302 0
+INFO 2025-05-31 01:59:43,731 basehttp 24164 25148 "GET /media/ HTTP/1.1" 200 43067
+INFO 2025-05-31 01:59:43,790 basehttp 24164 7024 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+INFO 2025-05-31 01:59:43,811 basehttp 24164 7024 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 01:59:43,813 basehttp 24164 25148 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 01:59:59,708 basehttp 24164 7024 - Broken pipe from ('127.0.0.1', 56977)
+WARNING 2025-05-31 02:00:02,923 log 24164 16292 Not Found: /favicon.ico
+WARNING 2025-05-31 02:00:03,027 basehttp 24164 16292 "GET /favicon.ico HTTP/1.1" 404 2907
+INFO 2025-05-31 02:00:14,763 autoreload 24164 2376 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:00:16,766 autoreload 6644 21952 Watching for file changes with StatReloader
+INFO 2025-05-31 02:00:29,380 autoreload 6644 21952 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:00:31,148 autoreload 6824 9480 Watching for file changes with StatReloader
+INFO 2025-05-31 02:00:33,747 basehttp 6824 7536 "GET /media/media/video/2025/05/L_ouverture_italienne_aux_%C3%A9checs.mp4 HTTP/1.1" 200 54952669
+INFO 2025-05-31 02:00:41,384 autoreload 6824 9480 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:00:44,144 autoreload 21136 23136 Watching for file changes with StatReloader
+INFO 2025-05-31 02:00:55,897 autoreload 21136 23136 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:00:57,465 autoreload 14028 21476 Watching for file changes with StatReloader
+INFO 2025-05-31 02:01:00,033 basehttp 14028 22752 "GET / HTTP/1.1" 200 20590
+WARNING 2025-05-31 02:01:00,098 basehttp 14028 22752 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:01:01,688 basehttp 14028 2532 "GET /artists/search/ HTTP/1.1" 200 40020
+WARNING 2025-05-31 02:01:01,734 basehttp 14028 2532 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:01:08,864 autoreload 14028 21476 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:01:09,978 autoreload 21952 25424 Watching for file changes with StatReloader
+INFO 2025-05-31 02:04:25,576 autoreload 25196 24248 Watching for file changes with StatReloader
+INFO 2025-05-31 02:04:26,244 basehttp 25196 2996 "GET /artists/search/ HTTP/1.1" 200 40020
+INFO 2025-05-31 02:04:26,293 basehttp 25196 21132 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 02:04:26,304 basehttp 25196 2996 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:04:32,188 basehttp 25196 21132 "GET /artists/1/ HTTP/1.1" 200 32084
+INFO 2025-05-31 02:04:32,256 basehttp 25196 13836 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+INFO 2025-05-31 02:04:32,273 basehttp 25196 7192 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 02:04:32,278 basehttp 25196 21132 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:04:48,181 basehttp 25196 7192 - Broken pipe from ('127.0.0.1', 57218)
+INFO 2025-05-31 02:05:41,042 basehttp 25196 13836 "GET / HTTP/1.1" 200 20590
+WARNING 2025-05-31 02:05:41,099 basehttp 25196 13836 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:05:51,186 basehttp 25196 5044 "GET /accounts/register/ HTTP/1.1" 200 19453
+WARNING 2025-05-31 02:05:51,254 basehttp 25196 5044 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:05:58,753 basehttp 25196 4724 "GET /accounts/register/organizer/ HTTP/1.1" 200 22448
+WARNING 2025-05-31 02:05:58,795 basehttp 25196 4724 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:11,853 basehttp 25196 2768 "GET /accounts/register/ HTTP/1.1" 200 19453
+WARNING 2025-05-31 02:06:11,898 basehttp 25196 2768 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:15,921 basehttp 25196 20932 "GET / HTTP/1.1" 200 20590
+WARNING 2025-05-31 02:06:15,966 basehttp 25196 20932 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:16,863 basehttp 25196 14600 "GET / HTTP/1.1" 200 20590
+WARNING 2025-05-31 02:06:16,895 basehttp 25196 14600 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:17,937 basehttp 25196 3260 "GET /artists/ HTTP/1.1" 200 21493
+WARNING 2025-05-31 02:06:17,979 basehttp 25196 3260 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:20,718 basehttp 25196 4120 "GET /artists/ HTTP/1.1" 200 21493
+WARNING 2025-05-31 02:06:20,752 basehttp 25196 4120 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:23,505 basehttp 25196 22924 "GET /artists/ HTTP/1.1" 200 21493
+WARNING 2025-05-31 02:06:23,536 basehttp 25196 22924 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:28,353 basehttp 25196 22496 "GET /artists/search/ HTTP/1.1" 200 40020
+WARNING 2025-05-31 02:06:28,395 basehttp 25196 22496 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:31,934 basehttp 25196 23020 "GET /artists/ HTTP/1.1" 200 21493
+WARNING 2025-05-31 02:06:31,976 basehttp 25196 23020 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:06:38,418 basehttp 25196 3864 "GET /artists/search/ HTTP/1.1" 200 40020
+WARNING 2025-05-31 02:06:38,458 basehttp 25196 3864 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:07:21,899 basehttp 25196 21452 "GET /artists/ HTTP/1.1" 200 21493
+WARNING 2025-05-31 02:07:21,982 basehttp 25196 21452 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:10:36,985 basehttp 25196 25284 "GET / HTTP/1.1" 200 20590
+INFO 2025-05-31 02:10:37,046 basehttp 25196 24208 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 02:10:37,059 basehttp 25196 25284 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:10:40,291 basehttp 25196 24208 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 02:10:40,315 basehttp 25196 24208 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 02:10:40,324 basehttp 25196 24208 "GET / HTTP/1.1" 200 16870
+WARNING 2025-05-31 02:10:40,369 basehttp 25196 24208 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:10:45,697 basehttp 25196 19892 "GET /artists/search/ HTTP/1.1" 200 35436
+WARNING 2025-05-31 02:10:45,740 basehttp 25196 19892 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:13:39,608 autoreload 25196 24248 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:13:41,359 autoreload 7652 2192 Watching for file changes with StatReloader
+INFO 2025-05-31 02:14:26,688 autoreload 7652 2192 D:\projects\TalentZik\config\urls.py changed, reloading.
+INFO 2025-05-31 02:14:28,174 autoreload 22148 13396 Watching for file changes with StatReloader
+INFO 2025-05-31 02:14:31,683 autoreload 22148 13396 D:\projects\TalentZik\config\urls.py changed, reloading.
+INFO 2025-05-31 02:14:32,687 autoreload 24820 11712 Watching for file changes with StatReloader
+INFO 2025-05-31 02:16:03,969 autoreload 24820 11712 D:\projects\TalentZik\apps\artists\forms.py changed, reloading.
+INFO 2025-05-31 02:16:05,514 autoreload 5676 23636 Watching for file changes with StatReloader
+INFO 2025-05-31 02:16:07,898 autoreload 5676 23636 D:\projects\TalentZik\apps\artists\forms.py changed, reloading.
+INFO 2025-05-31 02:16:09,077 autoreload 23816 23000 Watching for file changes with StatReloader
+INFO 2025-05-31 02:17:29,117 basehttp 23816 25524 "GET /artists/search/ HTTP/1.1" 200 128704
+INFO 2025-05-31 02:17:29,198 basehttp 23816 19736 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 02:17:29,217 basehttp 23816 25524 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:18:13,048 basehttp 23816 19736 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 02:18:13,114 basehttp 23816 19736 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:18:15,314 basehttp 23816 24932 "GET /artists/search/ HTTP/1.1" 200 128704
+WARNING 2025-05-31 02:18:15,350 basehttp 23816 24932 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:18:18,091 basehttp 23816 11548 "GET /about/ HTTP/1.1" 200 22475
+WARNING 2025-05-31 02:18:18,147 basehttp 23816 11548 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:20:26,485 basehttp 23816 12152 "GET /artists/search/ HTTP/1.1" 200 128704
+WARNING 2025-05-31 02:20:26,540 basehttp 23816 12152 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:22:04,377 basehttp 23816 24204 "GET /artists/1/ HTTP/1.1" 200 27521
+INFO 2025-05-31 02:22:04,440 basehttp 23816 4336 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+INFO 2025-05-31 02:22:04,454 basehttp 23816 2768 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 02:22:04,459 basehttp 23816 24204 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:22:15,152 basehttp 23816 4336 "GET /about/ HTTP/1.1" 200 22475
+WARNING 2025-05-31 02:22:15,198 basehttp 23816 4336 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:22:46,512 basehttp 23816 2768 - Broken pipe from ('127.0.0.1', 57884)
+INFO 2025-05-31 02:24:05,058 basehttp 23816 18392 "GET /about/ HTTP/1.1" 200 22470
+WARNING 2025-05-31 02:24:05,117 basehttp 23816 18392 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-05-31 02:25:01,301 basehttp 23816 12432 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-05-31 02:25:01,352 log 23816 23212 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-31 02:25:01,352 basehttp 23816 23212 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+INFO 2025-05-31 02:26:23,440 basehttp 23816 23212 "GET /about/ HTTP/1.1" 200 22460
+WARNING 2025-05-31 02:26:23,507 basehttp 23816 23212 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:28:12,742 basehttp 23816 9876 "GET /about/ HTTP/1.1" 200 22471
+WARNING 2025-05-31 02:28:12,804 basehttp 23816 9876 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:28:30,911 basehttp 23816 21628 "GET /about/ HTTP/1.1" 200 22458
+WARNING 2025-05-31 02:28:30,955 basehttp 23816 21628 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:28:59,241 basehttp 23816 13856 "GET /about/ HTTP/1.1" 200 21941
+WARNING 2025-05-31 02:28:59,289 basehttp 23816 13856 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:29:40,426 basehttp 23816 772 "GET /about/ HTTP/1.1" 200 22458
+WARNING 2025-05-31 02:29:40,485 basehttp 23816 772 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:31:42,819 basehttp 23816 6428 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 02:31:42,913 basehttp 23816 6428 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:31:55,032 basehttp 23816 11316 "GET /about/ HTTP/1.1" 200 22458
+WARNING 2025-05-31 02:31:55,072 basehttp 23816 11316 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:33:34,432 basehttp 23816 15976 "GET /about/ HTTP/1.1" 200 22228
+WARNING 2025-05-31 02:33:34,497 basehttp 23816 15976 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:33:44,523 basehttp 23816 3464 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 02:33:44,572 basehttp 23816 3464 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:34:00,482 basehttp 23816 11096 "GET /about/ HTTP/1.1" 200 22228
+WARNING 2025-05-31 02:34:00,541 basehttp 23816 11096 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:34:40,142 basehttp 23816 24252 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 02:34:40,201 basehttp 23816 24252 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:35:25,396 basehttp 23816 16576 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 02:35:25,471 basehttp 23816 16576 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:36:54,417 basehttp 23816 24380 "GET /about/ HTTP/1.1" 200 22277
+WARNING 2025-05-31 02:36:54,486 basehttp 23816 24380 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:38:00,645 basehttp 23816 5648 "GET /about/ HTTP/1.1" 200 22277
+WARNING 2025-05-31 02:38:00,697 basehttp 23816 5648 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:40:21,242 basehttp 23816 23248 "GET /about/ HTTP/1.1" 200 22277
+WARNING 2025-05-31 02:40:21,276 basehttp 23816 23248 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:41:11,540 basehttp 23816 25116 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 02:41:11,597 basehttp 23816 25116 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:41:24,313 basehttp 23816 24124 "GET /artists/search/ HTTP/1.1" 200 193254
+INFO 2025-05-31 02:41:24,349 basehttp 23816 1120 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 02:41:24,357 basehttp 23816 24124 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:42:08,442 basehttp 23816 1120 "GET /artists/1/whatsapp/ HTTP/1.1" 302 0
+INFO 2025-05-31 02:42:18,429 basehttp 23816 1120 "GET /artists/1/ HTTP/1.1" 200 27521
+INFO 2025-05-31 02:42:18,468 basehttp 23816 12728 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+INFO 2025-05-31 02:42:18,480 basehttp 23816 12728 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 02:42:18,484 basehttp 23816 1120 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:42:33,914 basehttp 23816 12728 - Broken pipe from ('127.0.0.1', 59190)
+INFO 2025-05-31 02:42:57,979 basehttp 23816 19756 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 02:42:58,038 basehttp 23816 19756 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:47:20,180 autoreload 23816 23000 D:\projects\TalentZik\apps\reviews\views.py changed, reloading.
+INFO 2025-05-31 02:47:21,789 autoreload 24100 22208 Watching for file changes with StatReloader
+INFO 2025-05-31 02:47:24,498 autoreload 24100 22208 D:\projects\TalentZik\apps\reviews\views.py changed, reloading.
+INFO 2025-05-31 02:47:25,638 autoreload 20284 23836 Watching for file changes with StatReloader
+INFO 2025-05-31 02:47:44,728 autoreload 20284 23836 D:\projects\TalentZik\apps\reviews\urls.py changed, reloading.
+INFO 2025-05-31 02:47:46,249 autoreload 9816 9904 Watching for file changes with StatReloader
+INFO 2025-05-31 02:47:47,948 basehttp 9816 19520 "GET /about/ HTTP/1.1" 200 22277
+WARNING 2025-05-31 02:47:48,066 basehttp 9816 19520 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:48:23,972 basehttp 9816 24788 "GET /about/ HTTP/1.1" 200 22284
+WARNING 2025-05-31 02:48:24,056 basehttp 9816 24788 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:48:51,996 basehttp 9816 22544 "GET /about/ HTTP/1.1" 200 22275
+WARNING 2025-05-31 02:48:52,054 basehttp 9816 22544 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:49:35,079 basehttp 9816 23744 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 02:49:35,231 basehttp 9816 23744 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:54:38,508 basehttp 9816 11856 "GET /accounts/login/ HTTP/1.1" 200 12162
+WARNING 2025-05-31 02:54:38,579 basehttp 9816 11856 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:54:55,055 basehttp 9816 22112 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 02:54:55,096 basehttp 9816 22112 "GET /accounts/profile/ HTTP/1.1" 200 24247
+INFO 2025-05-31 02:54:55,152 basehttp 9816 20160 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 02:54:55,160 basehttp 9816 22112 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:55:01,394 basehttp 9816 20160 "GET /reviews/my-reviews/ HTTP/1.1" 200 20242
+WARNING 2025-05-31 02:55:01,470 basehttp 9816 20160 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:55:41,004 basehttp 9816 20696 "GET /accounts/profile/ HTTP/1.1" 200 23341
+WARNING 2025-05-31 02:55:41,089 basehttp 9816 20696 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:55:48,580 autoreload 9816 9904 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:55:50,401 autoreload 7676 25472 Watching for file changes with StatReloader
+INFO 2025-05-31 02:55:53,131 autoreload 7676 25472 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:55:54,653 autoreload 12992 14136 Watching for file changes with StatReloader
+INFO 2025-05-31 02:55:55,322 basehttp 12992 25300 "GET /accounts/profile/edit/ HTTP/1.1" 200 44682
+WARNING 2025-05-31 02:55:55,383 basehttp 12992 25300 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:56:12,107 autoreload 12992 14136 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:56:13,797 autoreload 21448 24540 Watching for file changes with StatReloader
+INFO 2025-05-31 02:56:19,763 autoreload 21448 24540 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:56:20,890 autoreload 11988 25552 Watching for file changes with StatReloader
+INFO 2025-05-31 02:56:46,590 basehttp 11988 7808 "POST /accounts/profile/edit/ HTTP/1.1" 302 0
+INFO 2025-05-31 02:56:46,663 basehttp 11988 7808 "GET /accounts/profile/ HTTP/1.1" 200 23972
+WARNING 2025-05-31 02:56:46,765 basehttp 11988 7808 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:57:20,332 basehttp 11988 7676 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 02:57:20,342 basehttp 11988 7676 "GET / HTTP/1.1" 200 16891
+WARNING 2025-05-31 02:57:20,412 basehttp 11988 7676 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:57:22,753 basehttp 11988 25184 "GET /accounts/register/ HTTP/1.1" 200 14890
+WARNING 2025-05-31 02:57:22,823 basehttp 11988 25184 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:57:24,352 basehttp 11988 20660 "GET /accounts/register/organizer/ HTTP/1.1" 200 17885
+WARNING 2025-05-31 02:57:24,409 basehttp 11988 20660 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:57:58,073 autoreload 11988 25552 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:58:00,258 autoreload 9984 8764 Watching for file changes with StatReloader
+INFO 2025-05-31 02:58:07,270 autoreload 9984 8764 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 02:58:08,720 autoreload 13192 23836 Watching for file changes with StatReloader
+INFO 2025-05-31 02:58:11,989 basehttp 13192 21448 "POST /accounts/register/organizer/ HTTP/1.1" 200 17980
+WARNING 2025-05-31 02:58:12,054 basehttp 13192 21448 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 02:58:19,477 autoreload 13192 23836 D:\projects\TalentZik\apps\artists\urls.py changed, reloading.
+INFO 2025-05-31 02:58:21,144 autoreload 284 18680 Watching for file changes with StatReloader
+INFO 2025-05-31 02:58:26,027 autoreload 284 18680 D:\projects\TalentZik\apps\artists\urls.py changed, reloading.
+INFO 2025-05-31 02:58:27,218 autoreload 8884 11288 Watching for file changes with StatReloader
+INFO 2025-05-31 03:00:01,669 basehttp 8884 2184 "POST /accounts/register/organizer/ HTTP/1.1" 200 17980
+WARNING 2025-05-31 03:00:01,738 basehttp 8884 2184 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:07:41,549 autoreload 8884 11288 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 03:07:42,856 autoreload 20316 21832 Watching for file changes with StatReloader
+INFO 2025-05-31 03:11:24,319 autoreload 19936 24708 Watching for file changes with StatReloader
+INFO 2025-05-31 03:12:41,550 autoreload 20316 21832 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 03:12:43,113 autoreload 23604 24232 Watching for file changes with StatReloader
+INFO 2025-05-31 03:12:49,045 autoreload 23604 24232 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 03:12:50,156 autoreload 22588 9244 Watching for file changes with StatReloader
+INFO 2025-05-31 03:13:33,149 autoreload 22588 9244 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 03:13:35,326 autoreload 20468 24176 Watching for file changes with StatReloader
+INFO 2025-05-31 03:13:38,645 autoreload 20468 24176 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 03:13:39,827 autoreload 23408 5200 Watching for file changes with StatReloader
+INFO 2025-05-31 03:13:51,948 autoreload 23408 5200 D:\projects\TalentZik\apps\accounts\urls.py changed, reloading.
+INFO 2025-05-31 03:13:53,819 autoreload 24856 22416 Watching for file changes with StatReloader
+INFO 2025-05-31 03:14:01,282 autoreload 24856 22416 D:\projects\TalentZik\apps\accounts\urls.py changed, reloading.
+INFO 2025-05-31 03:14:02,891 autoreload 25012 20468 Watching for file changes with StatReloader
+INFO 2025-05-31 03:15:17,676 autoreload 8856 10776 Watching for file changes with StatReloader
+INFO 2025-05-31 03:16:07,253 basehttp 25012 19544 "POST /accounts/register/organizer/ HTTP/1.1" 200 26294
+WARNING 2025-05-31 03:16:07,304 basehttp 25012 19544 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:17:04,485 basehttp 25012 5968 "POST /accounts/register/organizer/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:17:04,509 basehttp 25012 5968 "GET /accounts/profile/ HTTP/1.1" 200 21190
+WARNING 2025-05-31 03:17:04,564 basehttp 25012 5968 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:17:16,457 basehttp 25012 6136 "GET /reviews/my-reviews/ HTTP/1.1" 200 19821
+WARNING 2025-05-31 03:17:16,511 basehttp 25012 6136 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:17:23,257 basehttp 25012 16604 "GET /artists/search/ HTTP/1.1" 200 197046
+INFO 2025-05-31 03:17:23,291 basehttp 25012 20868 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 03:17:23,301 basehttp 25012 16604 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:17:27,001 basehttp 25012 20868 "GET /artists/1/ HTTP/1.1" 200 34947
+INFO 2025-05-31 03:17:27,040 basehttp 25012 9020 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+INFO 2025-05-31 03:17:27,041 basehttp 25012 19544 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 03:17:27,049 basehttp 25012 20868 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:17:40,037 basehttp 25012 9020 "GET /reviews/leave/1/ HTTP/1.1" 200 24590
+WARNING 2025-05-31 03:17:40,084 basehttp 25012 9020 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:17:53,930 basehttp 25012 21272 "GET /artists/1/ HTTP/1.1" 200 34947
+WARNING 2025-05-31 03:17:53,986 basehttp 25012 21272 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:18:01,014 basehttp 25012 20972 "GET / HTTP/1.1" 200 19905
+WARNING 2025-05-31 03:18:01,058 basehttp 25012 20972 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:18:09,965 basehttp 25012 1740 "GET /accounts/profile/ HTTP/1.1" 200 20222
+WARNING 2025-05-31 03:18:10,016 basehttp 25012 1740 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:18:17,277 basehttp 25012 12624 "GET /accounts/profile/edit/ HTTP/1.1" 200 21101
+WARNING 2025-05-31 03:18:17,321 basehttp 25012 12624 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:18:20,316 basehttp 25012 19808 "GET /accounts/profile/ HTTP/1.1" 200 20222
+WARNING 2025-05-31 03:18:20,367 basehttp 25012 19808 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:18:40,238 basehttp 25012 19544 - Broken pipe from ('127.0.0.1', 60764)
+INFO 2025-05-31 03:19:01,209 basehttp 25012 21360 - Broken pipe from ('127.0.0.1', 60776)
+INFO 2025-05-31 03:19:25,846 basehttp 25012 23252 "GET / HTTP/1.1" 200 19905
+WARNING 2025-05-31 03:19:25,928 basehttp 25012 23252 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:19:36,013 basehttp 25012 24640 "GET /artists/search/ HTTP/1.1" 200 197046
+WARNING 2025-05-31 03:19:36,092 basehttp 25012 24640 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:20:33,259 autoreload 25012 20468 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 03:20:34,727 autoreload 7968 12432 Watching for file changes with StatReloader
+INFO 2025-05-31 03:20:37,027 autoreload 7968 12432 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-05-31 03:20:38,185 autoreload 23712 21128 Watching for file changes with StatReloader
+INFO 2025-05-31 03:20:54,375 autoreload 23712 21128 D:\projects\TalentZik\apps\accounts\urls.py changed, reloading.
+INFO 2025-05-31 03:20:55,906 autoreload 1352 10664 Watching for file changes with StatReloader
+INFO 2025-05-31 03:20:59,652 autoreload 1352 10664 D:\projects\TalentZik\apps\accounts\urls.py changed, reloading.
+INFO 2025-05-31 03:21:00,804 autoreload 24260 23436 Watching for file changes with StatReloader
+INFO 2025-05-31 03:21:10,979 basehttp 24260 22692 "GET /artists/1/ HTTP/1.1" 200 34947
+WARNING 2025-05-31 03:21:11,114 basehttp 24260 22692 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:21:12,844 basehttp 24260 23260 "GET /artists/1/whatsapp/ HTTP/1.1" 200 34882
+WARNING 2025-05-31 03:21:12,941 basehttp 24260 23260 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:21:31,432 basehttp 24260 5924 - Broken pipe from ('127.0.0.1', 60938)
+INFO 2025-05-31 03:21:33,299 basehttp 24260 24108 "GET /artists/1/whatsapp/?direct=true HTTP/1.1" 302 0
+ERROR 2025-05-31 03:21:51,557 log 24260 24108 Internal Server Error: /artists/1/contact/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: artists/contact.html
+ERROR 2025-05-31 03:21:51,562 basehttp 24260 24108 "GET /artists/1/contact/ HTTP/1.1" 500 93278
+INFO 2025-05-31 03:21:55,612 basehttp 24260 24108 "GET /artists/1/whatsapp/ HTTP/1.1" 200 34882
+WARNING 2025-05-31 03:21:55,676 basehttp 24260 24108 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:22:47,733 basehttp 24260 22560 "GET /artists/1/whatsapp/ HTTP/1.1" 200 34882
+WARNING 2025-05-31 03:22:47,790 basehttp 24260 22560 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:22:52,906 basehttp 24260 10456 "POST /artists/1/whatsapp/ HTTP/1.1" 200 159
+INFO 2025-05-31 03:23:10,170 basehttp 24260 23464 - Broken pipe from ('127.0.0.1', 61016)
+INFO 2025-05-31 03:23:31,723 basehttp 24260 10456 - Broken pipe from ('127.0.0.1', 61025)
+INFO 2025-05-31 03:23:55,087 basehttp 24260 21936 "GET / HTTP/1.1" 200 19905
+WARNING 2025-05-31 03:23:55,157 basehttp 24260 21936 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:23:59,300 basehttp 24260 25500 "GET / HTTP/1.1" 200 19905
+WARNING 2025-05-31 03:23:59,331 basehttp 24260 25500 "GET /static/css/style.css HTTP/1.1" 404 1899

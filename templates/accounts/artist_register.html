@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ page_title }} - TalentZik{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto">
+        <div class="text-center">
+            <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-primary-100">
+                <i class="fas fa-microphone text-primary-600 text-xl"></i>
+            </div>
+            <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+                {{ page_title }}
+            </h2>
+            <p class="mt-2 text-lg text-gray-600">
+                {{ page_description }}
+            </p>
+        </div>
+
+        <div class="mt-8 bg-white shadow rounded-lg">
+            <div class="px-6 py-8">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="space-y-6">
+                        <!-- Informations personnelles -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">
+                                Informations personnelles
+                            </h3>
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div>
+                                    {{ form.first_name.label_tag }}
+                                    {{ form.first_name }}
+                                    {% if form.first_name.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {{ form.first_name.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {{ form.last_name.label_tag }}
+                                    {{ form.last_name }}
+                                    {% if form.last_name.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {{ form.last_name.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="mt-1 text-sm text-red-600">
+                                        {{ form.email.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Informations artistiques -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">
+                                Informations artistiques
+                            </h3>
+                            <div>
+                                {{ form.stage_name.label_tag }}
+                                {{ form.stage_name }}
+                                {% if form.stage_name.help_text %}
+                                    <p class="mt-1 text-sm text-gray-500">{{ form.stage_name.help_text }}</p>
+                                {% endif %}
+                                {% if form.stage_name.errors %}
+                                    <div class="mt-1 text-sm text-red-600">
+                                        {{ form.stage_name.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mt-4">
+                                {{ form.bio.label_tag }}
+                                {{ form.bio }}
+                                {% if form.bio.help_text %}
+                                    <p class="mt-1 text-sm text-gray-500">{{ form.bio.help_text }}</p>
+                                {% endif %}
+                                {% if form.bio.errors %}
+                                    <div class="mt-1 text-sm text-red-600">
+                                        {{ form.bio.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Contact -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">
+                                Informations de contact
+                            </h3>
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div>
+                                    {{ form.phone_number.label_tag }}
+                                    {{ form.phone_number }}
+                                    {% if form.phone_number.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {{ form.phone_number.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {{ form.whatsapp_number.label_tag }}
+                                    {{ form.whatsapp_number }}
+                                    {% if form.whatsapp_number.help_text %}
+                                        <p class="mt-1 text-sm text-gray-500">{{ form.whatsapp_number.help_text }}</p>
+                                    {% endif %}
+                                    {% if form.whatsapp_number.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {{ form.whatsapp_number.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Localisation -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">
+                                Localisation
+                            </h3>
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div>
+                                    {{ form.city.label_tag }}
+                                    {{ form.city }}
+                                    {% if form.city.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {{ form.city.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {{ form.region.label_tag }}
+                                    {{ form.region }}
+                                    {% if form.region.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {{ form.region.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mot de passe -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">
+                                Sécurité
+                            </h3>
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div>
+                                    {{ form.password1.label_tag }}
+                                    {{ form.password1 }}
+                                    {% if form.password1.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {{ form.password1.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {{ form.password2.label_tag }}
+                                    {{ form.password2 }}
+                                    {% if form.password2.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {{ form.password2.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if form.non_field_errors %}
+                        <div class="mt-6 rounded-md bg-red-50 p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800">
+                                        {{ form.non_field_errors.0 }}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="mt-8 flex justify-between">
+                        <a href="{% url 'accounts:register' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Retour
+                        </a>
+                        
+                        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            Créer mon compte artiste
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">
+                Vous avez déjà un compte ?
+                <a href="{% url 'accounts:login' %}" class="font-medium text-primary-600 hover:text-primary-500">
+                    Connectez-vous ici
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %} 
