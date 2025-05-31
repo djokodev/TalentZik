@@ -259,46 +259,67 @@ class VideoUploadView(MediaFilesMixin, CreateView):
                 video_file = form.save(commit=False)
                 video_file.artist = self.get_artist()
 
-                # Traitement du fichier vidéo si uploadé
-                if video_file.file:
+                # Traitement du fichier vidéo si uploadé (pas pour les URLs)
+                if video_file.file and hasattr(video_file.file, "path"):
+                    # Vérifier que le fichier_size est défini pour les fichiers uploadés
+                    if hasattr(video_file.file, "size") and video_file.file.size:
+                        video_file.file_size = video_file.file.size
+
                     # Obtenir la durée
-                    duration = VideoProcessingService.get_video_duration(
-                        video_file.file.path
-                    )
-                    video_file.duration = duration
+                    try:
+                        duration = VideoProcessingService.get_video_duration(
+                            video_file.file.path
+                        )
+                        video_file.duration = duration
+                    except Exception as e:
+                        logger.warning(
+                            f"Impossible d'obtenir la durée de la vidéo: {e}"
+                        )
 
                     # Générer une miniature
-                    thumbnail_path = VideoProcessingService.generate_thumbnail(
-                        video_file.file.path
-                    )
+                    try:
+                        thumbnail_path = VideoProcessingService.generate_thumbnail(
+                            video_file.file.path
+                        )
 
-                    if thumbnail_path and os.path.exists(thumbnail_path):
-                        with open(thumbnail_path, "rb") as f:
-                            thumbnail_content = ContentFile(f.read())
-                            video_file.thumbnail.save(
-                                f"thumb_{os.path.basename(thumbnail_path)}",
-                                thumbnail_content,
-                                save=False,
-                            )
-                        os.unlink(thumbnail_path)
+                        if thumbnail_path and os.path.exists(thumbnail_path):
+                            with open(thumbnail_path, "rb") as f:
+                                thumbnail_content = ContentFile(f.read())
+                                video_file.thumbnail.save(
+                                    f"thumb_{os.path.basename(thumbnail_path)}",
+                                    thumbnail_content,
+                                    save=False,
+                                )
+                            os.unlink(thumbnail_path)
+                    except Exception as e:
+                        logger.warning(f"Impossible de générer la miniature: {e}")
 
                     # Ajouter watermark
-                    watermarked_path = VideoProcessingService.add_watermark_to_video(
-                        video_file.file.path
-                    )
-
-                    if watermarked_path and os.path.exists(watermarked_path):
-                        # Remplacer le fichier original
-                        with open(watermarked_path, "rb") as f:
-                            watermarked_content = ContentFile(f.read())
-                            video_file.file.save(
-                                os.path.basename(watermarked_path),
-                                watermarked_content,
-                                save=False,
+                    try:
+                        watermarked_path = (
+                            VideoProcessingService.add_watermark_to_video(
+                                video_file.file.path
                             )
+                        )
 
-                        video_file.has_watermark = True
-                        os.unlink(watermarked_path)
+                        if watermarked_path and os.path.exists(watermarked_path):
+                            # Remplacer le fichier original
+                            with open(watermarked_path, "rb") as f:
+                                watermarked_content = ContentFile(f.read())
+                                video_file.file.save(
+                                    os.path.basename(watermarked_path),
+                                    watermarked_content,
+                                    save=False,
+                                )
+
+                            video_file.has_watermark = True
+                            os.unlink(watermarked_path)
+                    except Exception as e:
+                        logger.warning(f"Impossible d'ajouter le watermark: {e}")
+
+                elif video_file.video_url:
+                    # Pour les URLs (YouTube, etc.), définir file_size à 0
+                    video_file.file_size = 0
 
                 video_file.save()
 
@@ -308,11 +329,16 @@ class VideoUploadView(MediaFilesMixin, CreateView):
                 )
                 quota.update_counts()
 
-                messages.success(
-                    self.request,
-                    f"Fichier vidéo '{video_file.title}' uploadé avec succès ! "
-                    f"Durée: {video_file.get_duration_display()}",
-                )
+                if video_file.video_url:
+                    messages.success(
+                        self.request,
+                        f"Lien vidéo '{video_file.title}' ajouté avec succès !",
+                    )
+                else:
+                    messages.success(
+                        self.request,
+                        f"Fichier vidéo '{video_file.title}' uploadé avec succès !",
+                    )
 
         except Exception as e:
             logger.error(f"Erreur lors de l'upload vidéo : {e}")

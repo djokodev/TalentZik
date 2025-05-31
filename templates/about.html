@@ -2,30 +2,165 @@
 
 {% block title %}À propos de TalentZik{% endblock %}
 
+{% block extra_css %}
+<style>
+/* Animations musicales - uniquement pour le hero section */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1.2); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes morphing {
+    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+    50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+    75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+}
+
+/* Classes d'animation - uniquement pour le hero */
+.floating { animation: float 3s ease-in-out infinite; }
+.pulsing { animation: pulse 2s ease-in-out infinite; }
+.wave-bar { animation: wave 1s ease-in-out infinite; }
+.fade-in-up { animation: fadeInUp 0.8s ease-out; }
+
+/* Délais d'animation - uniquement pour le hero */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1s; }
+
+/* Barres d'ondes sonores */
+.sound-waves {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wave-bar {
+    width: 4px;
+    background: linear-gradient(to top, #f97316, #ef4444, #8b5cf6);
+    border-radius: 2px;
+}
+
+.wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+.wave-bar:nth-child(2) { height: 30px; animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { height: 35px; animation-delay: 0.3s; }
+.wave-bar:nth-child(5) { height: 20px; animation-delay: 0.4s; }
+.wave-bar:nth-child(6) { height: 30px; animation-delay: 0.5s; }
+.wave-bar:nth-child(7) { height: 25px; animation-delay: 0.6s; }
+
+/* Particules musicales */
+.music-particle {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Gradients dynamiques */
+.gradient-bg {
+    background: linear-gradient(-45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Formes organiques */
+.blob {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: morphing 8s ease-in-out infinite;
+}
+
+/* Effets hover simples pour les boutons seulement */
+.btn-hover {
+    transition: all 0.3s ease;
+}
+
+.btn-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="bg-gray-50 min-h-screen py-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+<!-- Hero Section avec animations musicales -->
+<div class="gradient-bg text-white relative overflow-hidden">
+    <!-- Particules musicales flottantes -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="music-particle floating delay-1" style="top: 15%; left: 10%;">🎵</div>
+        <div class="music-particle floating delay-2" style="top: 25%; right: 15%;">🎶</div>
+        <div class="music-particle floating delay-3" style="bottom: 40%; left: 20%;">🎼</div>
+        <div class="music-particle floating delay-4" style="top: 70%; right: 25%;">🎤</div>
+        <div class="music-particle floating delay-5" style="bottom: 25%; right: 10%;">🎸</div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <!-- En-tête -->
-        <div class="text-center mb-16">
+        <div class="text-center">
             <div class="flex justify-center mb-6">
-                <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center">
+                <div class="w-20 h-20 bg-white/20 backdrop-blur rounded-full flex items-center justify-center pulsing">
                     <i class="fas fa-music text-white text-3xl"></i>
                 </div>
             </div>
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">À propos de TalentZik</h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            
+            <!-- Barres d'ondes sonores -->
+            <div class="flex justify-center mb-6">
+                <div class="sound-waves">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 fade-in-up">À propos de TalentZik</h1>
+            <p class="text-xl text-white/90 max-w-2xl mx-auto fade-in-up delay-1">
                 La plateforme qui connecte les talents musicaux camerounais aux organisateurs d'événements
             </p>
         </div>
+    </div>
+</div>
 
+<div class="bg-gray-50 min-h-screen py-12 relative overflow-hidden">
+    <!-- Formes organiques en arrière-plan -->
+    <div class="absolute top-20 right-0 w-64 h-64 bg-gradient-to-br from-orange-200 to-pink-200 blob opacity-20"></div>
+    <div class="absolute bottom-20 left-0 w-48 h-48 bg-gradient-to-br from-purple-200 to-blue-200 blob opacity-20" style="animation-delay: -4s;"></div>
+    
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
         <!-- Section principale -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             <!-- Notre mission -->
-            <div class="bg-white rounded-lg shadow-sm p-8">
+            <div class="bg-white rounded-xl shadow-lg p-8">
                 <div class="flex items-center mb-6">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-bullseye text-blue-600 text-xl"></i>
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-bullseye text-white text-xl"></i>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-900">Notre Mission</h2>
                 </div>
@@ -38,29 +173,29 @@
             </div>
 
             <!-- Comment ça marche -->
-            <div class="bg-white rounded-lg shadow-sm p-8">
+            <div class="bg-white rounded-xl shadow-lg p-8">
                 <div class="flex items-center mb-6">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-cogs text-green-600 text-xl"></i>
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-cogs text-white text-xl"></i>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-900">Comment ça marche</h2>
                 </div>
                 <div class="space-y-4">
                     <div class="flex items-start">
-                        <div class="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center mt-1 mr-3 flex-shrink-0">
-                            <span class="text-primary-600 text-sm font-bold">1</span>
+                        <div class="w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center mt-1 mr-3 flex-shrink-0">
+                            <span class="text-white text-sm font-bold">1</span>
                         </div>
                         <p class="text-gray-700">Les <strong>artistes</strong> créent leur profil et portfolio</p>
                     </div>
                     <div class="flex items-start">
-                        <div class="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center mt-1 mr-3 flex-shrink-0">
-                            <span class="text-primary-600 text-sm font-bold">2</span>
+                        <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center mt-1 mr-3 flex-shrink-0">
+                            <span class="text-white text-sm font-bold">2</span>
                         </div>
                         <p class="text-gray-700">Les <strong>organisateurs</strong> recherchent selon leurs critères</p>
                     </div>
                     <div class="flex items-start">
-                        <div class="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center mt-1 mr-3 flex-shrink-0">
-                            <span class="text-primary-600 text-sm font-bold">3</span>
+                        <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center mt-1 mr-3 flex-shrink-0">
+                            <span class="text-white text-sm font-bold">3</span>
                         </div>
                         <p class="text-gray-700">Contact direct via <strong>WhatsApp</strong> pour négocier</p>
                     </div>
@@ -68,12 +203,12 @@
             </div>
         </div>
 
-        <!-- Section tarification -->
-        <div class="bg-white rounded-lg shadow-sm p-8 mb-12">
+        <!-- Section tarification avec style musical -->
+        <div class="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 mb-12">
             <div class="text-center mb-8">
                 <div class="flex justify-center mb-4">
-                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center">
-                        <i class="fas fa-credit-card text-orange-600 text-2xl"></i>
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-credit-card text-white text-2xl"></i>
                     </div>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Modalités et Tarification</h2>
@@ -84,10 +219,10 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Offre de lancement -->
-                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-6 border-2 border-green-200 relative">
+                <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 backdrop-blur rounded-xl p-6 border-2 border-green-200 relative">
                     <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                        <span class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
-                            🎉 OFFRE DE LANCEMENT
+                        <span class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
+                            OFFRE DE LANCEMENT
                         </span>
                     </div>
                     <div class="text-center mt-6">
@@ -116,12 +251,12 @@
                 </div>
 
                 <!-- Abonnement mensuel -->
-                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
+                <div class="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 backdrop-blur rounded-xl p-6 border border-blue-200">
                     <div class="text-center">
                         <h3 class="text-2xl font-bold text-blue-900 mb-2">Après le 1er mois</h3>
                         <div class="text-4xl font-bold text-blue-600 mb-1">1 099 FCFA / Mois</div>
                         <p class="text-blue-700 mb-4">Pour les artistes</p>
-                        <div class="bg-blue-100 rounded-lg p-3 mb-4">
+                        <div class="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg p-3 mb-4">
                             <p class="text-blue-800 text-sm font-medium">
                                 <i class="fas fa-info-circle mr-1"></i>
                                 Les organisateurs restent gratuits
@@ -150,7 +285,7 @@
             </div>
 
             <!-- Informations importantes -->
-            <div class="mt-8 bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+            <div class="mt-8 bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6">
                 <div class="flex items-start">
                     <i class="fas fa-exclamation-triangle text-yellow-600 mt-1 mr-3"></i>
                     <div>
@@ -169,27 +304,27 @@
 
         <!-- Valeurs et engagement -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-bolt text-purple-600 text-2xl"></i>
+            <div class="text-center bg-white rounded-xl p-6 shadow-lg">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-bolt text-white text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-2">Simplicité</h3>
                 <p class="text-gray-600">
                     Une plateforme simple et intuitive qui met en relation artistes et organisateurs en quelques clics.
                 </p>
             </div>
-            <div class="text-center">
-                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-heart text-red-600 text-2xl"></i>
+            <div class="text-center bg-white rounded-xl p-6 shadow-lg">
+                <div class="w-16 h-16 bg-gradient-to-br from-red-400 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heart text-white text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-2">Passion</h3>
                 <p class="text-gray-600">
                     Nous soutenons la créativité et les talents artistiques camerounais avec passion.
                 </p>
             </div>
-            <div class="text-center">
-                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-handshake text-yellow-600 text-2xl"></i>
+            <div class="text-center bg-white rounded-xl p-6 shadow-lg">
+                <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-handshake text-white text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-2">Confiance</h3>
                 <p class="text-gray-600">
@@ -198,36 +333,44 @@
             </div>
         </div>
 
-        <!-- Call to action -->
-        <div class="text-center bg-gradient-to-r from-primary-600 to-primary-700 rounded-lg p-8 text-white">
-            <h2 class="text-3xl font-bold mb-4">Prêt à rejoindre TalentZik ?</h2>
-            <p class="text-xl mb-6 text-primary-100">
-                Profitez de votre premier mois gratuit et découvrez toutes nos fonctionnalités !
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{% url 'accounts:register' %}?user_type=artist" class="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-bold transition duration-300">
-                    <i class="fas fa-microphone mr-2"></i>
-                    Je suis un artiste
-                </a>
-                <a href="{% url 'accounts:register' %}?user_type=organizer" class="bg-secondary-500 hover:bg-secondary-600 text-white px-8 py-3 rounded-lg font-bold transition duration-300">
-                    <i class="fas fa-calendar-alt mr-2"></i>
-                    Je suis un organisateur
-                </a>
+        <!-- Call to action avec style musical -->
+        <div class="text-center bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 rounded-xl p-8 text-white relative overflow-hidden">
+            <!-- Effets de background -->
+            <div class="absolute inset-0">
+                <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-orange-500/20 rounded-full blur-xl floating"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-24 h-24 bg-pink-500/20 rounded-full blur-xl floating delay-2"></div>
+            </div>
+            
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-4">Prêt à rejoindre TalentZik ?</h2>
+                <p class="text-xl mb-6 text-white/90">
+                    Profitez de votre premier mois gratuit et découvrez toutes nos fonctionnalités !
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{% url 'accounts:register' %}?user_type=artist" class="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-8 py-3 rounded-full font-bold btn-hover">
+                        <i class="fas fa-microphone mr-2"></i>
+                        Je suis un artiste
+                    </a>
+                    <a href="{% url 'accounts:register' %}?user_type=organizer" class="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-8 py-3 rounded-full font-bold btn-hover">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        Je suis un organisateur
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Contact -->
+        <!-- Contact avec style amélioré -->
         <div class="mt-16 text-center">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">Des questions ?</h3>
             <p class="text-gray-600 mb-6">
                 Notre équipe est là pour vous accompagner dans votre découverte de TalentZik.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:contact@talentzik.cm" class="inline-flex items-center text-primary-600 hover:text-primary-700">
+                <a href="mailto:contact@talentzik.cm" class="inline-flex items-center text-blue-600 hover:text-blue-700 bg-blue-50 px-6 py-3 rounded-full btn-hover">
                     <i class="fas fa-envelope mr-2"></i>
                     contact@talentzik.cm
                 </a>
-                <a href="https://wa.me/237652260368" class="inline-flex items-center text-green-600 hover:text-green-700">
+                <a href="https://wa.me/237652260368" class="inline-flex items-center text-green-600 hover:text-green-700 bg-green-50 px-6 py-3 rounded-full btn-hover">
                     <i class="fab fa-whatsapp mr-2"></i>
                     WhatsApp
                 </a>

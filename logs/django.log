@@ -1086,3 +1086,805 @@ INFO 2025-05-31 03:23:55,087 basehttp 24260 21936 "GET / HTTP/1.1" 200 19905
 WARNING 2025-05-31 03:23:55,157 basehttp 24260 21936 "GET /static/css/style.css HTTP/1.1" 404 1899
 INFO 2025-05-31 03:23:59,300 basehttp 24260 25500 "GET / HTTP/1.1" 200 19905
 WARNING 2025-05-31 03:23:59,331 basehttp 24260 25500 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:29:10,933 autoreload 1352 4656 Watching for file changes with StatReloader
+INFO 2025-05-31 03:29:14,379 basehttp 1352 11396 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:29:14,422 basehttp 1352 11396 "GET / HTTP/1.1" 200 16891
+WARNING 2025-05-31 03:29:14,487 basehttp 1352 11396 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:29:17,150 basehttp 1352 14408 "GET /accounts/login/ HTTP/1.1" 200 12162
+WARNING 2025-05-31 03:29:17,210 basehttp 1352 14408 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:29:30,105 basehttp 1352 4700 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:29:30,130 basehttp 1352 4700 "GET /accounts/profile/ HTTP/1.1" 200 24598
+INFO 2025-05-31 03:29:30,177 basehttp 1352 3124 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 03:29:30,184 basehttp 1352 4700 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:29:32,615 basehttp 1352 3124 "GET /media/ HTTP/1.1" 200 42177
+INFO 2025-05-31 03:29:32,683 basehttp 1352 17416 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 03:29:32,698 basehttp 1352 3124 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:29:48,274 basehttp 1352 17416 - Broken pipe from ('127.0.0.1', 61337)
+ERROR 2025-05-31 03:30:23,459 log 1352 22136 Internal Server Error: /media/delete/video/1/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 179, in translate_token
+    op = OPERATORS[token]
+KeyError: 'object|class_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 952, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 885, in __init__
+    super().__init__(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 170, in __init__
+    mapped_tokens.append(self.translate_token(token))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 181, in translate_token
+    return self.create_var(token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 888, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'class_name'
+ERROR 2025-05-31 03:30:23,477 basehttp 1352 22136 "GET /media/delete/video/1/ HTTP/1.1" 500 282921
+INFO 2025-05-31 03:34:39,846 basehttp 1352 22136 "GET /media/upload/video/ HTTP/1.1" 200 28272
+WARNING 2025-05-31 03:34:39,944 basehttp 1352 22136 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 03:35:40,692 views 1352 9196 Erreur lors de l'upload vidéo : NOT NULL constraint failed: media_files_video.file_size
+INFO 2025-05-31 03:35:40,699 basehttp 1352 9196 "POST /media/upload/video/ HTTP/1.1" 200 29238
+WARNING 2025-05-31 03:35:40,760 basehttp 1352 9196 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 03:36:50,110 views 1352 23868 Erreur lors de l'upload vidéo : NOT NULL constraint failed: media_files_video.file_size
+INFO 2025-05-31 03:36:50,116 basehttp 1352 23868 "POST /media/upload/video/ HTTP/1.1" 200 29238
+WARNING 2025-05-31 03:36:50,177 basehttp 1352 23868 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 03:37:04,359 services 1352 16576 Erreur lors de la lecture de la durée vidéo : ffprobe error (see stderr output for detail)
+ERROR 2025-05-31 03:37:04,444 services 1352 16576 Erreur lors de la génération de miniature : ffmpeg error (see stderr output for detail)
+ERROR 2025-05-31 03:37:04,529 services 1352 16576 Erreur lors du watermarking vidéo : ffmpeg error (see stderr output for detail)
+INFO 2025-05-31 03:37:04,603 basehttp 1352 16576 "POST /media/upload/video/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:37:04,646 basehttp 1352 16576 "GET /media/ HTTP/1.1" 200 45187
+INFO 2025-05-31 03:37:04,678 basehttp 1352 21380 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+WARNING 2025-05-31 03:37:04,686 basehttp 1352 16576 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:37:20,155 basehttp 1352 24888 - Broken pipe from ('127.0.0.1', 61616)
+INFO 2025-05-31 03:37:20,157 basehttp 1352 21380 - Broken pipe from ('127.0.0.1', 61614)
+ERROR 2025-05-31 03:38:14,521 log 1352 23328 Internal Server Error: /media/delete/video/1/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 179, in translate_token
+    op = OPERATORS[token]
+KeyError: 'object|class_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 952, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 885, in __init__
+    super().__init__(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 170, in __init__
+    mapped_tokens.append(self.translate_token(token))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 181, in translate_token
+    return self.create_var(token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 888, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'class_name'
+ERROR 2025-05-31 03:38:14,537 basehttp 1352 23328 "GET /media/delete/video/1/ HTTP/1.1" 500 282790
+INFO 2025-05-31 03:39:15,409 basehttp 1352 23328 "GET /media/ HTTP/1.1" 200 43677
+INFO 2025-05-31 03:39:17,936 basehttp 1352 23344 "GET /media/upload/audio/ HTTP/1.1" 200 24335
+INFO 2025-05-31 03:39:17,945 basehttp 1352 21092 - Broken pipe from ('127.0.0.1', 61706)
+INFO 2025-05-31 03:39:17,948 basehttp 1352 23328 - Broken pipe from ('127.0.0.1', 61650)
+WARNING 2025-05-31 03:39:18,049 basehttp 1352 23344 "GET /static/css/style.css HTTP/1.1" 404 1899
+ERROR 2025-05-31 03:39:54,587 services 1352 24256 Erreur lors de la lecture de la durée audio : ffprobe error (see stderr output for detail)
+ERROR 2025-05-31 03:39:54,671 services 1352 24256 Erreur lors du watermarking audio : ffmpeg error (see stderr output for detail)
+INFO 2025-05-31 03:39:54,701 basehttp 1352 24256 "POST /media/upload/audio/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:39:54,741 basehttp 1352 24256 "GET /media/ HTTP/1.1" 200 46071
+WARNING 2025-05-31 03:39:54,794 basehttp 1352 24256 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:39:55,156 basehttp 1352 23180 "GET /media/media/audio/2025/05/Dieu_ton_soutien.mp3 HTTP/1.1" 200 3079105
+INFO 2025-05-31 03:40:10,297 basehttp 1352 22872 - Broken pipe from ('127.0.0.1', 61735)
+INFO 2025-05-31 03:40:10,299 basehttp 1352 14988 - Broken pipe from ('127.0.0.1', 61736)
+WARNING 2025-05-31 03:40:12,028 log 1352 23180 Not Found: /favicon.ico
+WARNING 2025-05-31 03:40:12,029 basehttp 1352 23180 "GET /favicon.ico HTTP/1.1" 404 3027
+INFO 2025-05-31 03:40:13,925 basehttp 1352 23180 "GET /media/media/audio/2025/05/Dieu_ton_soutien.mp3 HTTP/1.1" 304 0
+ERROR 2025-05-31 03:40:35,590 log 1352 23180 Internal Server Error: /media/delete/audio/1/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 179, in translate_token
+    op = OPERATORS[token]
+KeyError: 'object|class_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 952, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 885, in __init__
+    super().__init__(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 170, in __init__
+    mapped_tokens.append(self.translate_token(token))
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\smartif.py", line 181, in translate_token
+    return self.create_var(token)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\defaulttags.py", line 888, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'class_name'
+ERROR 2025-05-31 03:40:35,610 basehttp 1352 23180 "GET /media/delete/audio/1/ HTTP/1.1" 500 282921
+INFO 2025-05-31 03:40:37,736 basehttp 1352 23180 "GET /media/ HTTP/1.1" 200 44563
+WARNING 2025-05-31 03:40:37,808 basehttp 1352 23180 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:40:42,034 basehttp 1352 23772 "GET /media/media/audio/2025/05/Dieu_ton_soutien.mp3 HTTP/1.1" 304 0
+WARNING 2025-05-31 03:40:42,041 log 1352 24484 Not Found: /favicon.ico
+WARNING 2025-05-31 03:40:42,052 basehttp 1352 24484 "GET /favicon.ico HTTP/1.1" 404 3027
+INFO 2025-05-31 03:40:48,653 basehttp 1352 24484 "GET /artists/search/ HTTP/1.1" 200 198349
+INFO 2025-05-31 03:40:48,659 basehttp 1352 21740 - Broken pipe from ('127.0.0.1', 61783)
+INFO 2025-05-31 03:40:48,662 basehttp 1352 24120 - Broken pipe from ('127.0.0.1', 61780)
+WARNING 2025-05-31 03:40:48,725 basehttp 1352 24484 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:40:50,641 basehttp 1352 23772 "GET /artists/1/ HTTP/1.1" 200 36223
+INFO 2025-05-31 03:40:50,682 basehttp 1352 23644 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 03:40:50,690 basehttp 1352 23772 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:40:50,874 basehttp 1352 23644 "GET /media/media/audio/2025/05/Dieu_ton_soutien.mp3 HTTP/1.1" 304 0
+INFO 2025-05-31 03:41:03,008 basehttp 1352 23644 - Broken pipe from ('127.0.0.1', 61796)
+INFO 2025-05-31 03:41:03,010 basehttp 1352 14980 - Broken pipe from ('127.0.0.1', 61799)
+INFO 2025-05-31 03:41:07,237 basehttp 1352 25016 "GET /media/media/audio/2025/05/Dieu_ton_soutien.mp3 HTTP/1.1" 304 0
+WARNING 2025-05-31 03:41:07,252 log 1352 7568 Not Found: /favicon.ico
+WARNING 2025-05-31 03:41:07,253 basehttp 1352 7568 "GET /favicon.ico HTTP/1.1" 404 3027
+INFO 2025-05-31 03:41:23,136 basehttp 1352 17132 - Broken pipe from ('127.0.0.1', 61800)
+INFO 2025-05-31 03:41:23,139 basehttp 1352 11628 - Broken pipe from ('127.0.0.1', 61813)
+INFO 2025-05-31 03:41:59,190 autoreload 1352 4656 D:\projects\TalentZik\apps\media_files\views.py changed, reloading.
+INFO 2025-05-31 03:42:01,160 autoreload 23908 21684 Watching for file changes with StatReloader
+INFO 2025-05-31 03:42:04,904 autoreload 23908 21684 D:\projects\TalentZik\apps\media_files\views.py changed, reloading.
+INFO 2025-05-31 03:42:07,005 autoreload 8496 1336 Watching for file changes with StatReloader
+INFO 2025-05-31 03:45:16,046 autoreload 8496 1336 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 03:45:18,602 autoreload 8232 24476 Watching for file changes with StatReloader
+INFO 2025-05-31 03:45:24,509 autoreload 8232 24476 D:\projects\TalentZik\apps\media_files\models.py changed, reloading.
+INFO 2025-05-31 03:45:26,000 autoreload 13828 23892 Watching for file changes with StatReloader
+INFO 2025-05-31 03:45:43,572 basehttp 13828 19676 "GET /admin HTTP/1.1" 301 0
+INFO 2025-05-31 03:45:43,719 basehttp 13828 19704 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:45:43,881 basehttp 13828 19704 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3795
+INFO 2025-05-31 03:45:44,191 basehttp 13828 19704 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-05-31 03:45:44,252 basehttp 13828 12160 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+INFO 2025-05-31 03:45:44,260 basehttp 13828 10312 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-05-31 03:45:44,273 basehttp 13828 12160 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-05-31 03:45:44,279 basehttp 13828 22460 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-05-31 03:45:44,333 basehttp 13828 10312 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-05-31 03:45:44,346 basehttp 13828 24988 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-05-31 03:46:02,568 basehttp 13828 24988 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:46:02,648 basehttp 13828 24988 "GET /admin/ HTTP/1.1" 200 11934
+INFO 2025-05-31 03:46:02,704 basehttp 13828 24988 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-05-31 03:46:02,735 basehttp 13828 10312 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-05-31 03:46:02,784 basehttp 13828 24988 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-05-31 03:46:07,366 basehttp 13828 24988 "GET /admin/accounts/artistprofile/ HTTP/1.1" 200 16257
+INFO 2025-05-31 03:46:07,409 basehttp 13828 24988 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6566
+INFO 2025-05-31 03:46:07,409 basehttp 13828 19704 "GET /static/admin/js/core.js HTTP/1.1" 200 5682
+INFO 2025-05-31 03:46:07,409 basehttp 13828 12160 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-05-31 03:46:07,413 basehttp 13828 14152 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8943
+INFO 2025-05-31 03:46:07,421 basehttp 13828 10312 "GET /admin/jsi18n/ HTTP/1.1" 200 8621
+INFO 2025-05-31 03:46:07,423 basehttp 13828 24988 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-05-31 03:46:07,424 basehttp 13828 19704 "GET /static/admin/js/actions.js HTTP/1.1" 200 7872
+INFO 2025-05-31 03:46:07,425 basehttp 13828 12160 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-05-31 03:46:07,428 basehttp 13828 22460 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-05-31 03:46:07,437 basehttp 13828 14152 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-05-31 03:46:07,450 basehttp 13828 12160 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-05-31 03:46:07,451 basehttp 13828 19704 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-05-31 03:46:07,469 basehttp 13828 19704 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-05-31 03:46:07,496 basehttp 13828 19704 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-05-31 03:46:58,947 basehttp 13828 19704 "GET /admin/accounts/user/ HTTP/1.1" 200 18034
+INFO 2025-05-31 03:46:59,024 basehttp 13828 19704 "GET /admin/jsi18n/ HTTP/1.1" 200 8621
+INFO 2025-05-31 03:46:59,072 basehttp 13828 19704 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-05-31 03:46:59,119 basehttp 13828 19704 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-05-31 03:47:13,403 basehttp 13828 19704 "GET /admin/accounts/user/1/change/ HTTP/1.1" 200 33801
+INFO 2025-05-31 03:47:13,472 basehttp 13828 19704 "GET /static/admin/css/forms.css HTTP/1.1" 200 9047
+INFO 2025-05-31 03:47:13,473 basehttp 13828 24988 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-05-31 03:47:13,473 basehttp 13828 12160 "GET /static/admin/js/calendar.js HTTP/1.1" 200 8466
+INFO 2025-05-31 03:47:13,474 basehttp 13828 10312 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15292
+INFO 2025-05-31 03:47:13,478 basehttp 13828 14152 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-05-31 03:47:13,486 basehttp 13828 22460 "GET /admin/jsi18n/ HTTP/1.1" 200 8621
+INFO 2025-05-31 03:47:13,497 basehttp 13828 24988 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-05-31 03:47:13,498 basehttp 13828 14152 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11900
+INFO 2025-05-31 03:47:13,526 basehttp 13828 24988 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-05-31 03:47:13,667 basehttp 13828 24988 "GET /static/admin/img/icon-unknown.svg HTTP/1.1" 200 655
+INFO 2025-05-31 03:47:13,668 basehttp 13828 22460 "GET /static/admin/img/icon-unknown-alt.svg HTTP/1.1" 200 655
+INFO 2025-05-31 03:47:13,669 basehttp 13828 10312 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-05-31 03:47:13,692 basehttp 13828 14152 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-05-31 03:47:13,692 basehttp 13828 12160 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-05-31 03:47:22,527 basehttp 13828 12160 "GET /admin/accounts/user/ HTTP/1.1" 200 18034
+INFO 2025-05-31 03:47:37,521 basehttp 13828 12160 "GET /admin/accounts/ HTTP/1.1" 200 6699
+INFO 2025-05-31 03:47:39,607 basehttp 13828 12160 "GET /admin/ HTTP/1.1" 200 11934
+INFO 2025-05-31 03:47:41,595 basehttp 13828 12160 "GET /admin/accounts/artistprofile/ HTTP/1.1" 200 16257
+INFO 2025-05-31 03:47:41,624 basehttp 13828 12160 "GET /admin/jsi18n/ HTTP/1.1" 200 8621
+INFO 2025-05-31 03:49:23,021 basehttp 13828 12160 "POST /admin/logout/ HTTP/1.1" 200 3638
+INFO 2025-05-31 03:49:27,177 basehttp 13828 12160 "GET / HTTP/1.1" 200 16027
+WARNING 2025-05-31 03:49:27,234 basehttp 13828 12160 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:49:30,084 basehttp 13828 14152 "GET /accounts/login/ HTTP/1.1" 200 12162
+WARNING 2025-05-31 03:49:30,122 basehttp 13828 14152 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:49:40,454 basehttp 13828 10312 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:49:40,472 basehttp 13828 10312 "GET /accounts/profile/ HTTP/1.1" 200 24598
+INFO 2025-05-31 03:49:40,503 basehttp 13828 22460 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 03:49:40,512 basehttp 13828 10312 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:49:42,899 basehttp 13828 22460 "GET /media/ HTTP/1.1" 200 44706
+WARNING 2025-05-31 03:49:42,938 basehttp 13828 22460 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:49:43,061 basehttp 13828 24988 "GET /media/media/audio/2025/05/Dieu_ton_soutien.mp3 HTTP/1.1" 304 0
+INFO 2025-05-31 03:49:58,158 basehttp 13828 19704 - Broken pipe from ('127.0.0.1', 62032)
+INFO 2025-05-31 03:49:58,159 basehttp 13828 20964 - Broken pipe from ('127.0.0.1', 62186)
+ERROR 2025-05-31 03:50:02,349 log 13828 24988 Internal Server Error: /media/edit/photo/2/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: media_files/edit_photo.html
+ERROR 2025-05-31 03:50:02,353 basehttp 13828 24988 "GET /media/edit/photo/2/ HTTP/1.1" 500 93404
+INFO 2025-05-31 03:50:13,201 basehttp 13828 11432 "GET /media/delete/audio/1/ HTTP/1.1" 200 19066
+INFO 2025-05-31 03:50:13,212 basehttp 13828 24988 - Broken pipe from ('127.0.0.1', 62037)
+INFO 2025-05-31 03:50:13,215 basehttp 13828 13608 - Broken pipe from ('127.0.0.1', 62192)
+WARNING 2025-05-31 03:50:13,269 basehttp 13828 11432 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:50:19,946 basehttp 13828 24164 "POST /media/delete/audio/1/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:50:19,978 basehttp 13828 24164 "GET /media/ HTTP/1.1" 200 43218
+WARNING 2025-05-31 03:50:20,016 basehttp 13828 24164 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:50:27,370 basehttp 13828 13444 "GET /media/delete/video/2/ HTTP/1.1" 200 19149
+INFO 2025-05-31 03:50:27,384 basehttp 13828 21448 - Broken pipe from ('127.0.0.1', 62211)
+INFO 2025-05-31 03:50:27,388 basehttp 13828 4412 - Broken pipe from ('127.0.0.1', 62212)
+WARNING 2025-05-31 03:50:27,438 basehttp 13828 13444 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:50:28,822 basehttp 13828 24928 "POST /media/delete/video/2/ HTTP/1.1" 302 0
+INFO 2025-05-31 03:50:28,852 basehttp 13828 24928 "GET /media/ HTTP/1.1" 200 41264
+WARNING 2025-05-31 03:50:28,893 basehttp 13828 24928 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:50:44,137 basehttp 13828 20984 - Broken pipe from ('127.0.0.1', 62219)
+ERROR 2025-05-31 03:51:37,605 log 13828 10312 Internal Server Error: /media/edit/photo/2/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: media_files/edit_photo.html
+ERROR 2025-05-31 03:51:37,609 basehttp 13828 10312 "GET /media/edit/photo/2/ HTTP/1.1" 500 93404
+WARNING 2025-05-31 03:53:47,508 log 13828 11024 Not Found: /favicon.ico
+WARNING 2025-05-31 03:53:47,510 basehttp 13828 11024 "GET /favicon.ico HTTP/1.1" 404 3027
+INFO 2025-05-31 03:57:42,018 autoreload 13828 23892 D:\projects\TalentZik\apps\media_files\admin.py changed, reloading.
+INFO 2025-05-31 03:57:43,727 autoreload 5764 6412 Watching for file changes with StatReloader
+INFO 2025-05-31 03:57:46,942 autoreload 5764 6412 D:\projects\TalentZik\apps\media_files\admin.py changed, reloading.
+INFO 2025-05-31 03:57:49,202 autoreload 22872 17036 Watching for file changes with StatReloader
+INFO 2025-05-31 03:59:22,649 basehttp 22872 23944 "GET /media/ HTTP/1.1" 200 43876
+INFO 2025-05-31 03:59:22,736 basehttp 22872 1964 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+INFO 2025-05-31 03:59:22,760 basehttp 22872 7728 "GET /media/media/photos/2025/05/TMAR9769_-_Copy.JPG HTTP/1.1" 304 0
+WARNING 2025-05-31 03:59:22,766 basehttp 22872 23944 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:59:38,965 basehttp 22872 7728 - Broken pipe from ('127.0.0.1', 62569)
+INFO 2025-05-31 03:59:42,870 basehttp 22872 1964 "GET /media/ HTTP/1.1" 200 43876
+WARNING 2025-05-31 03:59:42,904 basehttp 22872 1964 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:59:48,471 basehttp 22872 24448 "GET /media/upload/photo/ HTTP/1.1" 200 25921
+INFO 2025-05-31 03:59:48,476 basehttp 22872 10564 - Broken pipe from ('127.0.0.1', 62581)
+WARNING 2025-05-31 03:59:48,518 basehttp 22872 24448 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 03:59:55,088 basehttp 22872 14080 "GET /media/upload/photo/ HTTP/1.1" 200 25921
+INFO 2025-05-31 03:59:55,098 basehttp 22872 8724 - Broken pipe from ('127.0.0.1', 62586)
+WARNING 2025-05-31 03:59:55,149 basehttp 22872 14080 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:00:15,649 basehttp 22872 4376 - Broken pipe from ('127.0.0.1', 62589)
+INFO 2025-05-31 04:06:21,449 basehttp 22872 24896 "GET /media/ HTTP/1.1" 200 47059
+INFO 2025-05-31 04:06:21,522 basehttp 22872 21140 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 04:06:21,542 basehttp 22872 24896 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:06:37,400 basehttp 22872 22324 "GET /media/edit/photo/2/ HTTP/1.1" 200 23651
+INFO 2025-05-31 04:06:37,406 basehttp 22872 21140 - Broken pipe from ('127.0.0.1', 62923)
+WARNING 2025-05-31 04:06:37,431 basehttp 22872 22324 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:06:43,237 basehttp 22872 24248 "GET /media/ HTTP/1.1" 200 47059
+WARNING 2025-05-31 04:06:43,290 basehttp 22872 24248 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:06:50,562 basehttp 22872 7184 "GET /media/delete/photo/1/ HTTP/1.1" 200 19179
+INFO 2025-05-31 04:06:50,585 basehttp 22872 20024 - Broken pipe from ('127.0.0.1', 62949)
+WARNING 2025-05-31 04:06:50,621 basehttp 22872 7184 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:06:52,259 basehttp 22872 3856 "POST /media/delete/photo/1/ HTTP/1.1" 302 0
+INFO 2025-05-31 04:06:52,289 basehttp 22872 3856 "GET /media/ HTTP/1.1" 200 43249
+WARNING 2025-05-31 04:06:52,327 basehttp 22872 3856 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:06:57,164 basehttp 22872 5408 "GET / HTTP/1.1" 200 21208
+INFO 2025-05-31 04:06:57,173 basehttp 22872 23684 - Broken pipe from ('127.0.0.1', 62952)
+WARNING 2025-05-31 04:06:57,209 basehttp 22872 5408 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:07:35,582 basehttp 22872 12292 "GET / HTTP/1.1" 200 32918
+WARNING 2025-05-31 04:07:35,653 basehttp 22872 12292 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:08:27,283 basehttp 22872 5200 "GET / HTTP/1.1" 200 21208
+WARNING 2025-05-31 04:08:27,411 basehttp 22872 5200 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:12:28,237 autoreload 23684 23720 Watching for file changes with StatReloader
+INFO 2025-05-31 04:12:37,150 basehttp 22872 10448 "GET / HTTP/1.1" 200 31504
+WARNING 2025-05-31 04:12:37,258 basehttp 22872 10448 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:25:54,088 basehttp 22872 7136 "GET / HTTP/1.1" 200 28878
+INFO 2025-05-31 04:25:54,166 basehttp 22872 5004 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 04:25:54,191 basehttp 22872 7136 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:26:02,119 basehttp 22872 5004 "GET / HTTP/1.1" 200 28878
+WARNING 2025-05-31 04:26:02,188 basehttp 22872 5004 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:26:58,598 basehttp 22872 25520 "GET / HTTP/1.1" 200 28770
+WARNING 2025-05-31 04:26:58,719 basehttp 22872 25520 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:28:58,006 basehttp 22872 11576 "GET /artists/search/ HTTP/1.1" 200 198349
+WARNING 2025-05-31 04:28:58,093 basehttp 22872 11576 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:29:09,076 basehttp 22872 25260 "GET /about/ HTTP/1.1" 200 27456
+WARNING 2025-05-31 04:29:09,111 basehttp 22872 25260 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:30:17,242 basehttp 22872 3048 "GET / HTTP/1.1" 200 28770
+WARNING 2025-05-31 04:30:17,310 basehttp 22872 3048 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:30:47,996 basehttp 22872 4100 "GET / HTTP/1.1" 200 28771
+WARNING 2025-05-31 04:30:48,129 basehttp 22872 4100 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:31:15,738 basehttp 22872 4072 "GET / HTTP/1.1" 200 28770
+WARNING 2025-05-31 04:31:15,825 basehttp 22872 4072 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:32:56,907 basehttp 22872 23072 "GET /about/ HTTP/1.1" 200 35995
+WARNING 2025-05-31 04:32:57,012 basehttp 22872 23072 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-05-31 04:37:13,340 basehttp 22872 24384 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-05-31 04:37:13,446 log 22872 7460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-05-31 04:37:13,509 basehttp 22872 7460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+INFO 2025-05-31 04:39:08,753 basehttp 22872 7460 "GET /about/ HTTP/1.1" 200 33215
+WARNING 2025-05-31 04:39:08,837 basehttp 22872 7460 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:40:05,389 basehttp 22872 23956 "GET / HTTP/1.1" 200 28770
+WARNING 2025-05-31 04:40:05,448 basehttp 22872 23956 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:43:28,732 basehttp 22872 15080 "GET / HTTP/1.1" 200 30421
+INFO 2025-05-31 04:43:28,826 basehttp 22872 20856 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 04:43:28,854 basehttp 22872 15080 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:47:01,669 basehttp 22872 20856 "GET / HTTP/1.1" 200 29621
+WARNING 2025-05-31 04:47:01,832 basehttp 22872 20856 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:48:57,996 basehttp 22872 2344 "GET / HTTP/1.1" 200 29077
+WARNING 2025-05-31 04:48:58,074 basehttp 22872 2344 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:52:52,933 basehttp 22872 20856 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 04:52:52,999 basehttp 22872 20856 "GET / HTTP/1.1" 200 24862
+WARNING 2025-05-31 04:52:53,116 basehttp 22872 20856 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:52:58,746 basehttp 22872 6528 "GET /artists/search/ HTTP/1.1" 200 193168
+WARNING 2025-05-31 04:52:58,816 basehttp 22872 6528 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:53:01,646 basehttp 22872 12624 "GET /artists/1/ HTTP/1.1" 200 27130
+INFO 2025-05-31 04:53:01,682 basehttp 22872 10456 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 04:53:01,691 basehttp 22872 12624 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:53:17,198 basehttp 22872 10456 - Broken pipe from ('127.0.0.1', 65323)
+INFO 2025-05-31 04:53:40,366 basehttp 22872 23084 "GET /accounts/login/ HTTP/1.1" 200 12162
+WARNING 2025-05-31 04:53:40,432 basehttp 22872 23084 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:53:51,025 basehttp 22872 5232 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 04:53:51,044 basehttp 22872 5232 "GET /accounts/profile/ HTTP/1.1" 200 24598
+WARNING 2025-05-31 04:53:51,084 basehttp 22872 5232 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:53:54,921 basehttp 22872 22124 "GET /artists/search/ HTTP/1.1" 200 198349
+WARNING 2025-05-31 04:53:54,967 basehttp 22872 22124 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:53:56,938 basehttp 22872 21320 - Broken pipe from ('127.0.0.1', 65374)
+INFO 2025-05-31 04:53:56,957 basehttp 22872 21420 "GET /artists/1/ HTTP/1.1" 200 33310
+WARNING 2025-05-31 04:53:57,005 basehttp 22872 21420 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:54:11,675 basehttp 22872 16012 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 04:54:11,685 basehttp 22872 16012 "GET / HTTP/1.1" 200 24816
+INFO 2025-05-31 04:54:11,692 basehttp 22872 13676 - Broken pipe from ('127.0.0.1', 65380)
+WARNING 2025-05-31 04:54:11,738 basehttp 22872 16012 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:54:14,604 basehttp 22872 14080 "GET /accounts/login/ HTTP/1.1" 200 12162
+WARNING 2025-05-31 04:54:14,663 basehttp 22872 14080 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:54:29,973 basehttp 22872 24120 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 04:54:30,004 basehttp 22872 24120 "GET /accounts/profile/ HTTP/1.1" 200 21107
+WARNING 2025-05-31 04:54:30,102 basehttp 22872 24120 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:54:33,518 basehttp 22872 9804 "GET /artists/search/ HTTP/1.1" 200 197046
+WARNING 2025-05-31 04:54:33,595 basehttp 22872 9804 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:54:35,896 basehttp 22872 5612 "GET /artists/1/ HTTP/1.1" 200 34029
+WARNING 2025-05-31 04:54:35,933 basehttp 22872 5612 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:54:51,239 basehttp 22872 5084 - Broken pipe from ('127.0.0.1', 65407)
+INFO 2025-05-31 04:55:05,261 basehttp 22872 12152 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-05-31 04:55:05,270 basehttp 22872 12152 "GET / HTTP/1.1" 200 24816
+WARNING 2025-05-31 04:55:05,312 basehttp 22872 12152 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 04:56:23,644 basehttp 22872 25016 "GET / HTTP/1.1" 200 23946
+WARNING 2025-05-31 04:56:23,818 basehttp 22872 25016 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:03:30,945 basehttp 22872 17300 "GET / HTTP/1.1" 200 28048
+WARNING 2025-05-31 05:03:31,056 basehttp 22872 17300 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:06:12,890 basehttp 22872 23652 "GET / HTTP/1.1" 200 26178
+WARNING 2025-05-31 05:06:12,997 basehttp 22872 23652 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:09:25,435 basehttp 22872 12448 "GET / HTTP/1.1" 200 26146
+WARNING 2025-05-31 05:09:25,560 basehttp 22872 12448 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:09:32,763 basehttp 22872 24164 "GET / HTTP/1.1" 200 26146
+WARNING 2025-05-31 05:09:32,826 basehttp 22872 24164 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:15:06,063 basehttp 22872 8500 "GET / HTTP/1.1" 200 26044
+WARNING 2025-05-31 05:15:06,162 basehttp 22872 8500 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:15:24,380 basehttp 22872 24456 "GET / HTTP/1.1" 200 26044
+WARNING 2025-05-31 05:15:24,454 basehttp 22872 24456 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:17:24,639 basehttp 22872 23356 "GET / HTTP/1.1" 200 25267
+WARNING 2025-05-31 05:17:24,751 basehttp 22872 23356 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-05-31 05:17:38,466 log 22872 21968 Not Found: /favicon.ico
+WARNING 2025-05-31 05:17:38,468 basehttp 22872 21968 "GET /favicon.ico HTTP/1.1" 404 3027
+INFO 2025-05-31 05:19:11,785 basehttp 22872 21968 "GET /about/ HTTP/1.1" 200 28034
+WARNING 2025-05-31 05:19:11,932 basehttp 22872 21968 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:19:49,086 basehttp 22872 12516 "GET /artists/search/ HTTP/1.1" 200 193168
+INFO 2025-05-31 05:19:49,141 basehttp 22872 6020 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 05:19:49,156 basehttp 22872 12516 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:19:57,174 basehttp 22872 6020 "GET /artists/search/ HTTP/1.1" 200 193168
+WARNING 2025-05-31 05:19:57,211 basehttp 22872 6020 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:23:12,558 basehttp 22872 24908 "GET /artists/search/?search=&sort_by=-rating_average&region=adamaoua&city=&min_rating= HTTP/1.1" 200 186707
+WARNING 2025-05-31 05:23:12,672 basehttp 22872 24908 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:23:22,630 basehttp 22872 13556 "GET /artists/search/ HTTP/1.1" 200 193168
+WARNING 2025-05-31 05:23:22,666 basehttp 22872 13556 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:24:23,366 basehttp 22872 22752 "GET /accounts/login/ HTTP/1.1" 200 12162
+WARNING 2025-05-31 05:24:23,424 basehttp 22872 22752 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:24:31,231 basehttp 22872 15276 "GET /accounts/register/ HTTP/1.1" 200 14890
+WARNING 2025-05-31 05:24:31,273 basehttp 22872 15276 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:24:38,313 basehttp 22872 8496 "GET /accounts/register/artist/ HTTP/1.1" 200 19179
+WARNING 2025-05-31 05:24:38,356 basehttp 22872 8496 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:24:46,116 basehttp 22872 7348 "GET /accounts/register/ HTTP/1.1" 200 14890
+WARNING 2025-05-31 05:24:46,161 basehttp 22872 7348 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:24:48,066 basehttp 22872 11644 "GET /accounts/register/organizer/ HTTP/1.1" 200 20462
+WARNING 2025-05-31 05:24:48,103 basehttp 22872 11644 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:24:51,961 basehttp 22872 13556 "GET /accounts/register/ HTTP/1.1" 200 14890
+WARNING 2025-05-31 05:24:51,999 basehttp 22872 13556 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:24:56,705 basehttp 22872 19488 "GET /accounts/login/ HTTP/1.1" 200 12162
+WARNING 2025-05-31 05:24:56,741 basehttp 22872 19488 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:25:01,997 basehttp 22872 18224 "GET /artists/search/ HTTP/1.1" 200 201518
+WARNING 2025-05-31 05:25:02,042 basehttp 22872 18224 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:25:34,911 basehttp 22872 8376 "GET /artists/search/ HTTP/1.1" 200 201518
+WARNING 2025-05-31 05:25:35,001 basehttp 22872 8376 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:25:43,317 basehttp 22872 25328 "GET /artists/search/ HTTP/1.1" 200 193168
+WARNING 2025-05-31 05:25:43,378 basehttp 22872 25328 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:25:52,625 basehttp 22872 19548 "GET /accounts/login/ HTTP/1.1" 200 12162
+WARNING 2025-05-31 05:25:52,662 basehttp 22872 19548 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:26:08,523 basehttp 22872 6620 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-05-31 05:26:08,563 basehttp 22872 6620 "GET /accounts/profile/ HTTP/1.1" 200 24598
+WARNING 2025-05-31 05:26:08,604 basehttp 22872 6620 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:26:24,515 basehttp 22872 16828 "GET /media/ HTTP/1.1" 200 43249
+INFO 2025-05-31 05:26:24,555 basehttp 22872 22168 "GET /media/media/photos/2025/05/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 05:26:24,565 basehttp 22872 16828 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:26:29,202 basehttp 22872 14384 "GET /accounts/profile/ HTTP/1.1" 200 23692
+INFO 2025-05-31 05:26:29,208 basehttp 22872 22168 - Broken pipe from ('127.0.0.1', 51430)
+INFO 2025-05-31 05:26:31,109 basehttp 22872 14384 "GET /media/ HTTP/1.1" 200 43249
+WARNING 2025-05-31 05:26:31,159 basehttp 22872 14384 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:26:44,088 basehttp 22872 3908 - Broken pipe from ('127.0.0.1', 51432)
+INFO 2025-05-31 05:26:45,969 basehttp 22872 17104 "GET /reviews/my-reviews/ HTTP/1.1" 200 20839
+WARNING 2025-05-31 05:26:46,008 basehttp 22872 17104 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:26:53,250 basehttp 22872 20104 "GET /accounts/password/change/ HTTP/1.1" 200 20350
+WARNING 2025-05-31 05:26:53,290 basehttp 22872 20104 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:26:55,994 basehttp 22872 1404 "GET /accounts/password/change/ HTTP/1.1" 200 20350
+WARNING 2025-05-31 05:26:56,027 basehttp 22872 1404 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:28:17,482 basehttp 22872 25144 "GET /accounts/profile/edit/ HTTP/1.1" 200 45039
+WARNING 2025-05-31 05:28:17,615 basehttp 22872 25144 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:28:26,884 basehttp 22872 21104 "GET /accounts/profile/ HTTP/1.1" 200 23692
+WARNING 2025-05-31 05:28:26,947 basehttp 22872 21104 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:29:37,103 basehttp 22872 23704 "GET /accounts/profile/edit/ HTTP/1.1" 200 45039
+WARNING 2025-05-31 05:29:37,157 basehttp 22872 23704 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:32:30,174 basehttp 22872 21264 "GET /accounts/profile/ HTTP/1.1" 200 23692
+WARNING 2025-05-31 05:32:30,228 basehttp 22872 21264 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:32:42,556 basehttp 22872 13176 "GET /media/ HTTP/1.1" 200 43249
+WARNING 2025-05-31 05:32:42,596 basehttp 22872 13176 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:32:49,238 basehttp 22872 5232 - Broken pipe from ('127.0.0.1', 51650)
+INFO 2025-05-31 05:32:51,016 basehttp 22872 20144 "GET /accounts/profile/ HTTP/1.1" 200 23692
+WARNING 2025-05-31 05:32:51,046 basehttp 22872 20144 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:33:35,738 basehttp 22872 19992 "GET /artists/search/ HTTP/1.1" 200 198349
+WARNING 2025-05-31 05:33:35,804 basehttp 22872 19992 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:33:38,325 basehttp 22872 21444 "GET /artists/1/ HTTP/1.1" 200 38536
+WARNING 2025-05-31 05:33:38,383 basehttp 22872 21444 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:33:54,070 basehttp 22872 19472 - Broken pipe from ('127.0.0.1', 51684)
+INFO 2025-05-31 05:34:02,365 basehttp 22872 22308 "GET /artists/1/ HTTP/1.1" 200 33310
+WARNING 2025-05-31 05:34:02,491 basehttp 22872 22308 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:34:17,025 basehttp 22872 9664 "GET /accounts/profile/ HTTP/1.1" 200 23692
+INFO 2025-05-31 05:34:17,032 basehttp 22872 8184 - Broken pipe from ('127.0.0.1', 51701)
+WARNING 2025-05-31 05:34:17,061 basehttp 22872 9664 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:38:41,544 basehttp 22872 14156 "GET /accounts/profile/ HTTP/1.1" 200 31270
+WARNING 2025-05-31 05:38:41,615 basehttp 22872 14156 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:39:04,097 basehttp 22872 8008 "GET /accounts/profile/ HTTP/1.1" 200 23692
+WARNING 2025-05-31 05:39:04,180 basehttp 22872 8008 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:39:45,549 basehttp 22872 22524 "GET / HTTP/1.1" 200 30448
+WARNING 2025-05-31 05:39:45,606 basehttp 22872 22524 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:40:26,029 basehttp 22872 2660 "GET /artists/search/ HTTP/1.1" 200 198349
+WARNING 2025-05-31 05:40:26,094 basehttp 22872 2660 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:40:34,333 basehttp 22872 20676 "GET /artists/1/ HTTP/1.1" 200 33309
+WARNING 2025-05-31 05:40:34,369 basehttp 22872 20676 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:40:49,777 basehttp 22872 25080 - Broken pipe from ('127.0.0.1', 52000)
+INFO 2025-05-31 05:41:06,135 basehttp 22872 6568 "GET /artists/1/ HTTP/1.1" 200 33309
+WARNING 2025-05-31 05:41:06,175 basehttp 22872 6568 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:41:25,635 basehttp 22872 25564 - Broken pipe from ('127.0.0.1', 52012)
+ERROR 2025-05-31 05:41:42,614 log 22872 19804 Internal Server Error: /artists/search/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+sqlite3.IntegrityError: NOT NULL constraint failed: artists_search_query.user_ip
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 78, in get_context_data
+    SearchQuery.objects.create(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 658, in create
+    obj.save(force_insert=True, using=self.db)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 814, in save
+    self.save_base(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 877, in save_base
+    updated = self._save_table(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 1020, in _save_table
+    results = self._do_insert(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 1061, in _do_insert
+    return manager._insert(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1805, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\compiler.py", line 1822, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+django.db.utils.IntegrityError: NOT NULL constraint failed: artists_search_query.user_ip
+ERROR 2025-05-31 05:41:42,628 basehttp 22872 19804 "GET /artists/search/?search=douala&sort_by=-rating_average&region=&city=&min_rating= HTTP/1.1" 500 183827
+ERROR 2025-05-31 05:41:56,910 log 22872 19804 Internal Server Error: /artists/search/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+sqlite3.IntegrityError: NOT NULL constraint failed: artists_search_query.user_ip
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 78, in get_context_data
+    SearchQuery.objects.create(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 658, in create
+    obj.save(force_insert=True, using=self.db)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 814, in save
+    self.save_base(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 877, in save_base
+    updated = self._save_table(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 1020, in _save_table
+    results = self._do_insert(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 1061, in _do_insert
+    return manager._insert(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1805, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\compiler.py", line 1822, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+django.db.utils.IntegrityError: NOT NULL constraint failed: artists_search_query.user_ip
+ERROR 2025-05-31 05:41:56,919 basehttp 22872 19804 "GET /artists/search/?search=douala&sort_by=-rating_average&region=&city=&min_rating= HTTP/1.1" 500 183827
+ERROR 2025-05-31 05:42:14,561 log 22872 19804 Internal Server Error: /artists/search/
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+sqlite3.IntegrityError: NOT NULL constraint failed: artists_search_query.user_ip
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+  File "D:\projects\TalentZik\apps\artists\views.py", line 78, in get_context_data
+    SearchQuery.objects.create(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 658, in create
+    obj.save(force_insert=True, using=self.db)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 814, in save
+    self.save_base(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 877, in save_base
+    updated = self._save_table(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 1020, in _save_table
+    results = self._do_insert(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\base.py", line 1061, in _do_insert
+    return manager._insert(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\query.py", line 1805, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\models\sql\compiler.py", line 1822, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\projects\TalentZik\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+django.db.utils.IntegrityError: NOT NULL constraint failed: artists_search_query.user_ip
+ERROR 2025-05-31 05:42:14,570 basehttp 22872 19804 "GET /artists/search/?search=douala&sort_by=-rating_average&region=&city=&min_rating= HTTP/1.1" 500 183827
+INFO 2025-05-31 05:43:52,021 autoreload 22872 17036 D:\projects\TalentZik\apps\artists\views.py changed, reloading.
+INFO 2025-05-31 05:43:53,245 autoreload 6732 13488 Watching for file changes with StatReloader
+INFO 2025-05-31 05:44:32,624 basehttp 6732 23504 "GET /artists/search/ HTTP/1.1" 200 198349
+INFO 2025-05-31 05:44:32,662 basehttp 6732 8904 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-05-31 05:44:32,675 basehttp 6732 23504 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:44:40,289 basehttp 6732 8904 "GET /artists/search/?search=douala&sort_by=-rating_average&region=&city=&min_rating= HTTP/1.1" 200 198649
+WARNING 2025-05-31 05:44:40,335 basehttp 6732 8904 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:44:52,135 basehttp 6732 9816 "GET /artists/search/?search=dddddd&sort_by=-rating_average&region=&city=&min_rating= HTTP/1.1" 200 191903
+WARNING 2025-05-31 05:44:52,170 basehttp 6732 9816 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:44:59,521 basehttp 6732 20884 "GET /artists/search/ HTTP/1.1" 200 198349
+WARNING 2025-05-31 05:44:59,562 basehttp 6732 20884 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:45:06,526 basehttp 6732 21792 "GET /artists/1/ HTTP/1.1" 200 33310
+WARNING 2025-05-31 05:45:06,563 basehttp 6732 21792 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-05-31 05:45:14,018 basehttp 6732 23968 "GET / HTTP/1.1" 200 30448
+INFO 2025-05-31 05:45:14,026 basehttp 6732 23016 - Broken pipe from ('127.0.0.1', 52184)
+WARNING 2025-05-31 05:45:14,073 basehttp 6732 23968 "GET /static/css/style.css HTTP/1.1" 404 1899

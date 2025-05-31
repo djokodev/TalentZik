@@ -63,7 +63,10 @@ class MediaFileBase(models.Model):
         _("Ordre"), default=0, help_text=_("Ordre d'affichage dans le portfolio")
     )
     file_size = models.PositiveIntegerField(
-        _("Taille du fichier"), help_text=_("Taille du fichier en bytes")
+        _("Taille du fichier"),
+        help_text=_("Taille du fichier en bytes"),
+        null=True,
+        blank=True,
     )
 
     class Meta:

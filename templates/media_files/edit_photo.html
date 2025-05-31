@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifier {{ object.title }} - TalentZik{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-edit text-green-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Modifier la photo</h1>
+                        <p class="text-gray-600">{{ object.title }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-6 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-50 border border-green-200 text-green-800{% elif message.tags == 'error' %}bg-red-50 border border-red-200 text-red-800{% else %}bg-blue-50 border border-blue-200 text-blue-800{% endif %}">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 mr-3">
+                            {% if message.tags == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif message.tags == 'error' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% else %}
+                                <i class="fas fa-info-circle"></i>
+                            {% endif %}
+                        </div>
+                        <div>{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Aperçu de la photo actuelle -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-image mr-2 text-green-600"></i>
+                    Aperçu actuel
+                </h3>
+                
+                <div class="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
+                    <img src="{{ object.file.url }}" alt="{{ object.title }}" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="space-y-2 text-sm text-gray-600">
+                    <div class="flex justify-between">
+                        <span>Taille :</span>
+                        <span>{{ object.file_size|filesizeformat }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Ajouté le :</span>
+                        <span>{{ object.upload_date|date:"d/m/Y à H:i" }}</span>
+                    </div>
+                    {% if object.is_profile_picture %}
+                        <div class="flex justify-between items-center">
+                            <span>Statut :</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Photo de profil</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Formulaire d'édition -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-edit mr-2 text-green-600"></i>
+                    Modifier les informations
+                </h3>
+
+                <form method="post" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <!-- Erreurs générales -->
+                    {% if form.non_field_errors %}
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800">Erreurs de validation</h3>
+                                    <div class="mt-2 text-sm text-red-700">
+                                        {% for error in form.non_field_errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Titre -->
+                    <div>
+                        <label for="{{ form.title.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.title.label }}
+                            <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.title }}
+                        {% if form.title.help_text %}
+                            <p class="mt-1 text-sm text-gray-500">{{ form.title.help_text }}</p>
+                        {% endif %}
+                        {% if form.title.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.title.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.description.label }}
+                        </label>
+                        {{ form.description }}
+                        {% if form.description.help_text %}
+                            <p class="mt-1 text-sm text-gray-500">{{ form.description.help_text }}</p>
+                        {% endif %}
+                        {% if form.description.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.description.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Photo de profil -->
+                    {% if form.is_profile_picture %}
+                        <div>
+                            <div class="flex items-center">
+                                {{ form.is_profile_picture }}
+                                <label for="{{ form.is_profile_picture.id_for_label }}" class="ml-2 text-sm font-medium text-gray-700">
+                                    {{ form.is_profile_picture.label }}
+                                </label>
+                            </div>
+                            {% if form.is_profile_picture.help_text %}
+                                <p class="mt-1 text-sm text-gray-500">{{ form.is_profile_picture.help_text }}</p>
+                            {% endif %}
+                            {% if form.is_profile_picture.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {% for error in form.is_profile_picture.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Statut actif -->
+                    <div>
+                        <div class="flex items-center">
+                            {{ form.is_active }}
+                            <label for="{{ form.is_active.id_for_label }}" class="ml-2 text-sm font-medium text-gray-700">
+                                {{ form.is_active.label }}
+                            </label>
+                        </div>
+                        {% if form.is_active.help_text %}
+                            <p class="mt-1 text-sm text-gray-500">{{ form.is_active.help_text }}</p>
+                        {% endif %}
+                        {% if form.is_active.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.is_active.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Ordre d'affichage -->
+                    <div>
+                        <label for="{{ form.order.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.order.label }}
+                        </label>
+                        {{ form.order }}
+                        {% if form.order.help_text %}
+                            <p class="mt-1 text-sm text-gray-500">{{ form.order.help_text }}</p>
+                        {% endif %}
+                        {% if form.order.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.order.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                        <a href="{% url 'media_files:my_files' %}" class="flex-1 inline-flex items-center justify-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Retour au portfolio
+                        </a>
+                        
+                        <button type="submit" class="flex-1 inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                            <i class="fas fa-save mr-2"></i>
+                            Enregistrer les modifications
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Actions supplémentaires -->
+        <div class="mt-8 bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                <i class="fas fa-cog mr-2 text-gray-600"></i>
+                Actions avancées
+            </h3>
+            
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'media_files:delete_photo' object.id %}" class="inline-flex items-center px-4 py-2 border border-red-300 rounded-lg text-sm font-medium text-red-700 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
+                    <i class="fas fa-trash mr-2"></i>
+                    Supprimer cette photo
+                </a>
+                
+                <a href="{{ object.file.url }}" target="_blank" class="inline-flex items-center px-4 py-2 border border-blue-300 rounded-lg text-sm font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-external-link-alt mr-2"></i>
+                    Voir en taille réelle
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Amélioration des champs de formulaire */
+input[type="text"], 
+input[type="email"], 
+input[type="number"],
+textarea, 
+select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="number"]:focus,
+textarea:focus, 
+select:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #10b981;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+</style>
+{% endblock %} 

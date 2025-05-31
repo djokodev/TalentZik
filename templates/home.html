@@ -2,24 +2,179 @@
 
 {% block title %}TalentZik - Découvrez les talents musicaux du Cameroun{% endblock %}
 
+{% block extra_css %}
+<style>
+/* Animations musicales */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1.2); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Style simple et élégant pour "Cameroun" */
+.cameroun-highlight {
+    background: linear-gradient(135deg, #f1c40f, #e67e22, #e74c3c);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+/* Classes d'animation */
+.floating { animation: float 3s ease-in-out infinite; }
+.pulsing { animation: pulse 2s ease-in-out infinite; }
+.wave-bar { animation: wave 1s ease-in-out infinite; }
+.slide-in-left { animation: slideInLeft 0.8s ease-out; }
+.slide-in-right { animation: slideInRight 0.8s ease-out; }
+.fade-in-up { animation: fadeInUp 0.8s ease-out; }
+.rotating { animation: rotate 20s linear infinite; }
+
+/* Animation plus lente pour harmoniser */
+.rotating-slow { animation: rotate 30s linear infinite; }
+
+/* Délais d'animation */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1s; }
+
+/* Barres d'ondes sonores */
+.sound-waves {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wave-bar {
+    width: 4px;
+    background: linear-gradient(to top, #f97316, #ef4444, #8b5cf6);
+    border-radius: 2px;
+}
+
+.wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+.wave-bar:nth-child(2) { height: 30px; animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { height: 35px; animation-delay: 0.3s; }
+.wave-bar:nth-child(5) { height: 20px; animation-delay: 0.4s; }
+.wave-bar:nth-child(6) { height: 30px; animation-delay: 0.5s; }
+.wave-bar:nth-child(7) { height: 25px; animation-delay: 0.6s; }
+
+/* Particules musicales */
+.music-particle {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Gradients dynamiques */
+.gradient-bg {
+    background: linear-gradient(-45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Effets hover améliorés */
+.hover-lift {
+    transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Formes organiques */
+.blob {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: morphing 8s ease-in-out infinite;
+}
+
+@keyframes morphing {
+    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+    50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+    75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<!-- Hero Section -->
-<div class="bg-gradient-to-r from-primary-500 to-secondary-500 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+<!-- Hero Section avec animations musicales -->
+<div class="gradient-bg text-white relative overflow-hidden">
+    <!-- Particules musicales flottantes -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="music-particle floating delay-1" style="top: 10%; left: 10%;">🎵</div>
+        <div class="music-particle floating delay-2" style="top: 20%; right: 15%;">🎶</div>
+        <div class="music-particle floating delay-3" style="bottom: 30%; left: 20%;">🎼</div>
+        <div class="music-particle floating delay-4" style="top: 60%; right: 25%;">🎤</div>
+        <div class="music-particle floating delay-5" style="bottom: 20%; right: 10%;">🎸</div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                Découvrez les talents musicaux du Cameroun
+                Découvrez les talents musicaux du <span class="cameroun-highlight">CM</span>
             </h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                TalentZik connecte les artistes musicaux camerounais avec les organisateurs d'événements. 
+            
+            <!-- Barres d'ondes sonores -->
+            <div class="flex justify-center mb-6">
+                <div class="sound-waves">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+            </div>
+            
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"> 
                 Trouvez l'artiste parfait pour votre événement ou faites-vous connaître en tant qu'artiste.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{% url 'artists:search' %}" class="bg-white text-primary-500 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold text-lg transition duration-300">
+                <a href="{% url 'artists:search' %}" class="bg-white text-primary-500 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold text-lg transition duration-300 pulsing">
                     <i class="fas fa-search mr-2"></i>
                     Trouver un artiste
                 </a>
-                <a href="{% url 'accounts:register' %}" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-500 px-8 py-3 rounded-lg font-semibold text-lg transition duration-300">
+                <a href="{% url 'accounts:register' %}" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-500 px-8 py-3 rounded-lg font-semibold text-lg transition duration-300 hover-lift">
                     <i class="fas fa-user-plus mr-2"></i>
                     Devenir membre
                 </a>
@@ -28,123 +183,200 @@
     </div>
 </div>
 
-<!-- Features Section -->
-<div class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Features Section avec animations -->
+<div class="py-16 bg-white relative overflow-hidden">
+    <!-- Forme organique en arrière-plan -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-200 to-pink-200 blob opacity-20"></div>
+    <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-br from-purple-200 to-blue-200 blob opacity-20" style="animation-delay: -4s;"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4 fade-in-up">
                 Pourquoi choisir TalentZik ?
             </h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto fade-in-up delay-1">
                 Notre plateforme facilite la mise en relation entre artistes et organisateurs d'événements au Cameroun.
             </p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Feature 1 -->
-            <div class="text-center p-6">
-                <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-users text-primary-500 text-2xl"></i>
+            <div class="text-center p-6 hover-lift fade-in-up delay-1">
+                <div class="bg-gradient-to-br from-orange-400 to-pink-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-white text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Mise en relation directe</h3>
                 <p class="text-gray-600">
-                    Contactez directement les artistes via WhatsApp pour organiser vos événements rapidement.
+                    Contactez directement les artistes via WhatsApp pour organiser vos événements rapidement et efficacement.
                 </p>
             </div>
             
             <!-- Feature 2 -->
-            <div class="text-center p-6">
-                <div class="bg-secondary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-star text-secondary-500 text-2xl"></i>
+            <div class="text-center p-6 hover-lift fade-in-up delay-2">
+                <div class="bg-gradient-to-br from-purple-400 to-blue-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-star text-white text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Système d'avis</h3>
                 <p class="text-gray-600">
-                    Consultez les avis et notes des autres organisateurs pour faire le meilleur choix.
+                    Consultez les avis et notes des autres organisateurs pour faire le meilleur choix pour vos événements.
                 </p>
             </div>
             
             <!-- Feature 3 -->
-            <div class="text-center p-6">
-                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-music text-green-500 text-2xl"></i>
+            <div class="text-center p-6 hover-lift fade-in-up delay-3">
+                <div class="bg-gradient-to-br from-green-400 to-teal-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-music text-white text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Portfolio multimédia</h3>
                 <p class="text-gray-600">
-                    Découvrez les talents à travers leurs portfolios audio, vidéo et photos.
+                    Découvrez les talents à travers leurs portfolios audio, vidéo et photos de qualité professionnelle.
                 </p>
+            </div>
+        </div>
+        
+        <!-- Section Vidéo de Présentation -->
+        <div class="mt-16 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4 fade-in-up">
+                    Découvrez TalentZik en vidéo
+                </h3>
+                <p class="text-lg text-gray-600 mb-8 fade-in-up delay-1">
+                    Écoutez ce que nos artistes disent de la plateforme
+                </p>
+                
+                <!-- Container vidéo responsive -->
+                <div class="relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-8 shadow-lg fade-in-up delay-2">
+                    <div class="aspect-video bg-gray-800 rounded-xl overflow-hidden relative">
+                        <!-- Vidéo YouTube intégrée -->
+                        <iframe 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/sbTslT6jzqM" 
+                            title="Présentation TalentZik" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Categories Section -->
-<div class="py-16 bg-gray-50">
+<!-- Genres musicaux avec effets dynamiques -->
+<div class="py-16 bg-gradient-to-br from-gray-900 to-purple-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            <h2 class="text-3xl font-bold mb-4 fade-in-up">
                 Genres musicaux populaires
             </h2>
-            <p class="text-lg text-gray-600">
+            <p class="text-lg text-gray-300 fade-in-up delay-1">
                 Explorez la richesse de la musique camerounaise et africaine
             </p>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {% for genre in popular_genres %}
-                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
-                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
-                    <h4 class="font-semibold text-gray-900">{{ genre }}</h4>
+                <div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur rounded-xl p-4 text-center hover-lift border border-white/20 fade-in-up delay-{{ forloop.counter }}">
+                    <i class="fas fa-music text-orange-400 text-3xl mb-2"></i>
+                    <h4 class="font-semibold">{{ genre }}</h4>
                 </div>
             {% empty %}
-                <!-- Genres par défaut si pas de données -->
-                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
-                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
-                    <h4 class="font-semibold text-gray-900">Makossa</h4>
+                <!-- Genres par défaut avec animations -->
+                <div class="bg-gradient-to-br from-orange-500/20 to-pink-500/20 backdrop-blur rounded-xl p-4 text-center hover-lift border border-orange-500/30 fade-in-up delay-1">
+                    <i class="fas fa-music text-orange-400 text-3xl mb-2"></i>
+                    <h4 class="font-semibold">🎵 Makossa</h4>
                 </div>
-                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
-                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
-                    <h4 class="font-semibold text-gray-900">Bikutsi</h4>
+                <div class="bg-gradient-to-br from-purple-500/20 to-blue-500/20 backdrop-blur rounded-xl p-4 text-center hover-lift border border-purple-500/30 fade-in-up delay-2">
+                    <i class="fas fa-drum text-purple-400 text-3xl mb-2"></i>
+                    <h4 class="font-semibold">🥁 Bikutsi</h4>
                 </div>
-                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
-                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
-                    <h4 class="font-semibold text-gray-900">Afrobeat</h4>
+                <div class="bg-gradient-to-br from-green-500/20 to-teal-500/20 backdrop-blur rounded-xl p-4 text-center hover-lift border border-green-500/30 fade-in-up delay-3">
+                    <i class="fas fa-guitar text-green-400 text-3xl mb-2"></i>
+                    <h4 class="font-semibold">🎸 Afrobeat</h4>
                 </div>
-                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
-                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
-                    <h4 class="font-semibold text-gray-900">Gospel</h4>
+                <div class="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 backdrop-blur rounded-xl p-4 text-center hover-lift border border-yellow-500/30 fade-in-up delay-4">
+                    <i class="fas fa-cross text-yellow-400 text-3xl mb-2"></i>
+                    <h4 class="font-semibold">✝️ Gospel</h4>
                 </div>
-                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
-                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
-                    <h4 class="font-semibold text-gray-900">Hip-hop</h4>
+                <div class="bg-gradient-to-br from-red-500/20 to-pink-500/20 backdrop-blur rounded-xl p-4 text-center hover-lift border border-red-500/30 fade-in-up delay-5">
+                    <i class="fas fa-microphone text-red-400 text-3xl mb-2"></i>
+                    <h4 class="font-semibold">🎤 Hip-hop</h4>
                 </div>
-                <div class="bg-white rounded-lg p-4 text-center hover:shadow-md transition duration-300">
-                    <i class="fas fa-music text-primary-500 text-2xl mb-2"></i>
-                    <h4 class="font-semibold text-gray-900">Jazz</h4>
+                <div class="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 backdrop-blur rounded-xl p-4 text-center hover-lift border border-blue-500/30 fade-in-up delay-6">
+                    <i class="fas fa-saxophone text-blue-400 text-3xl mb-2"></i>
+                    <h4 class="font-semibold">🎷 Jazz</h4>
                 </div>
             {% endfor %}
         </div>
     </div>
 </div>
 
-<!-- CTA Section -->
-<div class="bg-gray-900 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl font-bold mb-4">
+<!-- CTA Section dynamique -->
+<div class="bg-gradient-to-r from-gray-900 via-purple-900 to-violet-900 text-white py-16 relative overflow-hidden">
+    <!-- Effets de background -->
+    <div class="absolute inset-0">
+        <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-orange-500/20 rounded-full blur-xl floating"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-24 h-24 bg-pink-500/20 rounded-full blur-xl floating delay-2"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h2 class="text-3xl font-bold mb-4 fade-in-up">
             Prêt à découvrir les talents du Cameroun ?
         </h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto">
-            Rejoignez TalentZik dès aujourd'hui et connectez-vous avec la scène musicale camerounaise.
+        <p class="text-xl mb-8 max-w-2xl mx-auto fade-in-up delay-1">
+            Rejoignez TalentZik dès aujourd'hui et connectez-vous avec la scène musicale camerounaise !
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{% url 'accounts:artist_register' %}" class="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold text-lg transition duration-300">
+            <a href="{% url 'accounts:artist_register' %}" class="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition duration-300 hover-lift">
                 <i class="fas fa-microphone mr-2"></i>
                 Je suis un artiste
             </a>
-            <a href="{% url 'accounts:organizer_register' %}" class="bg-secondary-500 hover:bg-secondary-600 text-white px-8 py-3 rounded-lg font-semibold text-lg transition duration-300">
+            <a href="{% url 'accounts:organizer_register' %}" class="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition duration-300 hover-lift">
                 <i class="fas fa-calendar-alt mr-2"></i>
                 Je suis un organisateur
             </a>
         </div>
     </div>
 </div>
+
+<!-- JavaScript pour animations -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation d'apparition au scroll
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right');
+        
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0) translateX(0)';
+            }
+        });
+    };
+    
+    // Initialiser les éléments animés
+    const initAnimatedElements = () => {
+        const elements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right');
+        elements.forEach(element => {
+            element.style.opacity = '0';
+            if (element.classList.contains('slide-in-left')) {
+                element.style.transform = 'translateX(-50px)';
+            } else if (element.classList.contains('slide-in-right')) {
+                element.style.transform = 'translateX(50px)';
+            } else {
+                element.style.transform = 'translateY(30px)';
+            }
+            element.style.transition = 'all 0.8s ease';
+        });
+    };
+    
+    initAnimatedElements();
+    animateOnScroll();
+    window.addEventListener('scroll', animateOnScroll);
+});
+</script>
 {% endblock %} 

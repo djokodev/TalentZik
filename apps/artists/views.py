@@ -57,6 +57,15 @@ class ArtistSearchView(TemplateView):
 
     template_name = "artists/search.html"
 
+    def get_client_ip(self):
+        """Récupère l'IP du client"""
+        x_forwarded_for = self.request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(",")[0]
+        else:
+            ip = self.request.META.get("REMOTE_ADDR")
+        return ip
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -82,6 +91,7 @@ class ArtistSearchView(TemplateView):
                         if self.request.user.is_authenticated
                         else None
                     ),
+                    user_ip=self.get_client_ip(),
                     results_count=queryset.count(),
                 )
 

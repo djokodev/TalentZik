@@ -1,96 +1,225 @@
 {% extends 'base.html' %}
+{% load media_filters %}
 
 {% block title %}Mon Portfolio - TalentZik{% endblock %}
+
+{% block extra_css %}
+<style>
+.file-item {
+    transition: all 0.3s ease;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.file-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.file-item.selected {
+    border-color: #f97316;
+    background-color: #fff7ed;
+}
+
+.file-checkbox {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+}
+
+.delete-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    padding: 8px;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.file-item:hover .delete-overlay {
+    opacity: 1;
+}
+
+.photo-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.photo-modal img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.2s ease;
+}
+
+.close-modal:hover {
+    transform: scale(1.1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Amélioration des boutons de suppression */
+.file-item button {
+    position: relative;
+    z-index: 10;
+}
+
+.file-item button:hover {
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <div class="bg-gray-50 min-h-screen py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- En-tête avec navigation -->
+        <!-- En-tête -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
             <div class="px-6 py-4 border-b border-gray-200">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
-                        <i class="fas fa-folder-open text-orange-600 text-xl"></i>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-folder-open text-orange-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Mon Portfolio</h1>
+                            <p class="text-gray-600">Gérez vos fichiers multimédias et documents</p>
+                        </div>
                     </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-900">Mon Portfolio</h1>
-                        <p class="text-gray-600">Gérez vos fichiers multimédias et documents</p>
+                    
+                    <!-- Actions groupées -->
+                    <div class="flex items-center space-x-4">
+                        <div id="bulk-actions" class="hidden">
+                            <button onclick="deleteSelected()" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                                <i class="fas fa-trash mr-2"></i>
+                                Supprimer (<span id="selected-count">0</span>)
+                            </button>
+                        </div>
+                        <button onclick="toggleSelectMode()" id="select-mode-btn" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-check-square mr-2"></i>
+                            Mode sélection
+                        </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Statistiques améliorées -->
+            <!-- Statistiques -->
             <div class="px-6 py-6 bg-gradient-to-r from-orange-50 to-red-50">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">
                     <i class="fas fa-chart-pie mr-2 text-orange-600"></i>
                     Aperçu de votre portfolio
                 </h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-white rounded-lg p-4 shadow-sm border border-orange-100 hover:shadow-md transition-shadow">
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-orange-100">
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-3">
                                 <i class="fas fa-music text-orange-600"></i>
                             </div>
                             <div>
-                                <div class="text-2xl font-bold text-gray-900">{{ user.artist_profile.audio_files.count }}</div>
+                                <div class="text-2xl font-bold text-gray-900">{{ audio_files.count }}</div>
                                 <div class="text-sm text-gray-500">Audio / 3</div>
                             </div>
                         </div>
                         <div class="mt-2">
                             <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div class="bg-orange-500 h-2 rounded-full" style="width: {% widthratio user.artist_profile.audio_files.count 3 100 %}%"></div>
+                                <div class="bg-orange-500 h-2 rounded-full" style="width: {% widthratio audio_files.count 3 100 %}%"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-white rounded-lg p-4 shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-blue-100">
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                                 <i class="fas fa-video text-blue-600"></i>
                             </div>
                             <div>
-                                <div class="text-2xl font-bold text-gray-900">{{ user.artist_profile.video_files.count }}</div>
+                                <div class="text-2xl font-bold text-gray-900">{{ video_files.count }}</div>
                                 <div class="text-sm text-gray-500">Vidéo / 2</div>
                             </div>
                         </div>
                         <div class="mt-2">
                             <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div class="bg-blue-500 h-2 rounded-full" style="width: {% widthratio user.artist_profile.video_files.count 2 100 %}%"></div>
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: {% widthratio video_files.count 2 100 %}%"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-white rounded-lg p-4 shadow-sm border border-green-100 hover:shadow-md transition-shadow">
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-green-100">
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
                                 <i class="fas fa-camera text-green-600"></i>
                             </div>
                             <div>
-                                <div class="text-2xl font-bold text-gray-900">{{ user.artist_profile.photo_files.count }}</div>
+                                <div class="text-2xl font-bold text-gray-900">{{ photo_files.count }}</div>
                                 <div class="text-sm text-gray-500">Photos / 6</div>
                             </div>
                         </div>
                         <div class="mt-2">
                             <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div class="bg-green-500 h-2 rounded-full" style="width: {% widthratio user.artist_profile.photo_files.count 6 100 %}%"></div>
+                                <div class="bg-green-500 h-2 rounded-full" style="width: {% widthratio photo_files.count 6 100 %}%"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-white rounded-lg p-4 shadow-sm border border-purple-100 hover:shadow-md transition-shadow">
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-purple-100">
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
                                 <i class="fas fa-file-alt text-purple-600"></i>
                             </div>
                             <div>
-                                <div class="text-2xl font-bold text-gray-900">{{ user.artist_profile.documents.count }}</div>
+                                <div class="text-2xl font-bold text-gray-900">{{ document_files.count }}</div>
                                 <div class="text-sm text-gray-500">Documents / 5</div>
                             </div>
                         </div>
                         <div class="mt-2">
                             <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div class="bg-purple-500 h-2 rounded-full" style="width: {% widthratio user.artist_profile.documents.count 5 100 %}%"></div>
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: {% widthratio document_files.count 5 100 %}%"></div>
                             </div>
                         </div>
                     </div>
@@ -100,21 +229,21 @@
             <!-- Navigation par onglets -->
             <div class="px-6 py-3 bg-gray-50">
                 <nav class="flex space-x-8">
-                    <button class="whitespace-nowrap py-2 px-1 border-b-2 border-orange-500 text-orange-600 font-medium text-sm tab-button active" data-tab="audio">
+                    <button class="tab-button active" data-tab="audio">
                         <i class="fas fa-music mr-2"></i>
-                        Audio ({{ user.artist_profile.audio_files.count }})
+                        Audio ({{ audio_files.count }})
                     </button>
-                    <button class="whitespace-nowrap py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm tab-button" data-tab="video">
+                    <button class="tab-button" data-tab="video">
                         <i class="fas fa-video mr-2"></i>
-                        Vidéo ({{ user.artist_profile.video_files.count }})
+                        Vidéo ({{ video_files.count }})
                     </button>
-                    <button class="whitespace-nowrap py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm tab-button" data-tab="photos">
+                    <button class="tab-button" data-tab="photos">
                         <i class="fas fa-camera mr-2"></i>
-                        Photos ({{ user.artist_profile.photo_files.count }})
+                        Photos ({{ photo_files.count }})
                     </button>
-                    <button class="whitespace-nowrap py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm tab-button" data-tab="documents">
+                    <button class="tab-button" data-tab="documents">
                         <i class="fas fa-file-alt mr-2"></i>
-                        Documents ({{ user.artist_profile.documents.count }})
+                        Documents ({{ document_files.count }})
                     </button>
                 </nav>
             </div>
@@ -124,8 +253,8 @@
         {% if messages %}
             {% for message in messages %}
                 <div class="mb-6 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-50 border border-green-200 text-green-800{% elif message.tags == 'error' %}bg-red-50 border border-red-200 text-red-800{% else %}bg-blue-50 border border-blue-200 text-blue-800{% endif %}">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 mr-3">
                             {% if message.tags == 'success' %}
                                 <i class="fas fa-check-circle"></i>
                             {% elif message.tags == 'error' %}
@@ -134,448 +263,584 @@
                                 <i class="fas fa-info-circle"></i>
                             {% endif %}
                         </div>
-                        <div class="ml-3">
-                            {{ message }}
-                        </div>
+                        <div>{{ message }}</div>
                     </div>
                 </div>
             {% endfor %}
         {% endif %}
 
         <!-- Contenu des onglets -->
-        <div class="space-y-8">
-            
-            <!-- Onglet Audio -->
-            <div id="audio-tab" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                        <h2 class="text-lg font-semibold text-gray-900">
-                            <i class="fas fa-music mr-2 text-orange-600"></i>
-                            Fichiers Audio
-                        </h2>
-                        {% if user.artist_profile.audio_files.count < 3 %}
-                            <a href="{% url 'media_files:upload_audio' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
-                                <i class="fas fa-plus mr-2"></i>
-                                Ajouter un audio
-                            </a>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="divide-y divide-gray-200">
-                        {% for audio in user.artist_profile.audio_files.all %}
-                            <div class="p-6">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex-1">
-                                        <h3 class="font-medium text-gray-900">{{ audio.title }}</h3>
-                                        {% if audio.description %}
-                                            <p class="text-sm text-gray-600 mt-1">{{ audio.description }}</p>
-                                        {% endif %}
-                                        <div class="mt-3">
-                                            <audio controls class="w-full max-w-md">
-                                                <source src="{{ audio.file.url }}" type="audio/mpeg">
-                                                Votre navigateur ne supporte pas l'élément audio.
-                                            </audio>
-                                        </div>
-                                        <p class="text-xs text-gray-500 mt-2">
-                                            Ajouté le {{ audio.upload_date|date:"d M Y à H:i" }}
-                                        </p>
-                                    </div>
-                                    
-                                    <div class="flex items-center space-x-3">
-                                        <a href="{% url 'media_files:edit_audio' audio.id %}" class="text-orange-600 hover:text-orange-800">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="{% url 'media_files:delete_audio' audio.id %}" class="text-red-600 hover:text-red-800" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier audio ?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% empty %}
-                            <div class="p-8 text-center">
-                                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-music text-gray-400 text-2xl"></i>
-                                </div>
-                                <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun fichier audio</h3>
-                                <p class="text-gray-500 mb-4">Ajoutez vos premiers extraits musicaux</p>
-                                <a href="{% url 'media_files:upload_audio' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
-                                    <i class="fas fa-plus mr-2"></i>
-                                    Ajouter un audio
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Onglet Vidéo -->
-            <div id="video-tab" class="tab-content hidden">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                        <h2 class="text-lg font-semibold text-gray-900">
-                            <i class="fas fa-video mr-2 text-orange-600"></i>
-                            Fichiers Vidéo
-                        </h2>
-                        {% if user.artist_profile.video_files.count < 2 %}
-                            <a href="{% url 'media_files:upload_video' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
-                                <i class="fas fa-plus mr-2"></i>
-                                Ajouter une vidéo
-                            </a>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="divide-y divide-gray-200">
-                        {% for video in user.artist_profile.video_files.all %}
-                            <div class="p-6">
-                                <div class="flex items-start justify-between">
-                                    <div class="flex-1">
-                                        <h3 class="font-medium text-gray-900">{{ video.title }}</h3>
-                                        {% if video.description %}
-                                            <p class="text-sm text-gray-600 mt-1">{{ video.description }}</p>
-                                        {% endif %}
-                                        <div class="mt-3">
-                                            <video controls class="w-full max-w-lg rounded-lg">
-                                                <source src="{{ video.file.url }}" type="video/mp4">
-                                                Votre navigateur ne supporte pas l'élément vidéo.
-                                            </video>
-                                        </div>
-                                        <p class="text-xs text-gray-500 mt-2">
-                                            Ajouté le {{ video.upload_date|date:"d M Y à H:i" }}
-                                        </p>
-                                    </div>
-                                    
-                                    <div class="flex items-center space-x-3 ml-4">
-                                        <a href="{% url 'media_files:edit_video' video.id %}" class="text-orange-600 hover:text-orange-800">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="{% url 'media_files:delete_video' video.id %}" class="text-red-600 hover:text-red-800" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette vidéo ?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% empty %}
-                            <div class="p-8 text-center">
-                                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-video text-gray-400 text-2xl"></i>
-                                </div>
-                                <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune vidéo</h3>
-                                <p class="text-gray-500 mb-4">Partagez vos performances en vidéo</p>
-                                <a href="{% url 'media_files:upload_video' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
-                                    <i class="fas fa-plus mr-2"></i>
-                                    Ajouter une vidéo
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Onglet Photos -->
-            <div id="photos-tab" class="tab-content hidden">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                        <h2 class="text-lg font-semibold text-gray-900">
-                            <i class="fas fa-camera mr-2 text-orange-600"></i>
-                            Photos
-                        </h2>
-                        {% if user.artist_profile.photo_files.count < 6 %}
-                            <a href="{% url 'media_files:upload_photo' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
-                                <i class="fas fa-plus mr-2"></i>
-                                Ajouter une photo
-                            </a>
-                        {% endif %}
-                    </div>
-                    
-                    {% if user.artist_profile.photo_files.exists %}
-                        <div class="p-6">
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {% for photo in user.artist_profile.photo_files.all %}
-                                    <div class="photo-item group relative bg-gray-100 rounded-lg overflow-hidden aspect-square cursor-pointer hover:ring-2 hover:ring-orange-500 transition-all duration-200">
-                                        <img src="{{ photo.file.url }}" alt="{{ photo.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
-                                        
-                                        <!-- Overlay avec informations -->
-                                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-200 flex items-end">
-                                            <div class="p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-full">
-                                                <h3 class="photo-title font-medium text-sm truncate">{{ photo.title }}</h3>
-                                                {% if photo.description %}
-                                                    <p class="photo-description text-xs opacity-75 truncate">{{ photo.description }}</p>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Actions -->
-                                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                            <div class="flex items-center space-x-1">
-                                                <a href="{% url 'media_files:edit_photo' photo.id %}" class="p-1 bg-black bg-opacity-50 text-white rounded hover:bg-opacity-75" title="Modifier">
-                                                    <i class="fas fa-edit text-xs"></i>
-                                                </a>
-                                                <a href="{% url 'media_files:delete_photo' photo.id %}" class="p-1 bg-black bg-opacity-50 text-white rounded hover:bg-opacity-75" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette photo ?')">
-                                                    <i class="fas fa-trash text-xs"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Indicateur de clic pour voir en grand -->
-                                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                            <div class="w-8 h-8 bg-black bg-opacity-50 rounded-full flex items-center justify-center">
-                                                <i class="fas fa-expand text-white text-sm"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="p-8 text-center">
-                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-camera text-gray-400 text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune photo</h3>
-                            <p class="text-gray-500 mb-4">Montrez votre univers artistique en images</p>
-                            <a href="{% url 'media_files:upload_photo' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
-                                <i class="fas fa-plus mr-2"></i>
-                                Ajouter une photo
-                            </a>
-                        </div>
+        
+        <!-- Onglet Audio -->
+        <div id="tab-audio" class="tab-content">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-music mr-2 text-orange-600"></i>
+                        Fichiers Audio
+                    </h2>
+                    {% if audio_files.count < 3 %}
+                        <a href="{% url 'media_files:upload_audio' %}" class="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter un audio
+                        </a>
                     {% endif %}
                 </div>
-            </div>
-
-            <!-- Onglet Documents -->
-            <div id="documents-tab" class="tab-content hidden">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                        <h2 class="text-lg font-semibold text-gray-900">
-                            <i class="fas fa-file-alt mr-2 text-orange-600"></i>
-                            Documents
-                        </h2>
-                        {% if user.artist_profile.documents.count < 5 %}
-                            <a href="{% url 'media_files:upload_document' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
-                                <i class="fas fa-plus mr-2"></i>
-                                Ajouter un document
-                            </a>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="divide-y divide-gray-200">
-                        {% for document in user.artist_profile.documents.all %}
-                            <div class="p-6">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center flex-1">
-                                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
-                                            <i class="fas fa-file-alt text-gray-400"></i>
-                                        </div>
-                                        <div class="flex-1">
-                                            <h3 class="font-medium text-gray-900">{{ document.title }}</h3>
-                                            {% if document.description %}
-                                                <p class="text-sm text-gray-600 mt-1">{{ document.description }}</p>
-                                            {% endif %}
-                                            <p class="text-xs text-gray-500 mt-1">
-                                                Ajouté le {{ document.upload_date|date:"d M Y à H:i" }}
-                                            </p>
-                                        </div>
+                
+                {% if audio_files %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+                        {% for audio in audio_files %}
+                            <div class="file-item bg-white border border-gray-200 rounded-lg p-6" data-type="audio" data-id="{{ audio.id }}">
+                                <input type="checkbox" class="file-checkbox hidden" value="{{ audio.id }}">
+                                
+                                <div class="delete-overlay cursor-pointer" onclick="deleteFile('audio', {{ audio.id }}, '{{ audio.title|escapejs }}')">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                                
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-music text-orange-600"></i>
                                     </div>
-                                    
-                                    <div class="flex items-center space-x-3">
-                                        <a href="{{ document.file.url }}" target="_blank" class="text-orange-600 hover:text-orange-800" title="Télécharger">
-                                            <i class="fas fa-download"></i>
-                                        </a>
-                                        <a href="{% url 'media_files:edit_document' document.id %}" class="text-orange-600 hover:text-orange-800" title="Modifier">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="{% url 'media_files:delete_document' document.id %}" class="text-red-600 hover:text-red-800" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce document ?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-gray-900">{{ audio.title }}</h3>
+                                        {% if audio.duration %}
+                                            <p class="text-sm text-gray-500">{{ audio.duration|format_duration }}</p>
+                                        {% endif %}
                                     </div>
                                 </div>
-                            </div>
-                        {% empty %}
-                            <div class="p-8 text-center">
-                                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-file-alt text-gray-400 text-2xl"></i>
+                                
+                                {% if audio.description %}
+                                    <p class="text-sm text-gray-600 mb-4">{{ audio.description|truncatewords:15 }}</p>
+                                {% endif %}
+                                
+                                <div class="mb-4">
+                                    <audio controls class="w-full">
+                                        <source src="{{ audio.file.url }}" type="audio/mpeg">
+                                        Votre navigateur ne supporte pas l'élément audio.
+                                    </audio>
                                 </div>
-                                <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun document</h3>
-                                <p class="text-gray-500 mb-4">Ajoutez vos documents professionnels</p>
-                                <a href="{% url 'media_files:upload_document' %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-700">
-                                    <i class="fas fa-plus mr-2"></i>
-                                    Ajouter un document
-                                </a>
+                                
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span>{{ audio.upload_date|date:"d/m/Y" }}</span>
+                                    <a href="{% url 'media_files:edit_audio' audio.id %}" class="text-orange-600 hover:text-orange-800">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
+                {% else %}
+                    <div class="p-12 text-center">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-music text-gray-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun fichier audio</h3>
+                        <p class="text-gray-500 mb-4">Ajoutez vos premiers extraits musicaux</p>
+                        <a href="{% url 'media_files:upload_audio' %}" class="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter un audio
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Onglet Vidéo -->
+        <div id="tab-video" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-video mr-2 text-blue-600"></i>
+                        Fichiers Vidéo
+                    </h2>
+                    {% if video_files.count < 2 %}
+                        <a href="{% url 'media_files:upload_video' %}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter une vidéo
+                        </a>
+                    {% endif %}
                 </div>
+                
+                {% if video_files %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+                        {% for video in video_files %}
+                            <div class="file-item bg-white border border-gray-200 rounded-lg p-6" data-type="video" data-id="{{ video.id }}">
+                                <input type="checkbox" class="file-checkbox hidden" value="{{ video.id }}">
+                                
+                                <div class="delete-overlay cursor-pointer" onclick="deleteFile('video', {{ video.id }}, '{{ video.title|escapejs }}')">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                                
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-video text-blue-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-gray-900">{{ video.title }}</h3>
+                                        {% if video.duration %}
+                                            <p class="text-sm text-gray-500">{{ video.duration|format_duration }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                {% if video.description %}
+                                    <p class="text-sm text-gray-600 mb-4">{{ video.description|truncatewords:15 }}</p>
+                                {% endif %}
+                                
+                                <div class="mb-4">
+                                    {% if video.file %}
+                                        <video controls class="w-full rounded-lg" preload="metadata">
+                                            <source src="{{ video.file.url }}" type="video/mp4">
+                                            Votre navigateur ne supporte pas l'élément vidéo.
+                                        </video>
+                                    {% elif video.video_url %}
+                                        <div class="bg-gray-100 rounded-lg p-4 text-center">
+                                            <i class="fas fa-external-link-alt text-blue-600 text-2xl mb-2"></i>
+                                            <p class="text-sm text-gray-600 mb-2">Lien externe</p>
+                                            <a href="{{ video.video_url }}" target="_blank" class="inline-flex items-center px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                                <i class="fas fa-play mr-2"></i>
+                                                Voir la vidéo
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span>{{ video.upload_date|date:"d/m/Y" }}</span>
+                                    <a href="{% url 'media_files:edit_video' video.id %}" class="text-blue-600 hover:text-blue-800">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="p-12 text-center">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-video text-gray-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune vidéo</h3>
+                        <p class="text-gray-500 mb-4">Ajoutez vos clips ou liens YouTube</p>
+                        <a href="{% url 'media_files:upload_video' %}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter une vidéo
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Onglet Photos -->
+        <div id="tab-photos" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-camera mr-2 text-green-600"></i>
+                        Photos
+                    </h2>
+                    {% if photo_files.count < 6 %}
+                        <a href="{% url 'media_files:upload_photo' %}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter une photo
+                        </a>
+                    {% endif %}
+                </div>
+                
+                {% if photo_files %}
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6">
+                        {% for photo in photo_files %}
+                            <div class="file-item bg-white border border-gray-200 rounded-lg overflow-hidden group relative" data-type="photo" data-id="{{ photo.id }}">
+                                <!-- Checkbox pour sélection multiple -->
+                                <input type="checkbox" class="file-checkbox hidden absolute top-2 left-2 z-30 w-4 h-4" value="{{ photo.id }}">
+                                
+                                <!-- Image -->
+                                <div class="aspect-square overflow-hidden relative">
+                                    <img src="{{ photo.file.url }}" alt="{{ photo.title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                    
+                                    <!-- Overlay avec boutons - Simple et efficace -->
+                                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                                        <!-- Bouton d'agrandissement au centre -->
+                                        <button onclick="openPhotoModal('{{ photo.file.url }}', '{{ photo.title|escapejs }}')" 
+                                                class="bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-800 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110">
+                                            <i class="fas fa-search-plus text-lg"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Bouton de suppression - Positionné clairement -->
+                                    <button onclick="deleteFile('photo', {{ photo.id }}, '{{ photo.title|escapejs }}')" 
+                                            class="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:scale-110">
+                                        <i class="fas fa-trash text-sm"></i>
+                                    </button>
+                                </div>
+                                
+                                <!-- Informations -->
+                                <div class="p-3">
+                                    <h3 class="font-medium text-gray-900 truncate text-sm">{{ photo.title }}</h3>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 mt-1">
+                                        <span>{{ photo.upload_date|date:"d/m/Y" }}</span>
+                                        {% if photo.is_profile_picture %}
+                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">⭐ Profil</span>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Actions supplémentaires dans les informations -->
+                                    <div class="mt-2 flex gap-2">
+                                        <a href="{% url 'media_files:edit_photo' photo.id %}" 
+                                           class="flex-1 text-center px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs hover:bg-blue-100 transition-colors">
+                                            <i class="fas fa-edit mr-1"></i>Modifier
+                                        </a>
+                                        <button onclick="deleteFile('photo', {{ photo.id }}, '{{ photo.title|escapejs }}')"
+                                                class="flex-1 px-2 py-1 bg-red-50 text-red-700 rounded text-xs hover:bg-red-100 transition-colors">
+                                            <i class="fas fa-trash mr-1"></i>Supprimer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="p-12 text-center">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-camera text-gray-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune photo</h3>
+                        <p class="text-gray-500 mb-4">Partagez vos photos d'artiste</p>
+                        <a href="{% url 'media_files:upload_photo' %}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter une photo
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Onglet Documents -->
+        <div id="tab-documents" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-file-alt mr-2 text-purple-600"></i>
+                        Documents
+                    </h2>
+                    {% if document_files.count < 5 %}
+                        <a href="{% url 'media_files:upload_document' %}" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter un document
+                        </a>
+                    {% endif %}
+                </div>
+                
+                {% if document_files %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+                        {% for document in document_files %}
+                            <div class="file-item bg-white border border-gray-200 rounded-lg p-6" data-type="document" data-id="{{ document.id }}">
+                                <input type="checkbox" class="file-checkbox hidden" value="{{ document.id }}">
+                                
+                                <div class="delete-overlay cursor-pointer" onclick="deleteFile('document', {{ document.id }}, '{{ document.title|escapejs }}')">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                                
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-file-pdf text-purple-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-gray-900">{{ document.title }}</h3>
+                                        <p class="text-sm text-gray-500">{{ document.get_document_type_display }}</p>
+                                    </div>
+                                </div>
+                                
+                                {% if document.description %}
+                                    <p class="text-sm text-gray-600 mb-4">{{ document.description|truncatewords:15 }}</p>
+                                {% endif %}
+                                
+                                <div class="mb-4">
+                                    <a href="{{ document.file.url }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors w-full justify-center">
+                                        <i class="fas fa-download mr-2"></i>
+                                        Télécharger
+                                    </a>
+                                </div>
+                                
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span>{{ document.upload_date|date:"d/m/Y" }}</span>
+                                    <a href="{% url 'media_files:edit_document' document.id %}" class="text-purple-600 hover:text-purple-800">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="p-12 text-center">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-file-alt text-gray-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun document</h3>
+                        <p class="text-gray-500 mb-4">Ajoutez vos documents professionnels</p>
+                        <a href="{% url 'media_files:upload_document' %}" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter un document
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modale pour afficher les photos en grand -->
-<div id="photoModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
-    <div class="relative max-w-4xl max-h-full">
-        <button id="closeModal" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
-            <i class="fas fa-times text-2xl"></i>
-        </button>
-        <button id="prevPhoto" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10">
-            <i class="fas fa-chevron-left text-3xl"></i>
-        </button>
-        <button id="nextPhoto" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10">
-            <i class="fas fa-chevron-right text-3xl"></i>
-        </button>
-        <img id="modalImage" src="" alt="" class="max-w-full max-h-full object-contain">
-        <div id="photoInfo" class="absolute bottom-4 left-4 right-4 text-white bg-black bg-opacity-50 p-3 rounded">
-            <h3 id="photoTitle" class="font-medium"></h3>
-            <p id="photoDescription" class="text-sm opacity-75"></p>
-            <p id="photoIndex" class="text-xs opacity-50 mt-1"></p>
-        </div>
+<!-- Modal pour agrandissement des photos -->
+<div id="photo-modal" class="photo-modal">
+    <span class="close-modal" onclick="closePhotoModal()">&times;</span>
+    <div class="photo-modal-content">
+        <img id="modal-photo" src="" alt="">
     </div>
 </div>
 
 <script>
+let selectMode = false;
+let selectedFiles = new Set();
+
+// Gestion des onglets
 document.addEventListener('DOMContentLoaded', function() {
-    // Gestion des onglets
+    // Onglets
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
     
-    function showTab(tabName) {
-        // Réinitialiser tous les boutons
-        tabButtons.forEach(btn => {
-            btn.classList.remove('border-orange-500', 'text-orange-600', 'active');
-            btn.classList.add('border-transparent', 'text-gray-500');
-        });
-        
-        // Masquer tous les contenus
-        tabContents.forEach(content => {
-            content.classList.add('hidden');
-        });
-        
-        // Activer le bouton sélectionné
-        const activeButton = document.querySelector(`[data-tab="${tabName}"]`);
-        if (activeButton) {
-            activeButton.classList.remove('border-transparent', 'text-gray-500');
-            activeButton.classList.add('border-orange-500', 'text-orange-600', 'active');
-        }
-        
-        // Afficher le contenu sélectionné
-        const targetContent = document.getElementById(tabName + '-tab');
-        if (targetContent) {
-            targetContent.classList.remove('hidden');
-        }
-    }
-    
     tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const tabName = this.getAttribute('data-tab');
-            showTab(tabName);
+        button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+            
+            // Retirer la classe active de tous les boutons et contenus
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.add('hidden'));
+            
+            // Activer l'onglet sélectionné
+            button.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
         });
     });
+});
+
+// Mode sélection
+function toggleSelectMode() {
+    selectMode = !selectMode;
+    const btn = document.getElementById('select-mode-btn');
+    const checkboxes = document.querySelectorAll('.file-checkbox');
+    const bulkActions = document.getElementById('bulk-actions');
     
-    // Galerie photo
-    const photoModal = document.getElementById('photoModal');
-    if (photoModal) {
-        const modalImage = document.getElementById('modalImage');
-        const photoTitle = document.getElementById('photoTitle');
-        const photoDescription = document.getElementById('photoDescription');
-        const photoIndex = document.getElementById('photoIndex');
-        const closeModal = document.getElementById('closeModal');
-        const prevPhoto = document.getElementById('prevPhoto');
-        const nextPhoto = document.getElementById('nextPhoto');
-        
-        let currentPhotos = [];
-        let currentIndex = 0;
-        
-        // Collecter toutes les photos
-        const photoElements = document.querySelectorAll('.photo-item');
-        photoElements.forEach((element, index) => {
-            const img = element.querySelector('img');
-            const title = element.querySelector('.photo-title')?.textContent || 'Photo sans titre';
-            const description = element.querySelector('.photo-description')?.textContent || '';
-            
-            currentPhotos.push({
-                src: img.src,
-                title: title,
-                description: description
-            });
-            
-            // Ajouter event listener pour ouvrir la modale
-            element.addEventListener('click', function(e) {
-                // Empêcher le clic si c'est sur un bouton d'action
-                if (e.target.closest('a')) {
-                    return;
-                }
-                openPhotoModal(index);
-            });
+    if (selectMode) {
+        btn.innerHTML = '<i class="fas fa-times mr-2"></i>Annuler';
+        btn.classList.add('bg-red-100', 'text-red-700', 'border-red-300');
+        checkboxes.forEach(cb => cb.classList.remove('hidden'));
+        bulkActions.classList.remove('hidden');
+    } else {
+        btn.innerHTML = '<i class="fas fa-check-square mr-2"></i>Mode sélection';
+        btn.classList.remove('bg-red-100', 'text-red-700', 'border-red-300');
+        checkboxes.forEach(cb => {
+            cb.classList.add('hidden');
+            cb.checked = false;
         });
+        bulkActions.classList.add('hidden');
+        selectedFiles.clear();
+        updateSelectedCount();
+        document.querySelectorAll('.file-item').forEach(item => item.classList.remove('selected'));
+    }
+}
+
+// Gestion de la sélection
+document.addEventListener('change', function(e) {
+    if (e.target.classList.contains('file-checkbox')) {
+        const fileId = e.target.value;
+        const fileItem = e.target.closest('.file-item');
         
-        function openPhotoModal(index) {
-            currentIndex = index;
-            updateModalContent();
-            photoModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+        if (e.target.checked) {
+            selectedFiles.add(fileId);
+            fileItem.classList.add('selected');
+        } else {
+            selectedFiles.delete(fileId);
+            fileItem.classList.remove('selected');
         }
         
-        function closePhotoModal() {
-            photoModal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-        
-        function updateModalContent() {
-            if (currentPhotos.length === 0) return;
-            
-            const photo = currentPhotos[currentIndex];
-            modalImage.src = photo.src;
-            modalImage.alt = photo.title;
-            photoTitle.textContent = photo.title;
-            photoDescription.textContent = photo.description;
-            photoIndex.textContent = `Photo ${currentIndex + 1} sur ${currentPhotos.length}`;
-            
-            // Gérer les boutons navigation
-            prevPhoto.style.display = currentIndex > 0 ? 'block' : 'none';
-            nextPhoto.style.display = currentIndex < currentPhotos.length - 1 ? 'block' : 'none';
-        }
-        
-        function showPrevPhoto() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateModalContent();
-            }
-        }
-        
-        function showNextPhoto() {
-            if (currentIndex < currentPhotos.length - 1) {
-                currentIndex++;
-                updateModalContent();
-            }
-        }
-        
-        // Event listeners pour la modale
-        closeModal.addEventListener('click', closePhotoModal);
-        prevPhoto.addEventListener('click', showPrevPhoto);
-        nextPhoto.addEventListener('click', showNextPhoto);
-        
-        // Fermer avec Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !photoModal.classList.contains('hidden')) {
-                closePhotoModal();
-            }
-            if (e.key === 'ArrowLeft' && !photoModal.classList.contains('hidden')) {
-                showPrevPhoto();
-            }
-            if (e.key === 'ArrowRight' && !photoModal.classList.contains('hidden')) {
-                showNextPhoto();
-            }
-        });
-        
-        // Fermer en cliquant sur le fond
-        photoModal.addEventListener('click', function(e) {
-            if (e.target === photoModal) {
-                closePhotoModal();
-            }
-        });
+        updateSelectedCount();
+    }
+});
+
+function updateSelectedCount() {
+    document.getElementById('selected-count').textContent = selectedFiles.size;
+}
+
+// Suppression individuelle
+function deleteFile(type, id, title) {
+    // Empêcher la propagation d'événements
+    event.stopPropagation();
+    
+    if (selectMode) {
+        return false; // Ne pas supprimer en mode sélection
     }
     
-    // Afficher le premier onglet par défaut
-    showTab('audio');
+    // Confirmation avec SweetAlert2
+    Swal.fire({
+        title: 'Supprimer cette photo ?',
+        html: `
+            <div class="text-center">
+                <div class="mb-4">
+                    <i class="fas fa-exclamation-triangle text-yellow-500 text-4xl"></i>
+                </div>
+                <p class="text-gray-700 mb-2">Voulez-vous vraiment supprimer :</p>
+                <p class="font-semibold text-gray-900">"${title}"</p>
+                <p class="text-sm text-red-600 mt-3">⚠️ Cette action est irréversible !</p>
+            </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: '🗑️ Supprimer définitivement',
+        cancelButtonText: '❌ Annuler',
+        buttonsStyling: true,
+        customClass: {
+            confirmButton: 'btn btn-danger',
+            cancelButton: 'btn btn-secondary'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Afficher un loader pendant la suppression
+            Swal.fire({
+                title: 'Suppression en cours...',
+                html: 'Veuillez patienter pendant la suppression de la photo.',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // Rediriger vers l'URL de suppression
+            window.location.href = `/media/delete/${type}/${id}/`;
+        }
+    });
+    
+    return false;
+}
+
+// Suppression groupée
+function deleteSelected() {
+    if (selectedFiles.size === 0) return;
+    
+    Swal.fire({
+        title: 'Supprimer les fichiers sélectionnés ?',
+        text: `Voulez-vous vraiment supprimer ${selectedFiles.size} fichier(s) ? Cette action est irréversible.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Supprimer tout',
+        cancelButtonText: 'Annuler'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Créer un formulaire pour envoyer les IDs
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{% url "media_files:my_files" %}';
+            
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+            if (csrfToken) {
+                form.appendChild(csrfToken.cloneNode());
+            }
+            
+            const actionInput = document.createElement('input');
+            actionInput.type = 'hidden';
+            actionInput.name = 'action';
+            actionInput.value = 'delete';
+            form.appendChild(actionInput);
+            
+            selectedFiles.forEach(fileId => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'file_ids';
+                input.value = fileId;
+                form.appendChild(input);
+            });
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+}
+
+// Modal photo
+function openPhotoModal(src, title) {
+    // Empêcher la propagation d'événements
+    event.stopPropagation();
+    
+    if (selectMode) {
+        return false; // Empêcher l'ouverture en mode sélection
+    }
+    
+    const modal = document.getElementById('photo-modal');
+    const modalPhoto = document.getElementById('modal-photo');
+    
+    modalPhoto.src = src;
+    modalPhoto.alt = title;
+    modal.style.display = 'block';
+    
+    // Ajouter l'effet de fondu
+    setTimeout(() => {
+        modal.style.opacity = '1';
+    }, 10);
+    
+    return false;
+}
+
+function closePhotoModal() {
+    const modal = document.getElementById('photo-modal');
+    modal.style.opacity = '0';
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+// Fermer modal en cliquant à l'extérieur
+window.onclick = function(event) {
+    const modal = document.getElementById('photo-modal');
+    if (event.target === modal) {
+        closePhotoModal();
+    }
+}
+
+// Style des onglets
+document.addEventListener('DOMContentLoaded', function() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .tab-button {
+            padding: 8px 16px;
+            border-bottom: 2px solid transparent;
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        
+        .tab-button:hover {
+            color: #374151;
+            border-bottom-color: #d1d5db;
+        }
+        
+        .tab-button.active {
+            color: #f97316;
+            border-bottom-color: #f97316;
+        }
+    `;
+    document.head.appendChild(style);
 });
 </script>
+
+<!-- SweetAlert2 pour les alertes -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {% endblock %} 
