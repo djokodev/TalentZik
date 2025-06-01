@@ -33,6 +33,11 @@
             <!-- Navigation vers portfolio -->
             <div class="px-6 py-3 bg-gray-50">
                 <nav class="flex items-center space-x-4 text-sm">
+                    <a href="{% url 'accounts:profile' %}" class="text-orange-600 hover:text-orange-800">
+                        <i class="fas fa-user mr-1"></i>
+                        Profil
+                    </a>
+                    <span class="text-gray-400">/</span>
                     <a href="{% url 'media_files:portfolio' %}" class="text-orange-600 hover:text-orange-800">
                         <i class="fas fa-folder-open mr-1"></i>
                         Portfolio

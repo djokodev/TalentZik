@@ -89,7 +89,7 @@ class ArtistRole(models.Model):
 
 class Instrument(models.Model):
     """
-    Instruments de musique
+    Instruments de musique disponibles sur la plateforme
     """
 
     CATEGORY_CHOICES = [
@@ -101,15 +101,15 @@ class Instrument(models.Model):
         _("Nom"), max_length=100, unique=True, help_text=_("Nom de l'instrument")
     )
     slug = models.SlugField(_("Slug"), max_length=100, unique=True, blank=True)
+    description = models.TextField(
+        _("Description"), blank=True, help_text=_("Description de l'instrument")
+    )
     category = models.CharField(
         _("Catégorie"),
         max_length=20,
         choices=CATEGORY_CHOICES,
         default="modern",
         help_text=_("Catégorie de l'instrument"),
-    )
-    description = models.TextField(
-        _("Description"), blank=True, help_text=_("Description de l'instrument")
     )
     is_active = models.BooleanField(
         _("Actif"),
@@ -122,7 +122,7 @@ class Instrument(models.Model):
         verbose_name = _("Instrument")
         verbose_name_plural = _("Instruments")
         db_table = "artists_instrument"
-        ordering = ["category", "name"]
+        ordering = ["name"]
         indexes = [
             models.Index(fields=["category"]),
             models.Index(fields=["is_active"]),
@@ -135,6 +135,86 @@ class Instrument(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    def get_instrument_category(self):
+        """Retourne la catégorie détaillée de l'instrument basée sur son nom et type"""
+        # Mapping des instruments vers leurs catégories familiales
+        category_mapping = {
+            # Cordes traditionnelles
+            "Harpe arquée": "Cordes traditionnelles",
+            "Harpe-luth Sawa": "Cordes traditionnelles",
+            "Mvet": "Cordes traditionnelles",
+            "Nkuu": "Cordes traditionnelles",
+            # Cordes modernes
+            "Banjo": "Cordes modernes",
+            "Contrebasse": "Cordes modernes",
+            "Guitare acoustique": "Cordes modernes",
+            "Guitare basse": "Cordes modernes",
+            "Guitare électrique": "Cordes modernes",
+            "Harpe classique": "Cordes modernes",
+            "Mandoline": "Cordes modernes",
+            "Ukulélé": "Cordes modernes",
+            "Violon": "Cordes modernes",
+            "Violoncelle": "Cordes modernes",
+            # Vents traditionnels
+            "Algaita": "Vents traditionnels",
+            "Corne d'antilope": "Vents traditionnels",
+            "Flûte en bambou": "Vents traditionnels",
+            "Flûte peule": "Vents traditionnels",
+            "Kakaki": "Vents traditionnels",
+            "Sifflet rituel": "Vents traditionnels",
+            # Vents modernes
+            "Clarinette": "Vents modernes",
+            "Flûte traversière": "Vents modernes",
+            "Harmonica": "Vents modernes",
+            "Hautbois": "Vents modernes",
+            "Saxophone alto": "Vents modernes",
+            "Saxophone soprano": "Vents modernes",
+            "Saxophone ténor": "Vents modernes",
+            "Trombone": "Vents modernes",
+            "Trompette": "Vents modernes",
+            "Tuba": "Vents modernes",
+            # Percussions sacrées
+            "Balafon": "Percussions sacrées",
+            "Bendré": "Percussions sacrées",
+            "Djembé": "Percussions sacrées",
+            "Tam-tam royal": "Percussions sacrées",
+            "Tambour parlant": "Percussions sacrées",
+            # Percussions traditionnelles
+            "Dum-dum": "Percussions traditionnelles",
+            "Konga": "Percussions traditionnelles",
+            "Maracas traditionnelles": "Percussions traditionnelles",
+            "Mbole": "Percussions traditionnelles",
+            "Nding": "Percussions traditionnelles",
+            "Ndong-mo-ba": "Percussions traditionnelles",
+            "Tam-tam": "Percussions traditionnelles",
+            # Percussions modernes
+            "Batterie complète": "Percussions modernes",
+            "Bongos": "Percussions modernes",
+            "Cajon": "Percussions modernes",
+            "Cloches": "Percussions modernes",
+            "Congas": "Percussions modernes",
+            "Cymbales": "Percussions modernes",
+            "Gong": "Percussions modernes",
+            "Shaker": "Percussions modernes",
+            "Tambourin": "Percussions modernes",
+            "Triangle": "Percussions modernes",
+            # Claviers et harmoniques
+            "Accordéon": "Claviers et harmoniques",
+            "Clavier MIDI": "Claviers et harmoniques",
+            "Kalimba": "Claviers et harmoniques",
+            "Orgue électronique": "Claviers et harmoniques",
+            "Piano acoustique": "Claviers et harmoniques",
+            "Piano électrique": "Claviers et harmoniques",
+            "Sanza": "Claviers et harmoniques",
+            "Synthétiseur": "Claviers et harmoniques",
+            # Instruments électroniques
+            "Boîte à rythmes": "Instruments électroniques",
+            "Sampler": "Instruments électroniques",
+            "Turntables": "Instruments électroniques",
+        }
+
+        return category_mapping.get(self.name, "Autres instruments")
 
 
 class ArtistGenre(models.Model):

@@ -133,18 +133,26 @@
                         </div>
                     </div>
                     
-                    <!-- Actions groupées -->
-                    <div class="flex items-center space-x-4">
-                        <div id="bulk-actions" class="hidden">
-                            <button onclick="deleteSelected()" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-                                <i class="fas fa-trash mr-2"></i>
-                                Supprimer (<span id="selected-count">0</span>)
+                    <div class="flex items-center space-x-3">
+                        <!-- Bouton Retour au profil -->
+                        <a href="{% url 'accounts:profile' %}" class="inline-flex items-center px-4 py-2 border-2 border-orange-300 rounded-lg text-sm font-medium text-orange-700 bg-orange-50 hover:bg-orange-100 hover:border-orange-400 focus:outline-none transition-all duration-200 shadow-sm">
+                            <i class="fas fa-user mr-2"></i>
+                            Retour au profil
+                        </a>
+                        
+                        <!-- Actions groupées -->
+                        <div class="flex items-center space-x-4">
+                            <div id="bulk-actions" class="hidden">
+                                <button onclick="deleteSelected()" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                                    <i class="fas fa-trash mr-2"></i>
+                                    Supprimer (<span id="selected-count">0</span>)
+                                </button>
+                            </div>
+                            <button onclick="toggleSelectMode()" id="select-mode-btn" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-check-square mr-2"></i>
+                                Mode sélection
                             </button>
                         </div>
-                        <button onclick="toggleSelectMode()" id="select-mode-btn" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                            <i class="fas fa-check-square mr-2"></i>
-                            Mode sélection
-                        </button>
                     </div>
                 </div>
             </div>

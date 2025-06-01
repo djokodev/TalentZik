@@ -1,5 +1,5 @@
 """
-Commande Django pour peupler la base de données avec les données musicales camerounaises et africaines enrichies
+Commande Django pour nettoyer et repeupler la base de données avec les données musicales camerounaises
 """
 
 from django.core.management.base import BaseCommand
@@ -8,43 +8,61 @@ from apps.artists.models import MusicGenre, ArtistRole, Instrument
 
 
 class Command(BaseCommand):
-    help = "Peuple la base de données avec les données musicales camerounaises et africaines enrichies"
+    help = "Nettoie et repeuple la base de données avec les données musicales camerounaises"
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--force",
+            "--confirm",
             action="store_true",
-            help="Force la mise à jour des descriptions existantes",
+            help="Confirme la suppression des données existantes",
         )
 
     def handle(self, *args, **options):
-        self.force_update = options.get("force", False)
+        if not options.get("confirm"):
+            self.stdout.write(
+                self.style.WARNING(
+                    "⚠️  Cette commande va SUPPRIMER toutes les données existantes (genres, rôles, instruments).\n"
+                    "   Ajoutez --confirm pour confirmer cette action."
+                )
+            )
+            return
 
         self.stdout.write(
             self.style.SUCCESS(
-                "🎵 Début du peuplement des données musicales camerounaises..."
+                "🧹 Début du nettoyage et peuplement des données musicales camerounaises..."
             )
         )
 
-        if self.force_update:
-            self.stdout.write(
-                self.style.WARNING(
-                    "⚠️  Mode FORCE activé - Les descriptions existantes seront mises à jour"
-                )
-            )
-
         with transaction.atomic():
+            self.clean_existing_data()
             self.create_music_genres()
             self.create_artist_roles()
             self.create_instruments()
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"\n✅ Données musicales créées avec succès!\n"
+                f"\n✅ Données musicales nettoyées et créées avec succès!\n"
                 f"   🎼 {MusicGenre.objects.count()} genres musicaux\n"
                 f"   🎤 {ArtistRole.objects.count()} rôles d'artistes\n"
                 f"   🎸 {Instrument.objects.count()} instruments"
             )
+        )
+
+    def clean_existing_data(self):
+        """Supprime toutes les données existantes"""
+        self.stdout.write("🧹 Nettoyage des données existantes...")
+
+        # Supprimer les données de référence
+        deleted_genres = MusicGenre.objects.count()
+        deleted_roles = ArtistRole.objects.count()
+        deleted_instruments = Instrument.objects.count()
+
+        MusicGenre.objects.all().delete()
+        ArtistRole.objects.all().delete()
+        Instrument.objects.all().delete()
+
+        self.stdout.write(
+            f"   🗑️  Supprimés: {deleted_genres} genres, {deleted_roles} rôles, {deleted_instruments} instruments"
         )
 
     def create_music_genres(self):
@@ -151,7 +169,7 @@ class Command(BaseCommand):
                 "description": "Genre ivoirien très populaire en Afrique centrale, caractérisé par des rythmes dansants et festifs. Très présent dans les clubs de Douala et Yaoundé.",
             },
             {
-                "name": "Gospel",
+                "name": "Gospel Camerounais",
                 "is_traditional": False,
                 "description": "Musique chrétienne camerounaise mélangeant louange occidentale et rythmes locaux (bikutsi gospel, makossa gospel). Très populaire dans les églises.",
             },
@@ -161,7 +179,7 @@ class Command(BaseCommand):
                 "description": "Genre d'Afrique de l'Ouest mélangeant instruments traditionnels et guitares jazz. Influencé le développement du makossa au Cameroun.",
             },
             {
-                "name": "Hip-Hop",
+                "name": "Hip-Hop Camerounais",
                 "is_traditional": False,
                 "description": "Rap camerounais souvent en français, anglais et langues locales (ewondo, duala, bamiléké), abordant des thèmes sociaux et culturels camerounais.",
             },
@@ -176,7 +194,7 @@ class Command(BaseCommand):
                 "description": "Variante moderne de la rumba congolaise, très dansante et populaire en Afrique centrale. Incontournable dans les soirées camerounaises.",
             },
             {
-                "name": "Rumba",
+                "name": "Rumba Camerounaise",
                 "is_traditional": False,
                 "description": "Adaptation camerounaise de la rumba congolaise avec des influences locales makossa et bikutsi, créant un style unique.",
             },
@@ -232,34 +250,14 @@ class Command(BaseCommand):
         genres_data.sort(key=lambda x: x["name"])
 
         for genre_data in genres_data:
-            if self.force_update:
-                genre, created = MusicGenre.objects.update_or_create(
-                    name=genre_data["name"],
-                    defaults={
-                        "description": genre_data["description"],
-                        "is_traditional": genre_data["is_traditional"],
-                        "is_active": True,
-                    },
-                )
-                status = (
-                    "🔄"
-                    if not created
-                    else "🆕" if genre_data["is_traditional"] else "🌍"
-                )
-                action = "mis à jour" if not created else "créé"
-                self.stdout.write(f"  {status} Genre {action}: {genre.name}")
-            else:
-                genre, created = MusicGenre.objects.get_or_create(
-                    name=genre_data["name"],
-                    defaults={
-                        "description": genre_data["description"],
-                        "is_traditional": genre_data["is_traditional"],
-                        "is_active": True,
-                    },
-                )
-                if created:
-                    status = "🆕" if genre_data["is_traditional"] else "🌍"
-                    self.stdout.write(f"  {status} Genre créé: {genre.name}")
+            genre = MusicGenre.objects.create(
+                name=genre_data["name"],
+                description=genre_data["description"],
+                is_traditional=genre_data["is_traditional"],
+                is_active=True,
+            )
+            status = "🆕" if genre_data["is_traditional"] else "🌍"
+            self.stdout.write(f"  {status} Genre créé: {genre.name}")
 
     def create_artist_roles(self):
         """Crée les rôles/spécialités d'artistes avec contexte culturel camerounais"""
@@ -463,20 +461,11 @@ class Command(BaseCommand):
         roles_data.sort(key=lambda x: x[0])
 
         for name, description in roles_data:
-            if self.force_update:
-                role, created = ArtistRole.objects.update_or_create(
-                    name=name, defaults={"description": description, "is_active": True}
-                )
-                icon = "🎭" if "traditionnel" in description.lower() else "🎤"
-                action = "mis à jour" if not created else "créé"
-                self.stdout.write(f"  {icon} Rôle {action}: {name}")
-            else:
-                role, created = ArtistRole.objects.get_or_create(
-                    name=name, defaults={"description": description, "is_active": True}
-                )
-                if created:
-                    icon = "🎭" if "traditionnel" in description.lower() else "🎤"
-                    self.stdout.write(f"  {icon} Rôle créé: {name}")
+            role = ArtistRole.objects.create(
+                name=name, description=description, is_active=True
+            )
+            icon = "🎭" if "traditionnel" in description.lower() else "🎤"
+            self.stdout.write(f"  {icon} Rôle créé: {name}")
 
     def create_instruments(self):
         """Crée les instruments avec classification par famille et contexte culturel"""
@@ -826,27 +815,11 @@ class Command(BaseCommand):
             instruments.sort(key=lambda x: x[0])
 
             for name, inst_category, description in instruments:
-                if self.force_update:
-                    instrument, created = Instrument.objects.update_or_create(
-                        name=name,
-                        defaults={
-                            "category": inst_category,
-                            "description": description,
-                            "is_active": True,
-                        },
-                    )
-                    icon = "🥁" if inst_category == "traditional" else "🎹"
-                    action = "mis à jour" if not created else "créé"
-                    self.stdout.write(f"    {icon} {name} ({action})")
-                else:
-                    instrument, created = Instrument.objects.get_or_create(
-                        name=name,
-                        defaults={
-                            "category": inst_category,
-                            "description": description,
-                            "is_active": True,
-                        },
-                    )
-                    if created:
-                        icon = "🥁" if inst_category == "traditional" else "🎹"
-                        self.stdout.write(f"    {icon} {name}")
+                instrument = Instrument.objects.create(
+                    name=name,
+                    category=inst_category,
+                    description=description,
+                    is_active=True,
+                )
+                icon = "🥁" if inst_category == "traditional" else "🎹"
+                self.stdout.write(f"    {icon} {name}")

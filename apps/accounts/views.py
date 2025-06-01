@@ -29,7 +29,7 @@ from .forms import (
     OrganizerRegistrationForm,
     ArtistProfileForm,
     OrganizerProfileForm,
-    EditProfileForm,
+    EnhancedEditProfileForm,
 )
 
 
@@ -400,7 +400,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 class EditProfileView(LoginRequiredMixin, TemplateView):
-    """Vue d'édition du profil avec formulaire complet"""
+    """Vue d'édition du profil avec formulaire amélioré pour la culture camerounaise"""
 
     template_name = "accounts/edit_profile.html"
 
@@ -408,32 +408,96 @@ class EditProfileView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         # Initialiser le formulaire avec les données utilisateur
-        form = EditProfileForm(user=self.request.user)
+        form = EnhancedEditProfileForm(user=self.request.user)
+
+        # Récupérer les valeurs sélectionnées pour les affichages personnalisés
+        selected_genres_traditional = []
+        selected_genres_modern = []
+        selected_roles = []
+        selected_instruments_traditional = []
+        selected_instruments_modern = []
+
+        if self.request.user.user_type == "artist" and hasattr(
+            self.request.user, "artist_profile"
+        ):
+            profile = self.request.user.artist_profile
+
+            # Genres sélectionnés
+            artist_genres = [ag.genre for ag in profile.genres.all()]
+            selected_genres_traditional = [
+                g.id for g in artist_genres if g.is_traditional
+            ]
+            selected_genres_modern = [
+                g.id for g in artist_genres if not g.is_traditional
+            ]
+
+            # Rôles sélectionnés
+            selected_roles = [ar.role.id for ar in profile.roles.all()]
+
+            # Instruments sélectionnés
+            artist_instruments = [ai.instrument for ai in profile.instruments.all()]
+            selected_instruments_traditional = [
+                i.id for i in artist_instruments if i.category == "traditional"
+            ]
+            selected_instruments_modern = [
+                i.id for i in artist_instruments if i.category == "modern"
+            ]
 
         context.update(
             {
                 "form": form,
-                "page_title": "Éditer mon profil",
+                "page_title": "Valoriser mon patrimoine musical",
+                "page_description": "Mettez en avant vos talents et votre héritage culturel camerounais",
                 "user_type": self.request.user.user_type,
+                "grouped_data": form.get_grouped_data(),
+                # Valeurs sélectionnées pour les templates personnalisés
+                "selected_genres_traditional": selected_genres_traditional,
+                "selected_genres_modern": selected_genres_modern,
+                "selected_roles": selected_roles,
+                "selected_instruments_traditional": selected_instruments_traditional,
+                "selected_instruments_modern": selected_instruments_modern,
             }
         )
         return context
 
     def post(self, request, *args, **kwargs):
-        """Traitement du formulaire"""
-        form = EditProfileForm(request.POST, request.FILES, user=request.user)
+        """Traitement du formulaire avec gestion améliorée"""
+        form = EnhancedEditProfileForm(request.POST, request.FILES, user=request.user)
 
         if form.is_valid():
             try:
                 form.save(request.user)
-                messages.success(request, "Votre profil a été mis à jour avec succès.")
+
+                # Messages de succès spécifiques à la culture
+                if request.user.user_type == "artist":
+                    messages.success(
+                        request,
+                        "🎉 Votre profil a été mis à jour ! Votre talent camerounais rayonne maintenant davantage.",
+                    )
+                else:
+                    messages.success(
+                        request,
+                        "✅ Votre profil organisateur a été mis à jour avec succès.",
+                    )
                 return redirect("accounts:profile")
+
             except Exception as e:
-                messages.error(request, f"Erreur lors de la sauvegarde : {e}")
+                messages.error(
+                    request,
+                    f"❌ Erreur lors de la sauvegarde : {e}. Veuillez réessayer.",
+                )
         else:
+            # Messages d'erreur détaillés
+            error_count = sum(len(errors) for errors in form.errors.values())
+            messages.error(
+                request,
+                f"⚠️ {error_count} erreur(s) détectée(s). Veuillez corriger les champs indiqués.",
+            )
+
+            # Log des erreurs pour debug (optionnel)
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"{field}: {error}")
+                    messages.error(request, f"📋 {field}: {error}")
 
         # En cas d'erreur, retourner le formulaire avec les erreurs
         context = self.get_context_data()
