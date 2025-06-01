@@ -158,7 +158,6 @@ class ArtistSearchForm(forms.Form):
     SORT_CHOICES = [
         ("name", "Nom (A-Z)"),
         ("-name", "Nom (Z-A)"),
-        ("-rating_average", "Mieux notés"),
         ("-total_reviews", "Plus d'avis"),
         ("-profile_views", "Plus populaires"),
         ("-created_at", "Plus récents"),
@@ -169,7 +168,7 @@ class ArtistSearchForm(forms.Form):
         label="Trier par",
         choices=SORT_CHOICES,
         required=False,
-        initial="-rating_average",
+        initial="-profile_views",
         widget=forms.Select(
             attrs={
                 "class": "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent",
@@ -239,7 +238,7 @@ class ArtistSearchForm(forms.Form):
             queryset = queryset.filter(rating_average__gte=min_rating)
 
         # Tri
-        sort_by = data.get("sort_by", "-rating_average")
+        sort_by = data.get("sort_by", "-profile_views")
         if sort_by == "name":
             # Tri par nom : utiliser le stage_name en priorité, sinon le nom complet
             queryset = queryset.extra(
