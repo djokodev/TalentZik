@@ -1,0 +1,383 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifier mon profil organisateur - TalentZik{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Animations et styles pour l'édition de profil organisateur */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.fade-in-up { animation: fadeInUp 0.6s ease-out; }
+.slide-in-right { animation: slideInRight 0.8s ease-out; }
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+/* Styles pour les champs de formulaire */
+.form-group {
+    transition: all 0.3s ease;
+}
+
+.form-group:hover {
+    transform: translateY(-2px);
+}
+
+.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    border-color: #f97316;
+}
+
+/* Styles pour les sections */
+.section-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.section-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Styles pour les icônes */
+.icon-gradient {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Styles pour les boutons */
+.btn-primary {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+}
+
+/* Styles pour l'upload d'image */
+.image-upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.image-upload-area:hover {
+    border-color: #f97316;
+    background-color: #fef3e2;
+}
+
+.image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- En-tête avec animation -->
+        <div class="text-center mb-8 fade-in-up">
+            <div class="flex justify-center mb-4">
+                <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                    <i class="fas fa-building text-white text-2xl"></i>
+                </div>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                {{ page_title }}
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                {{ page_description }}
+            </p>
+        </div>
+
+        <!-- Formulaire principal -->
+        <form method="post" enctype="multipart/form-data" class="space-y-8">
+            {% csrf_token %}
+            
+            <!-- Section Photo de profil -->
+            <div class="section-card p-6 fade-in-up delay-1">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-camera text-white"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">Photo de profil / Logo</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Aperçu actuel -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Aperçu actuel
+                        </label>
+                        {% if user_profile.profile_picture %}
+                            <img src="{{ user_profile.profile_picture.url }}" 
+                                 alt="Photo de profil actuelle" 
+                                 class="image-preview">
+                        {% else %}
+                            <div class="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-building text-gray-400 text-3xl"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Upload nouvelle photo -->
+                    <div>
+                        <label for="{{ form.profile_picture.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.profile_picture.label }}
+                        </label>
+                        <div class="image-upload-area p-4 text-center">
+                            {{ form.profile_picture }}
+                            <p class="text-sm text-gray-500 mt-2">
+                                {{ form.profile_picture.help_text }}
+                            </p>
+                        </div>
+                        {% if form.profile_picture.errors %}
+                            <div class="text-red-600 text-sm mt-1">
+                                {{ form.profile_picture.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Informations organisationnelles -->
+            <div class="section-card p-6 fade-in-up delay-2">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-building text-white"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">Informations organisationnelles</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Nom de l'organisation -->
+                    <div class="form-group">
+                        <label for="{{ form.organization_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.organization_name.label }}
+                        </label>
+                        {{ form.organization_name }}
+                        {% if form.organization_name.help_text %}
+                            <p class="text-sm text-gray-500 mt-1">{{ form.organization_name.help_text }}</p>
+                        {% endif %}
+                        {% if form.organization_name.errors %}
+                            <div class="text-red-600 text-sm mt-1">{{ form.organization_name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Type d'organisation -->
+                    <div class="form-group">
+                        <label for="{{ form.organization_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.organization_type.label }}
+                        </label>
+                        {{ form.organization_type }}
+                        {% if form.organization_type.help_text %}
+                            <p class="text-sm text-gray-500 mt-1">{{ form.organization_type.help_text }}</p>
+                        {% endif %}
+                        {% if form.organization_type.errors %}
+                            <div class="text-red-600 text-sm mt-1">{{ form.organization_type.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Site web -->
+                    <div class="form-group">
+                        <label for="{{ form.website.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.website.label }}
+                        </label>
+                        {{ form.website }}
+                        {% if form.website.help_text %}
+                            <p class="text-sm text-gray-500 mt-1">{{ form.website.help_text }}</p>
+                        {% endif %}
+                        {% if form.website.errors %}
+                            <div class="text-red-600 text-sm mt-1">{{ form.website.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Description de l'organisation -->
+                <div class="form-group mt-6">
+                    <label for="{{ form.bio.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.bio.label }}
+                    </label>
+                    {{ form.bio }}
+                    {% if form.bio.help_text %}
+                        <p class="text-sm text-gray-500 mt-1">{{ form.bio.help_text }}</p>
+                    {% endif %}
+                    {% if form.bio.errors %}
+                        <div class="text-red-600 text-sm mt-1">{{ form.bio.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Section Contact et localisation -->
+            <div class="section-card p-6 fade-in-up delay-3">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-map-marker-alt text-white"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">Contact et localisation</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Téléphone -->
+                    <div class="form-group">
+                        <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.phone_number.label }}
+                        </label>
+                        {{ form.phone_number }}
+                        {% if form.phone_number.errors %}
+                            <div class="text-red-600 text-sm mt-1">{{ form.phone_number.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- WhatsApp -->
+                    <div class="form-group">
+                        <label for="{{ form.whatsapp_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.whatsapp_number.label }}
+                        </label>
+                        {{ form.whatsapp_number }}
+                        {% if form.whatsapp_number.help_text %}
+                            <p class="text-sm text-gray-500 mt-1">{{ form.whatsapp_number.help_text }}</p>
+                        {% endif %}
+                        {% if form.whatsapp_number.errors %}
+                            <div class="text-red-600 text-sm mt-1">{{ form.whatsapp_number.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Ville -->
+                    <div class="form-group">
+                        <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.city.label }}
+                        </label>
+                        {{ form.city }}
+                        {% if form.city.errors %}
+                            <div class="text-red-600 text-sm mt-1">{{ form.city.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Région -->
+                    <div class="form-group">
+                        <label for="{{ form.region.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.region.label }}
+                        </label>
+                        {{ form.region }}
+                        {% if form.region.errors %}
+                            <div class="text-red-600 text-sm mt-1">{{ form.region.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Adresse complète -->
+                <div class="form-group mt-6">
+                    <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.address.label }}
+                    </label>
+                    {{ form.address }}
+                    {% if form.address.help_text %}
+                        <p class="text-sm text-gray-500 mt-1">{{ form.address.help_text }}</p>
+                    {% endif %}
+                    {% if form.address.errors %}
+                        <div class="text-red-600 text-sm mt-1">{{ form.address.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center slide-in-right">
+                <button type="submit" class="btn-primary px-8 py-3 text-white font-bold rounded-full text-lg">
+                    <i class="fas fa-save mr-2"></i>
+                    Sauvegarder les modifications
+                </button>
+                <a href="{% url 'accounts:profile' %}" class="px-8 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded-full text-lg transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>
+                    Annuler
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation des éléments au scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observer tous les éléments avec animation
+    document.querySelectorAll('.fade-in-up, .slide-in-right').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        observer.observe(el);
+    });
+
+    // Prévisualisation de l'image uploadée
+    const imageInput = document.querySelector('input[type="file"]');
+    if (imageInput) {
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Créer ou mettre à jour l'aperçu
+                    let preview = document.querySelector('.image-preview-new');
+                    if (!preview) {
+                        preview = document.createElement('img');
+                        preview.className = 'image-preview image-preview-new mt-4';
+                        imageInput.parentNode.appendChild(preview);
+                    }
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Validation en temps réel
+    const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+    requiredFields.forEach(field => {
+        field.addEventListener('blur', function() {
+            if (this.value.trim() === '') {
+                this.classList.add('border-red-500');
+                this.classList.remove('border-gray-300');
+            } else {
+                this.classList.remove('border-red-500');
+                this.classList.add('border-gray-300');
+            }
+        });
+    });
+});
+</script>
+{% endblock %} 

@@ -34,6 +34,11 @@ urlpatterns = [
     # Profils
     path("profile/", views.ProfileView.as_view(), name="profile"),
     path("profile/edit/", views.EditProfileView.as_view(), name="edit_profile"),
+    path(
+        "profile/organizer/edit/",
+        views.EditOrganizerProfileView.as_view(),
+        name="edit_organizer_profile",
+    ),
     # Mot de passe
     path(
         "password/change/", views.ChangePasswordView.as_view(), name="change_password"

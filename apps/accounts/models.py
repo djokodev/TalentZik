@@ -279,11 +279,34 @@ class OrganizerProfile(models.Model):
         default="individual",
         help_text=_("Type d'organisation ou particulier"),
     )
+    bio = models.TextField(
+        _("Description de l'organisation"),
+        blank=True,
+        help_text=_("Description de votre organisation, vos activités et vos valeurs"),
+    )
+    profile_picture = models.ImageField(
+        _("Photo de profil"),
+        upload_to="profiles/organizers/",
+        blank=True,
+        null=True,
+        help_text=_("Photo de profil ou logo de l'organisation"),
+    )
+    website = models.URLField(
+        _("Site web"), blank=True, help_text=_("Site web de l'organisation (optionnel)")
+    )
+    address = models.TextField(
+        _("Adresse"), blank=True, help_text=_("Adresse complète de l'organisation")
+    )
     city = models.CharField(
         _("Ville"), max_length=100, help_text=_("Ville de résidence ou siège social")
     )
     region = models.CharField(
         _("Région"), max_length=100, help_text=_("Région du Cameroun")
+    )
+    profile_views = models.PositiveIntegerField(
+        _("Vues du profil"),
+        default=0,
+        help_text=_("Nombre de fois que le profil a été consulté"),
     )
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Modifié le"), auto_now=True)
@@ -308,6 +331,34 @@ class OrganizerProfile(models.Model):
         if self.organization_name:
             return self.organization_name
         return self.user.get_full_name()
+
+    def get_whatsapp_link(self, message=""):
+        """
+        Génère un lien WhatsApp avec message pré-rempli
+        """
+        phone = self.whatsapp_number or self.phone_number
+        if not phone:
+            return None
+
+        # Nettoyer le numéro de téléphone
+        clean_phone = "".join(filter(str.isdigit, phone))
+        if not clean_phone.startswith("237"):
+            clean_phone = "237" + clean_phone
+
+        if message:
+            import urllib.parse
+
+            encoded_message = urllib.parse.quote(message)
+            return f"https://wa.me/{clean_phone}?text={encoded_message}"
+
+        return f"https://wa.me/{clean_phone}"
+
+    def increment_views(self):
+        """
+        Incrémente le compteur de vues du profil
+        """
+        self.profile_views += 1
+        self.save(update_fields=["profile_views"])
 
 
 class EmailVerificationToken(models.Model):

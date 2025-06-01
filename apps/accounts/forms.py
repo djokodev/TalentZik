@@ -408,14 +408,24 @@ class OrganizerProfileForm(forms.ModelForm):
     class Meta:
         model = OrganizerProfile
         fields = [
+            "profile_picture",
             "organization_name",
             "organization_type",
+            "bio",
             "phone_number",
             "whatsapp_number",
+            "website",
+            "address",
             "city",
             "region",
         ]
         widgets = {
+            "profile_picture": forms.FileInput(
+                attrs={
+                    "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                    "accept": "image/*",
+                }
+            ),
             "organization_name": forms.TextInput(
                 attrs={
                     "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
@@ -425,6 +435,13 @@ class OrganizerProfileForm(forms.ModelForm):
             "organization_type": forms.Select(
                 attrs={
                     "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                }
+            ),
+            "bio": forms.Textarea(
+                attrs={
+                    "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                    "rows": 4,
+                    "placeholder": "Décrivez votre organisation, vos activités et vos valeurs...",
                 }
             ),
             "phone_number": forms.TextInput(
@@ -437,6 +454,19 @@ class OrganizerProfileForm(forms.ModelForm):
                 attrs={
                     "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
                     "placeholder": "+237 XXX XXX XXX",
+                }
+            ),
+            "website": forms.URLInput(
+                attrs={
+                    "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                    "placeholder": "https://votre-site-web.com",
+                }
+            ),
+            "address": forms.Textarea(
+                attrs={
+                    "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                    "rows": 3,
+                    "placeholder": "Adresse complète de votre organisation",
                 }
             ),
             "city": forms.TextInput(
@@ -633,6 +663,66 @@ class EnhancedEditProfileForm(forms.Form):
         help_text="Nom de votre entreprise, église, association, etc. (optionnel)",
     )
 
+    organization_type = forms.ChoiceField(
+        label="Type d'organisation",
+        choices=OrganizerProfile.ORGANIZATION_TYPE_CHOICES,
+        required=False,
+        widget=forms.Select(
+            attrs={
+                "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+            }
+        ),
+        help_text="Type d'organisation ou particulier",
+    )
+
+    whatsapp_number = forms.CharField(
+        label="Numéro WhatsApp",
+        max_length=20,
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                "placeholder": "+237 XXX XXX XXX",
+            }
+        ),
+        help_text="Numéro WhatsApp pour contact direct (optionnel)",
+    )
+
+    website = forms.URLField(
+        label="Site web",
+        required=False,
+        widget=forms.URLInput(
+            attrs={
+                "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                "placeholder": "https://votre-site-web.com",
+            }
+        ),
+        help_text="Site web de l'organisation (optionnel)",
+    )
+
+    address = forms.CharField(
+        label="Adresse",
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+                "rows": 3,
+                "placeholder": "Adresse complète de votre organisation",
+            }
+        ),
+        help_text="Adresse complète de l'organisation",
+    )
+
+    region = forms.CharField(
+        label="Région",
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+            }
+        ),
+    )
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
@@ -670,6 +760,11 @@ class EnhancedEditProfileForm(forms.Form):
 
                 # Masquer les champs organisateur
                 del self.fields["organization_name"]
+                del self.fields["organization_type"]
+                del self.fields["whatsapp_number"]
+                del self.fields["website"]
+                del self.fields["address"]
+                del self.fields["region"]
 
             elif self.user.user_type == "organizer" and hasattr(
                 self.user, "organizer_profile"
@@ -681,11 +776,30 @@ class EnhancedEditProfileForm(forms.Form):
                 self.fields["phone_number"].initial = profile.phone_number
                 self.fields["city"].initial = profile.city
                 self.fields["organization_name"].initial = profile.organization_name
+                self.fields["organization_type"].initial = profile.organization_type
+                self.fields["whatsapp_number"].initial = profile.whatsapp_number
+                self.fields["website"].initial = profile.website
+                self.fields["address"].initial = profile.address
+                self.fields["region"].initial = profile.region
+                self.fields["bio"].initial = profile.bio
 
-                # Masquer les champs artiste
+                # Changer le label et le help_text du champ bio pour les organisateurs
+                self.fields["bio"].label = "Description de l'organisation"
+                self.fields["bio"].help_text = (
+                    "Description de votre organisation, vos activités et vos valeurs"
+                )
+                self.fields["bio"].widget.attrs[
+                    "placeholder"
+                ] = "Décrivez votre organisation, vos activités et vos valeurs..."
+
+                # Changer le label du champ profile_picture pour les organisateurs
+                self.fields["profile_picture"].label = "Logo/Photo de l'organisation"
+                self.fields["profile_picture"].help_text = (
+                    "Photo de profil ou logo de l'organisation"
+                )
+
+                # Masquer les champs artiste seulement
                 del self.fields["stage_name"]
-                del self.fields["bio"]
-                del self.fields["profile_picture"]
                 del self.fields["genres_traditional"]
                 del self.fields["genres_modern"]
                 del self.fields["roles"]
@@ -753,8 +867,18 @@ class EnhancedEditProfileForm(forms.Form):
                 {
                     "organization_info": {
                         "title": "🏢 Informations organisationnelles",
-                        "fields": ["organization_name"],
-                    }
+                        "fields": [
+                            "profile_picture",
+                            "organization_name",
+                            "organization_type",
+                            "bio",
+                            "website",
+                        ],
+                    },
+                    "contact_info": {
+                        "title": "📞 Informations de contact",
+                        "fields": ["whatsapp_number", "address", "region"],
+                    },
                 }
             )
 
@@ -818,6 +942,17 @@ class EnhancedEditProfileForm(forms.Form):
                 profile.organization_name = self.cleaned_data.get(
                     "organization_name", ""
                 )
+                profile.organization_type = self.cleaned_data["organization_type"]
+                profile.whatsapp_number = self.cleaned_data.get("whatsapp_number", "")
+                profile.website = self.cleaned_data.get("website", "")
+                profile.address = self.cleaned_data.get("address", "")
+                profile.region = self.cleaned_data["region"]
+                profile.bio = self.cleaned_data.get("bio", "")
+
+                # Gestion de la photo de profil
+                if self.cleaned_data.get("profile_picture"):
+                    profile.profile_picture = self.cleaned_data["profile_picture"]
+
                 profile.save()
 
 

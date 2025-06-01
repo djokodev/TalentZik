@@ -20,6 +20,9 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import JsonResponse
+from django.db import transaction
+from django.http import Http404
+from django.template.loader import render_to_string
 
 from .models import User, ArtistProfile, OrganizerProfile, EmailVerificationToken
 from .forms import (
@@ -548,3 +551,79 @@ class PasswordResetConfirmView(TemplateView):
             }
         )
         return context
+
+
+class EditOrganizerProfileView(LoginRequiredMixin, TemplateView):
+    """Vue d'édition spécialisée pour les profils organisateurs"""
+
+    template_name = "accounts/edit_organizer_profile.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        # Vérifier que l'utilisateur est bien un organisateur
+        if not request.user.is_organizer:
+            messages.error(request, "Cette page est réservée aux organisateurs.")
+            return redirect("accounts:profile")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Créer le formulaire avec les données existantes
+        if hasattr(self.request.user, "organizer_profile"):
+            form = OrganizerProfileForm(instance=self.request.user.organizer_profile)
+        else:
+            form = OrganizerProfileForm()
+
+        context.update(
+            {
+                "form": form,
+                "page_title": "Modifier mon profil organisateur",
+                "page_description": "Mettez à jour vos informations pour mieux présenter votre organisation",
+                "user_profile": getattr(self.request.user, "organizer_profile", None),
+            }
+        )
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """Traitement du formulaire de modification du profil organisateur"""
+
+        if hasattr(request.user, "organizer_profile"):
+            form = OrganizerProfileForm(
+                request.POST, request.FILES, instance=request.user.organizer_profile
+            )
+        else:
+            form = OrganizerProfileForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            try:
+                profile = form.save(commit=False)
+                if not hasattr(request.user, "organizer_profile"):
+                    profile.user = request.user
+                profile.save()
+
+                # Mettre à jour les informations de base de l'utilisateur si nécessaire
+                # (si vous voulez permettre de modifier first_name, last_name, email depuis ce formulaire)
+
+                messages.success(
+                    request,
+                    "✅ Votre profil organisateur a été mis à jour avec succès.",
+                )
+                return redirect("accounts:profile")
+
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"❌ Erreur lors de la sauvegarde : {e}. Veuillez réessayer.",
+                )
+        else:
+            # Messages d'erreur détaillés
+            error_count = sum(len(errors) for errors in form.errors.values())
+            messages.error(
+                request,
+                f"⚠️ {error_count} erreur(s) détectée(s). Veuillez corriger les champs indiqués.",
+            )
+
+        # En cas d'erreur, retourner le formulaire avec les erreurs
+        context = self.get_context_data()
+        context["form"] = form
+        return self.render_to_response(context)

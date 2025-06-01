@@ -11,11 +11,11 @@
             <div class="px-6 py-8">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        {% if user.is_artist and profile.profile_picture %}
+                        {% if profile.profile_picture %}
                             <img class="h-20 w-20 rounded-full object-cover" src="{{ profile.profile_picture.url }}" alt="{{ user.get_full_name }}">
                         {% else %}
                             <div class="h-20 w-20 rounded-full bg-primary-100 flex items-center justify-center">
-                                <i class="fas fa-{% if user.is_artist %}microphone{% else %}calendar-alt{% endif %} text-primary-600 text-2xl"></i>
+                                <i class="fas fa-{% if user.is_artist %}microphone{% else %}building{% endif %} text-primary-600 text-2xl"></i>
                             </div>
                         {% endif %}
                     </div>
@@ -42,10 +42,17 @@
                         </div>
                     </div>
                     <div class="ml-auto">
-                        <a href="{% url 'accounts:edit_profile' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                            <i class="fas fa-edit mr-2"></i>
-                            Modifier le profil
-                        </a>
+                        {% if user.is_organizer %}
+                            <a href="{% url 'accounts:edit_organizer_profile' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                <i class="fas fa-edit mr-2"></i>
+                                Modifier le profil
+                            </a>
+                        {% else %}
+                            <a href="{% url 'accounts:edit_profile' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                <i class="fas fa-edit mr-2"></i>
+                                Modifier le profil
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -176,10 +183,39 @@
                                 {% if profile.whatsapp_number %}
                                 <div>
                                     <dt class="text-sm font-medium text-gray-500">WhatsApp</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ profile.whatsapp_number }}</dd>
+                                    <dd class="mt-1 text-sm text-gray-900">
+                                        <a href="{{ profile.get_whatsapp_link }}" target="_blank" class="text-green-600 hover:text-green-700">
+                                            <i class="fab fa-whatsapp mr-1"></i>
+                                            {{ profile.whatsapp_number }}
+                                        </a>
+                                    </dd>
+                                </div>
+                                {% endif %}
+                                {% if profile.website %}
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">Site web</dt>
+                                    <dd class="mt-1 text-sm text-gray-900">
+                                        <a href="{{ profile.website }}" target="_blank" class="text-blue-600 hover:text-blue-700">
+                                            <i class="fas fa-external-link-alt mr-1"></i>
+                                            {{ profile.website }}
+                                        </a>
+                                    </dd>
+                                </div>
+                                {% endif %}
+                                {% if profile.address %}
+                                <div class="sm:col-span-2">
+                                    <dt class="text-sm font-medium text-gray-500">Adresse</dt>
+                                    <dd class="mt-1 text-sm text-gray-900">{{ profile.address|linebreaks }}</dd>
                                 </div>
                                 {% endif %}
                             </dl>
+                            
+                            {% if profile.bio %}
+                            <div class="mt-6">
+                                <dt class="text-sm font-medium text-gray-500">Description de l'organisation</dt>
+                                <dd class="mt-2 text-sm text-gray-900">{{ profile.bio|linebreaks }}</dd>
+                            </div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
@@ -187,7 +223,7 @@
 
             <!-- Sidebar -->
             <div class="space-y-6">
-                <!-- Statistiques pour artistes -->
+                <!-- Statistiques -->
                 {% if user.is_artist %}
                 <div class="bg-white shadow rounded-lg">
                     <div class="px-6 py-4 border-b border-gray-200">
@@ -212,6 +248,24 @@
                             <div class="flex justify-between">
                                 <dt class="text-sm text-gray-500">Nombre d'avis</dt>
                                 <dd class="text-sm font-medium text-gray-900">{{ profile.total_reviews }}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                {% elif user.is_organizer %}
+                <div class="bg-white shadow rounded-lg">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">Statistiques</h3>
+                    </div>
+                    <div class="px-6 py-4">
+                        <dl class="space-y-3">
+                            <div class="flex justify-between">
+                                <dt class="text-sm text-gray-500">Vues du profil</dt>
+                                <dd class="text-sm font-medium text-gray-900">{{ profile.profile_views }}</dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt class="text-sm text-gray-500">Membre depuis</dt>
+                                <dd class="text-sm font-medium text-gray-900">{{ user.date_joined|date:"F Y" }}</dd>
                             </div>
                         </dl>
                     </div>

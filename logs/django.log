@@ -2785,3 +2785,119 @@ INFO 2025-06-01 11:32:47,585 basehttp 18948 25708 "GET /accounts/profile/ HTTP/1
 WARNING 2025-06-01 11:32:47,627 basehttp 18948 25708 "GET /static/css/style.css HTTP/1.1" 404 1899
 INFO 2025-06-01 11:32:51,257 basehttp 18948 26980 "GET /accounts/profile/edit/ HTTP/1.1" 200 29328
 WARNING 2025-06-01 11:32:51,294 basehttp 18948 26980 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:35:40,098 autoreload 23516 23812 Watching for file changes with StatReloader
+INFO 2025-06-01 11:35:42,814 basehttp 23516 24020 "GET / HTTP/1.1" 200 29163
+WARNING 2025-06-01 11:35:43,035 basehttp 23516 24020 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:35:48,664 basehttp 23516 16844 "GET /accounts/register/ HTTP/1.1" 200 18786
+WARNING 2025-06-01 11:35:48,775 basehttp 23516 16844 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:35:50,035 autoreload 23516 23812 D:\projects\TalentZik\apps\accounts\models.py changed, reloading.
+INFO 2025-06-01 11:35:51,495 autoreload 8524 8500 Watching for file changes with StatReloader
+INFO 2025-06-01 11:35:52,052 basehttp 8524 888 "GET /accounts/register/organizer/ HTTP/1.1" 200 24358
+WARNING 2025-06-01 11:35:52,100 basehttp 8524 888 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:36:09,189 autoreload 8524 8500 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:36:10,427 autoreload 9540 20664 Watching for file changes with StatReloader
+INFO 2025-06-01 11:36:43,147 basehttp 9540 20612 "GET / HTTP/1.1" 200 29163
+WARNING 2025-06-01 11:36:43,203 basehttp 9540 20612 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:38:27,089 autoreload 9540 20664 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:38:29,187 autoreload 26244 1164 Watching for file changes with StatReloader
+INFO 2025-06-01 11:38:31,459 autoreload 26244 1164 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:38:32,387 autoreload 20744 25064 Watching for file changes with StatReloader
+INFO 2025-06-01 11:38:40,861 autoreload 20744 25064 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:38:42,563 autoreload 20684 20656 Watching for file changes with StatReloader
+INFO 2025-06-01 11:38:44,822 autoreload 20684 20656 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:38:45,753 autoreload 25416 21896 Watching for file changes with StatReloader
+INFO 2025-06-01 11:38:52,029 autoreload 25416 21896 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:38:54,176 autoreload 21144 7936 Watching for file changes with StatReloader
+INFO 2025-06-01 11:38:56,664 autoreload 21144 7936 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:38:57,815 autoreload 2440 21600 Watching for file changes with StatReloader
+INFO 2025-06-01 11:39:08,406 autoreload 2440 21600 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:39:10,370 autoreload 26136 8676 Watching for file changes with StatReloader
+INFO 2025-06-01 11:39:13,634 autoreload 26136 8676 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:39:14,550 autoreload 4808 23988 Watching for file changes with StatReloader
+INFO 2025-06-01 11:39:30,439 autoreload 4808 23988 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:39:32,037 autoreload 25220 7764 Watching for file changes with StatReloader
+INFO 2025-06-01 11:39:41,572 autoreload 25220 7764 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:39:43,506 autoreload 3228 25100 Watching for file changes with StatReloader
+INFO 2025-06-01 11:39:45,754 autoreload 3228 25100 D:\projects\TalentZik\apps\accounts\forms.py changed, reloading.
+INFO 2025-06-01 11:39:46,711 autoreload 8612 14108 Watching for file changes with StatReloader
+INFO 2025-06-01 11:40:06,031 autoreload 8612 14108 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-06-01 11:40:07,466 autoreload 16704 27556 Watching for file changes with StatReloader
+INFO 2025-06-01 11:40:15,083 autoreload 16704 27556 D:\projects\TalentZik\apps\accounts\views.py changed, reloading.
+INFO 2025-06-01 11:40:16,434 autoreload 17484 22284 Watching for file changes with StatReloader
+INFO 2025-06-01 11:40:40,390 autoreload 17484 22284 D:\projects\TalentZik\apps\accounts\urls.py changed, reloading.
+INFO 2025-06-01 11:40:41,324 autoreload 18268 6828 Watching for file changes with StatReloader
+INFO 2025-06-01 11:45:00,792 autoreload 18268 6828 D:\projects\TalentZik\apps\accounts\models.py changed, reloading.
+INFO 2025-06-01 11:45:02,455 autoreload 26784 22288 Watching for file changes with StatReloader
+INFO 2025-06-01 11:45:30,599 basehttp 26784 25056 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-06-01 11:45:30,648 basehttp 26784 25056 "GET / HTTP/1.1" 200 26131
+WARNING 2025-06-01 11:45:30,745 basehttp 26784 25056 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:45:34,342 basehttp 26784 13276 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-06-01 11:45:34,446 basehttp 26784 13276 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4235
+INFO 2025-06-01 11:45:44,386 basehttp 26784 13276 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-06-01 11:45:44,418 basehttp 26784 13276 "GET /admin/ HTTP/1.1" 200 16954
+INFO 2025-06-01 11:45:51,198 basehttp 26784 13276 "GET /admin/accounts/organizerprofile/ HTTP/1.1" 200 18662
+INFO 2025-06-01 11:45:51,235 basehttp 26784 13276 "GET /admin/jsi18n/ HTTP/1.1" 200 8621
+INFO 2025-06-01 11:45:59,697 basehttp 26784 13276 "POST /admin/accounts/organizerprofile/ HTTP/1.1" 200 13804
+INFO 2025-06-01 11:45:59,799 basehttp 26784 13276 "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-06-01 11:46:01,099 basehttp 26784 13276 "POST /admin/accounts/organizerprofile/ HTTP/1.1" 302 0
+INFO 2025-06-01 11:46:01,125 basehttp 26784 13276 "GET /admin/accounts/organizerprofile/ HTTP/1.1" 200 16009
+INFO 2025-06-01 11:46:01,160 basehttp 26784 13276 "GET /admin/jsi18n/ HTTP/1.1" 200 8621
+INFO 2025-06-01 11:46:03,977 basehttp 26784 13276 "GET /admin/accounts/organizerprofile/add/ HTTP/1.1" 200 22375
+INFO 2025-06-01 11:46:04,014 basehttp 26784 26500 "GET /admin/jsi18n/ HTTP/1.1" 200 8621
+INFO 2025-06-01 11:46:04,022 basehttp 26784 13276 "GET /static/admin/css/forms.css HTTP/1.1" 200 9047
+INFO 2025-06-01 11:46:04,026 basehttp 26784 18252 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-06-01 11:46:04,036 basehttp 26784 26956 "GET /static/admin/js/collapse.js HTTP/1.1" 200 1803
+INFO 2025-06-01 11:46:04,041 basehttp 26784 26124 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-06-01 11:46:04,046 basehttp 26784 13276 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11900
+INFO 2025-06-01 11:46:04,066 basehttp 26784 26124 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-06-01 11:46:09,175 basehttp 26784 26124 "POST /admin/logout/ HTTP/1.1" 200 3638
+INFO 2025-06-01 11:46:14,114 basehttp 26784 26124 "GET / HTTP/1.1" 200 25267
+WARNING 2025-06-01 11:46:14,148 basehttp 26784 26124 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:46:17,101 basehttp 26784 13276 "GET /accounts/register/ HTTP/1.1" 200 14890
+WARNING 2025-06-01 11:46:17,136 basehttp 26784 13276 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:46:18,864 basehttp 26784 26956 "GET /accounts/register/organizer/ HTTP/1.1" 200 20462
+WARNING 2025-06-01 11:46:18,914 basehttp 26784 26956 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:47:16,831 basehttp 26784 18252 "POST /accounts/register/organizer/ HTTP/1.1" 302 0
+INFO 2025-06-01 11:47:16,856 basehttp 26784 18252 "GET /accounts/profile/ HTTP/1.1" 200 22764
+WARNING 2025-06-01 11:47:16,917 basehttp 26784 18252 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:47:28,842 basehttp 26784 26500 "GET /accounts/profile/organizer/edit/ HTTP/1.1" 200 30353
+WARNING 2025-06-01 11:47:28,882 basehttp 26784 26500 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:48:32,774 basehttp 26784 26168 "POST /accounts/profile/organizer/edit/ HTTP/1.1" 302 0
+INFO 2025-06-01 11:48:32,790 basehttp 26784 26168 "GET /accounts/profile/ HTTP/1.1" 200 22589
+WARNING 2025-06-01 11:48:32,836 basehttp 26784 11480 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:48:32,843 basehttp 26784 26168 "GET /media/profiles/organizers/PP_DJOKO.jpg HTTP/1.1" 200 430207
+INFO 2025-06-01 11:48:35,910 basehttp 26784 26168 "GET /accounts/profile/organizer/edit/ HTTP/1.1" 200 30324
+INFO 2025-06-01 11:48:35,943 basehttp 26784 3184 "GET /media/profiles/organizers/PP_DJOKO.jpg HTTP/1.1" 304 0
+WARNING 2025-06-01 11:48:35,953 basehttp 26784 26168 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:50:06,738 basehttp 26784 3184 "GET /accounts/profile/organizer/edit/ HTTP/1.1" 200 30309
+INFO 2025-06-01 11:50:06,773 basehttp 26784 20376 "GET /media/profiles/organizers/PP_DJOKO.jpg HTTP/1.1" 304 0
+WARNING 2025-06-01 11:50:06,783 basehttp 26784 3184 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:50:23,546 basehttp 26784 20376 "GET /accounts/profile/ HTTP/1.1" 200 21695
+INFO 2025-06-01 11:50:23,577 basehttp 26784 24260 "GET /media/profiles/organizers/PP_DJOKO.jpg HTTP/1.1" 304 0
+WARNING 2025-06-01 11:50:23,586 basehttp 26784 20376 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:50:25,754 basehttp 26784 24260 "GET /accounts/profile/organizer/edit/ HTTP/1.1" 200 30309
+WARNING 2025-06-01 11:50:25,789 basehttp 26784 24260 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:50:41,439 basehttp 26784 11624 "GET /accounts/profile/organizer/edit/ HTTP/1.1" 200 30304
+INFO 2025-06-01 11:50:41,465 basehttp 26784 11092 "GET /media/profiles/organizers/PP_DJOKO.jpg HTTP/1.1" 304 0
+WARNING 2025-06-01 11:50:41,470 basehttp 26784 11624 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:51:20,590 basehttp 26784 11092 "GET /accounts/profile/organizer/edit/ HTTP/1.1" 200 29069
+INFO 2025-06-01 11:51:20,631 basehttp 26784 6952 "GET /media/profiles/organizers/PP_DJOKO.jpg HTTP/1.1" 304 0
+WARNING 2025-06-01 11:51:20,646 basehttp 26784 11092 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:51:34,672 basehttp 26784 6952 "GET /accounts/profile/ HTTP/1.1" 200 21695
+WARNING 2025-06-01 11:51:34,707 basehttp 26784 6952 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:51:38,283 basehttp 26784 8016 "GET /artists/search/ HTTP/1.1" 200 267251
+WARNING 2025-06-01 11:51:38,318 basehttp 26784 8016 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:51:40,651 basehttp 26784 21264 "GET /artists/1/ HTTP/1.1" 200 35397
+INFO 2025-06-01 11:51:40,686 basehttp 26784 21828 "GET /media/media/photos/2025/06/WhatsApp_Image_2024-07-13_%C3%A0_22.40.14_e095deec.jpg HTTP/1.1" 304 0
+INFO 2025-06-01 11:51:40,687 basehttp 26784 25544 "GET /media/media/photos/2025/06/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-06-01 11:51:40,697 basehttp 26784 21264 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:51:43,337 basehttp 26784 25544 "GET /artists/1/whatsapp/ HTTP/1.1" 200 34901
+WARNING 2025-06-01 11:51:43,368 basehttp 26784 25544 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:52:11,430 basehttp 26784 21828 "GET /artists/1/ HTTP/1.1" 200 35397
+WARNING 2025-06-01 11:52:11,461 basehttp 26784 21828 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:52:15,650 basehttp 26784 21648 "GET /accounts/profile/ HTTP/1.1" 200 21695
+INFO 2025-06-01 11:52:15,678 basehttp 26784 23916 "GET /media/profiles/organizers/PP_DJOKO.jpg HTTP/1.1" 304 0
+WARNING 2025-06-01 11:52:15,686 basehttp 26784 21648 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-01 11:55:47,396 basehttp 26784 23916 "GET /accounts/profile/ HTTP/1.1" 200 21477
+INFO 2025-06-01 11:55:47,434 basehttp 26784 17300 "GET /media/profiles/organizers/PP_DJOKO.jpg HTTP/1.1" 304 0
+WARNING 2025-06-01 11:55:47,443 basehttp 26784 23916 "GET /static/css/style.css HTTP/1.1" 404 1899
