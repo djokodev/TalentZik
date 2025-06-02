@@ -3015,3 +3015,39 @@ INFO 2025-06-01 13:08:18,935 basehttp 21684 7132 "GET /artists/search/ HTTP/1.1"
 WARNING 2025-06-01 13:08:18,982 basehttp 21684 7132 "GET /static/css/style.css HTTP/1.1" 404 1899
 INFO 2025-06-01 13:08:20,616 basehttp 21684 24932 "GET /artists/1/ HTTP/1.1" 200 33402
 WARNING 2025-06-01 13:08:20,659 basehttp 21684 24932 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 00:57:36,384 autoreload 28120 19936 Watching for file changes with StatReloader
+INFO 2025-06-02 00:57:38,824 basehttp 28120 22208 "GET / HTTP/1.1" 200 29138
+WARNING 2025-06-02 00:57:38,918 basehttp 28120 22208 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 00:57:47,361 basehttp 28120 2848 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-06-02 00:57:47,369 basehttp 28120 2848 "GET / HTTP/1.1" 200 26131
+WARNING 2025-06-02 00:57:47,416 basehttp 28120 2848 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 00:58:03,600 basehttp 28120 29224 "GET /artists/search/ HTTP/1.1" 200 260798
+INFO 2025-06-02 00:58:03,642 basehttp 28120 20644 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-06-02 00:58:03,654 basehttp 28120 29224 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 00:58:09,438 basehttp 28120 20644 "GET /about/ HTTP/1.1" 200 27826
+WARNING 2025-06-02 00:58:09,483 basehttp 28120 20644 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 00:58:21,771 basehttp 28120 14588 "GET / HTTP/1.1" 200 25267
+WARNING 2025-06-02 00:58:21,823 basehttp 28120 14588 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-02 00:58:28,660 basehttp 28120 28236 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-02 00:58:28,722 log 28120 11400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 00:58:28,727 basehttp 28120 11400 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 00:58:35,594 log 28120 11400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 00:58:35,596 basehttp 28120 11400 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+INFO 2025-06-02 01:02:34,403 basehttp 28120 11400 "GET / HTTP/1.1" 200 25464
+WARNING 2025-06-02 01:02:34,478 basehttp 28120 15276 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-02 01:02:34,485 log 28120 11400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:02:34,487 basehttp 28120 11400 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+INFO 2025-06-02 01:02:46,083 basehttp 28120 11400 "GET /artists/search/ HTTP/1.1" 200 260995
+WARNING 2025-06-02 01:02:46,144 log 28120 11400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:02:46,145 basehttp 28120 11400 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:02:46,153 basehttp 28120 20700 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:02:57,681 basehttp 28120 11400 "GET /artists/1/ HTTP/1.1" 200 28560
+WARNING 2025-06-02 01:02:57,732 log 28120 11400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:02:57,732 basehttp 28120 11400 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+INFO 2025-06-02 01:02:57,744 basehttp 28120 11400 "GET /media/media/photos/2025/06/WhatsApp_Image_2024-07-13_%C3%A0_22.40.14_e095deec.jpg HTTP/1.1" 304 0
+INFO 2025-06-02 01:02:57,753 basehttp 28120 11400 "GET /media/media/photos/2025/06/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-06-02 01:02:57,756 basehttp 28120 19124 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:03:14,539 basehttp 28120 11400 "GET / HTTP/1.1" 200 25464
+WARNING 2025-06-02 01:03:14,598 log 28120 11400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:03:14,605 basehttp 28120 11400 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:03:14,613 basehttp 28120 25848 "GET /static/css/style.css HTTP/1.1" 404 1899
