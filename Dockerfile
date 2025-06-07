@@ -66,8 +66,8 @@ WORKDIR /app
 COPY --chown=django:django . .
 
 # Copier et rendre exécutable le script d'initialisation
-COPY --chown=django:django scripts/run.sh /app/run.sh
-RUN chmod +x /app/run.sh
+COPY --chown=django:django scripts/run.sh /app/scripts/run.sh
+RUN chmod +x /app/scripts/run.sh
 
 # Installer Gunicorn si pas déjà dans requirements.txt
 RUN pip install gunicorn

@@ -39,8 +39,9 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    command: /app/run.sh
+    command: /app/scripts/run.sh
     volumes:
+      - .:/app  # Monte TOUT le code source pour voir les changements
       - static_volume:/app/staticfiles
       - media_volume:/app/media
       - logs_volume:/app/logs
@@ -63,6 +64,7 @@ services:
     env_file:
       - .env
     volumes:
+      - .:/app  # Monte aussi le code source pour Celery
       - media_volume:/app/media
       - logs_volume:/app/logs
     depends_on:
