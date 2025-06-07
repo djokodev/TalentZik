@@ -49,12 +49,21 @@ CELERY_TASK_SOFT_TIME_LIMIT = 25 * 60  # 25 minutes
 
 
 # Cookies sécurisés
-SESSION_COOKIE_SECURE = True
+# TEMPORAIRE : Désactivé pour le débogage - À réactiver avec HTTPS !
+SESSION_COOKIE_SECURE = False  # TEMPORAIRE : True en production avec HTTPS
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = "Strict"
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = "Lax"  # TEMPORAIRE : "Strict" avec HTTPS
+CSRF_COOKIE_SECURE = False  # TEMPORAIRE : True en production avec HTTPS
 CSRF_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE = "Strict"
+CSRF_COOKIE_SAMESITE = "Lax"  # TEMPORAIRE : "Strict" avec HTTPS
+
+# Configuration de session pour déboggage
+SESSION_ENGINE = (
+    "django.contrib.sessions.backends.db"  # Utilise la DB pour les sessions
+)
+SESSION_COOKIE_AGE = 3600  # 1 heure
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
 # Configuration des fichiers statiques pour production
@@ -93,6 +102,10 @@ LOGGING = {
             "format": "{levelname} {message}",
             "style": "{",
         },
+        "request": {
+            "format": "{asctime} - {levelname} - {message}",
+            "style": "{",
+        },
     },
     "handlers": {
         "file": {
@@ -104,7 +117,7 @@ LOGGING = {
             "backupCount": 10,
         },
         "console": {
-            "level": "INFO",
+            "level": "DEBUG",  # Changé à DEBUG pour plus de détails
             "class": "logging.StreamHandler",
             "formatter": "simple",
         },
@@ -124,12 +137,17 @@ LOGGING = {
     "loggers": {
         "django": {
             "handlers": ["file", "console"],
-            "level": "INFO",
+            "level": "DEBUG",  # Plus de détails
             "propagate": False,
         },
         "django.request": {
             "handlers": ["error_file", "console"],
-            "level": "ERROR",
+            "level": "DEBUG",  # Capturer toutes les requêtes HTTP
+            "propagate": False,
+        },
+        "django.server": {
+            "handlers": ["console"],
+            "level": "DEBUG",  # Logs du serveur de dev
             "propagate": False,
         },
         "apps": {
