@@ -35,11 +35,11 @@ urlpatterns = [
     path("accounts/", include("apps.accounts.urls")),
     path("artists/", include("apps.artists.urls")),
     path("reviews/", include("apps.reviews.urls")),
-    path("media/", include("apps.media_files.urls")),
+    path("files/", include("apps.media_files.urls")),
     path("about/", TemplateView.as_view(template_name="about.html"), name="about"),
 ]
 
-# Servir les fichiers médias en développement
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Servir les fichiers médias et statiques
+# TEMPORAIRE : Force Django à servir les médias même en production
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
