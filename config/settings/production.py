@@ -19,9 +19,8 @@ DATABASES = {
         "PASSWORD": config("DB_PASSWORD"),
         "HOST": config("DB_HOST", default="localhost"),
         "PORT": config("DB_PORT", default="5432"),
-
         # Connexions persistantes pour un temps d'attente de 10 minutes
-        "CONN_MAX_AGE": 600,  
+        "CONN_MAX_AGE": 600,
     }
 }
 
@@ -32,9 +31,6 @@ CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": f"{REDIS_URL}/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
         "KEY_PREFIX": "talentzik",
         "TIMEOUT": 300,
     }
@@ -156,4 +152,3 @@ USE_L10N = True
 
 # Optimisations de template
 TEMPLATES[0]["OPTIONS"]["debug"] = False
-

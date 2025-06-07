@@ -220,13 +220,18 @@ class ArtistSearchForm(forms.Form):
 
         # Filtres musicaux
         if data.get("genres"):
-            queryset = queryset.filter(genres__in=data["genres"]).distinct()
+            # Utiliser la relation correcte via ArtistGenre
+            queryset = queryset.filter(genres__genre__in=data["genres"]).distinct()
 
         if data.get("roles"):
-            queryset = queryset.filter(roles__in=data["roles"]).distinct()
+            # Utiliser la relation correcte via ArtistRoleAssignment
+            queryset = queryset.filter(roles__role__in=data["roles"]).distinct()
 
         if data.get("instruments"):
-            queryset = queryset.filter(instruments__in=data["instruments"]).distinct()
+            # Utiliser la relation correcte via ArtistInstrument
+            queryset = queryset.filter(
+                instruments__instrument__in=data["instruments"]
+            ).distinct()
 
         # Filtre de disponibilité
         if data.get("is_available"):
@@ -237,8 +242,11 @@ class ArtistSearchForm(forms.Form):
             min_rating = float(data["min_rating"])
             queryset = queryset.filter(rating_average__gte=min_rating)
 
-        # Tri
+        # Tri - avec validation pour éviter les chaînes vides
         sort_by = data.get("sort_by", "-profile_views")
+        if not sort_by or sort_by.strip() == "":  # Protection contre les valeurs vides
+            sort_by = "-profile_views"
+
         if sort_by == "name":
             # Tri par nom : utiliser le stage_name en priorité, sinon le nom complet
             queryset = queryset.extra(
@@ -253,7 +261,19 @@ class ArtistSearchForm(forms.Form):
                 }
             ).order_by("-display_name")
         else:
-            queryset = queryset.order_by(sort_by)
+            # Vérifier que le champ de tri est valide
+            valid_sort_fields = [
+                "name",
+                "-name",
+                "-total_reviews",
+                "-profile_views",
+                "-created_at",
+                "created_at",
+            ]
+            if sort_by in valid_sort_fields:
+                queryset = queryset.order_by(sort_by)
+            else:
+                queryset = queryset.order_by("-profile_views")  # Fallback sécurisé
 
         return queryset
 
