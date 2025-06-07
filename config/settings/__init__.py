@@ -1,4 +1,18 @@
 """
 Settings package pour TalentZik
-Permet l'organisation modulaire des configurations
 """
+
+import os
+from decouple import config
+
+# Déterminer l'environnement
+ENVIRONMENT = config('DJANGO_ENV', default='development')
+
+if ENVIRONMENT == 'production':
+    from .production import *
+elif ENVIRONMENT == 'development':
+    from .development import *
+else:
+    from .development import *
+    
+print(f"🔧 Configuration chargée: {ENVIRONMENT}")

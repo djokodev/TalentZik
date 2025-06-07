@@ -1,0 +1,90 @@
+# Fichiers et dossiers à ignorer lors de la construction Docker
+
+# Environnement virtuel
+venv/
+env/
+.venv/
+
+# Base de données de développement
+db.sqlite3
+*.sqlite3
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Variables d'environnement
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Fichiers temporaires
+.tmp/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# Editeurs et IDE
+.vscode/
+.idea/
+*.sublime-*
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentation
+README.md
+docs/
+*.md
+
+# Tests
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+.mypy_cache/
+
+# Médias de développement (garder uniquement les médias nécessaires en prod)
+media/uploads/dev/
+media/temp/
+
+# Fichiers de configuration locaux
+local_settings.py
+settings_local.py
+
+# Certificats SSL (seront montés séparément)
+*.pem
+*.crt
+*.key 

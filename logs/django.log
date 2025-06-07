@@ -3051,3 +3051,139 @@ INFO 2025-06-02 01:03:14,539 basehttp 28120 11400 "GET / HTTP/1.1" 200 25464
 WARNING 2025-06-02 01:03:14,598 log 28120 11400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
 WARNING 2025-06-02 01:03:14,605 basehttp 28120 11400 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
 WARNING 2025-06-02 01:03:14,613 basehttp 28120 25848 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:03:53,286 basehttp 28120 11400 "GET / HTTP/1.1" 200 25464
+WARNING 2025-06-02 01:03:53,349 basehttp 28120 11400 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-02 01:04:22,866 basehttp 28120 23524 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-02 01:04:22,946 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:22,947 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+INFO 2025-06-02 01:04:26,757 basehttp 28120 24520 "GET /accounts/register/ HTTP/1.1" 200 15087
+WARNING 2025-06-02 01:04:26,811 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:26,817 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:04:26,828 basehttp 28120 24856 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:04:30,721 basehttp 28120 24520 "GET /accounts/register/organizer/ HTTP/1.1" 200 20659
+WARNING 2025-06-02 01:04:30,773 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:30,778 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:04:30,789 basehttp 28120 25696 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:04:38,005 basehttp 28120 24520 "GET /accounts/register/ HTTP/1.1" 200 15087
+WARNING 2025-06-02 01:04:38,064 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:38,065 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:04:38,081 basehttp 28120 2436 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-02 01:04:48,989 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:48,992 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:04:49,000 basehttp 28120 3884 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-02 01:04:49,024 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:49,025 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:04:51,372 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:51,373 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:04:51,373 basehttp 28120 27840 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-02 01:04:51,384 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:51,385 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:04:52,197 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:52,198 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:04:52,239 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:04:52,240 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+INFO 2025-06-02 01:05:15,442 basehttp 28120 24520 "GET /about/ HTTP/1.1" 200 28023
+WARNING 2025-06-02 01:05:15,503 log 28120 24520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:05:15,504 basehttp 28120 24520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:05:15,523 basehttp 28120 24520 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:05:36,803 basehttp 28120 22656 "GET / HTTP/1.1" 200 25464
+WARNING 2025-06-02 01:05:36,878 log 28120 22656 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-06-02 01:05:36,879 basehttp 28120 22656 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3138
+WARNING 2025-06-02 01:05:36,882 basehttp 28120 8164 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:05:52,972 basehttp 28120 22656 "GET /accounts/login/ HTTP/1.1" 200 12359
+WARNING 2025-06-02 01:05:53,015 basehttp 28120 22656 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:05:54,748 basehttp 28120 20932 "GET /accounts/register/ HTTP/1.1" 200 15087
+WARNING 2025-06-02 01:05:54,791 basehttp 28120 20932 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:06:00,629 basehttp 28120 20836 "GET / HTTP/1.1" 200 25464
+WARNING 2025-06-02 01:06:00,674 basehttp 28120 20836 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:06:17,218 basehttp 28120 28244 "GET /accounts/login/ HTTP/1.1" 200 12359
+WARNING 2025-06-02 01:06:17,259 basehttp 28120 28244 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:06:26,891 basehttp 28120 5044 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-06-02 01:06:26,910 basehttp 28120 5044 "GET /accounts/profile/ HTTP/1.1" 200 24896
+WARNING 2025-06-02 01:06:26,967 basehttp 28120 5044 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:06:32,539 basehttp 28120 29068 "GET /accounts/profile/edit/ HTTP/1.1" 200 234450
+WARNING 2025-06-02 01:06:32,577 basehttp 28120 29068 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:07:05,025 basehttp 28120 26192 "GET /artists/search/ HTTP/1.1" 200 266240
+WARNING 2025-06-02 01:07:05,074 basehttp 28120 26192 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:07:11,559 basehttp 28120 23584 "GET /artists/1/ HTTP/1.1" 200 34805
+WARNING 2025-06-02 01:07:11,603 basehttp 28120 23584 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:07:28,705 basehttp 28120 21012 "GET / HTTP/1.1" 200 30709
+WARNING 2025-06-02 01:07:28,749 basehttp 28120 21012 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:07:31,199 basehttp 28120 29396 "GET / HTTP/1.1" 200 30709
+WARNING 2025-06-02 01:07:31,237 basehttp 28120 29396 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:07:32,708 basehttp 28120 27664 "GET / HTTP/1.1" 200 30709
+WARNING 2025-06-02 01:07:32,763 basehttp 28120 27664 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:07:36,872 basehttp 28120 11596 "GET / HTTP/1.1" 200 30709
+WARNING 2025-06-02 01:07:36,908 basehttp 28120 11596 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 01:07:40,942 basehttp 28120 3048 "GET / HTTP/1.1" 200 30709
+WARNING 2025-06-02 01:07:40,987 basehttp 28120 3048 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 18:43:15,731 autoreload 23692 4344 Watching for file changes with StatReloader
+INFO 2025-06-02 18:43:20,128 basehttp 23692 29076 "GET / HTTP/1.1" 200 30709
+INFO 2025-06-02 18:43:20,201 basehttp 23692 28452 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 304 0
+WARNING 2025-06-02 18:43:20,246 basehttp 23692 29076 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-02 18:43:53,449 basehttp 23692 29432 "GET / HTTP/1.1" 200 30709
+WARNING 2025-06-02 18:43:53,559 basehttp 23692 29432 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:50:39,109 autoreload 20376 9076 Watching for file changes with StatReloader
+INFO 2025-06-04 18:50:42,212 basehttp 20376 5864 "GET / HTTP/1.1" 200 25464
+WARNING 2025-06-04 18:50:42,328 basehttp 20376 5864 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:53:44,460 basehttp 20376 19600 "GET /accounts/register/artist/ HTTP/1.1" 200 19376
+WARNING 2025-06-04 18:53:44,535 basehttp 20376 19600 "GET /static/css/style.css HTTP/1.1" 404 1899
+WARNING 2025-06-04 18:53:45,078 log 20376 7380 Not Found: /favicon.ico
+WARNING 2025-06-04 18:53:45,078 basehttp 20376 7380 "GET /favicon.ico HTTP/1.1" 404 3027
+INFO 2025-06-04 18:53:54,832 basehttp 20376 7380 "GET / HTTP/1.1" 200 25464
+WARNING 2025-06-04 18:53:54,880 basehttp 20376 7380 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:53:58,161 basehttp 20376 22548 "GET /accounts/register/ HTTP/1.1" 200 15087
+WARNING 2025-06-04 18:53:58,216 basehttp 20376 22548 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:55:21,744 basehttp 20376 7136 "GET /accounts/login/ HTTP/1.1" 200 12359
+WARNING 2025-06-04 18:55:21,791 basehttp 20376 7136 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:55:41,541 basehttp 20376 19492 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-06-04 18:55:41,569 basehttp 20376 19492 "GET /accounts/profile/ HTTP/1.1" 200 24896
+WARNING 2025-06-04 18:55:41,617 basehttp 20376 23304 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:55:41,705 basehttp 20376 19492 "GET /media/profiles/artists/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 200 94319
+INFO 2025-06-04 18:56:00,371 basehttp 20376 19492 "GET /accounts/profile/edit/ HTTP/1.1" 200 234450
+WARNING 2025-06-04 18:56:00,406 basehttp 20376 19492 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:57:11,551 basehttp 20376 19744 "GET /accounts/profile/ HTTP/1.1" 200 23990
+INFO 2025-06-04 18:57:15,456 basehttp 20376 19744 "GET /media/ HTTP/1.1" 200 46322
+INFO 2025-06-04 18:57:15,514 basehttp 20376 19744 "GET /media/media/photos/2025/06/WhatsApp_Image_2025-03-31_at_16.01.12_f4506dfa.jpg HTTP/1.1" 200 94319
+WARNING 2025-06-04 18:57:15,516 basehttp 20376 20276 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:57:15,519 basehttp 20376 21576 "GET /media/media/photos/2025/06/WhatsApp_Image_2024-07-13_%C3%A0_22.40.14_e095deec.jpg HTTP/1.1" 200 229802
+INFO 2025-06-04 18:58:02,231 basehttp 20376 21576 "GET /artists/search/ HTTP/1.1" 200 266240
+WARNING 2025-06-04 18:58:02,281 basehttp 20376 21576 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:58:40,841 basehttp 20376 19744 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-06-04 18:58:40,849 basehttp 20376 19744 "GET / HTTP/1.1" 200 26328
+WARNING 2025-06-04 18:58:40,894 basehttp 20376 19744 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:58:42,884 basehttp 20376 20340 "GET /accounts/login/ HTTP/1.1" 200 12359
+WARNING 2025-06-04 18:58:42,945 basehttp 20376 20340 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:58:51,260 basehttp 20376 10312 "POST /accounts/login/ HTTP/1.1" 200 13080
+WARNING 2025-06-04 18:58:51,298 basehttp 20376 10312 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:58:57,589 basehttp 20376 22144 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-06-04 18:58:57,600 basehttp 20376 22144 "GET /accounts/profile/ HTTP/1.1" 200 22114
+WARNING 2025-06-04 18:58:57,632 basehttp 20376 22144 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:59:02,754 basehttp 20376 14296 "GET /artists/search/ HTTP/1.1" 200 264865
+WARNING 2025-06-04 18:59:02,792 basehttp 20376 14296 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 18:59:16,579 basehttp 20376 18064 "GET /artists/1/ HTTP/1.1" 200 33330
+WARNING 2025-06-04 18:59:16,616 basehttp 20376 18064 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:00:21,677 basehttp 20376 15756 "GET /accounts/register/organizer/ HTTP/1.1" 200 24529
+WARNING 2025-06-04 19:00:21,737 basehttp 20376 15756 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:02:56,883 basehttp 20376 19668 "POST /accounts/register/organizer/ HTTP/1.1" 200 25259
+WARNING 2025-06-04 19:02:56,929 basehttp 20376 19668 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:03:14,118 basehttp 20376 23044 "POST /accounts/register/organizer/ HTTP/1.1" 302 0
+INFO 2025-06-04 19:03:14,118 basehttp 20376 23044 "GET /accounts/profile/ HTTP/1.1" 200 23207
+WARNING 2025-06-04 19:03:14,166 basehttp 20376 23044 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:03:39,954 basehttp 20376 18128 "GET /accounts/profile/organizer/edit/ HTTP/1.1" 200 29285
+WARNING 2025-06-04 19:03:39,992 basehttp 20376 18128 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:03:53,079 basehttp 20376 21912 "GET /artists/search/ HTTP/1.1" 200 264874
+WARNING 2025-06-04 19:03:53,114 basehttp 20376 21912 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:03:55,634 basehttp 20376 15928 "GET /artists/1/ HTTP/1.1" 200 33608
+WARNING 2025-06-04 19:03:55,675 basehttp 20376 15928 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:08:40,363 basehttp 20376 21296 "GET /about/ HTTP/1.1" 200 31902
+WARNING 2025-06-04 19:08:40,427 basehttp 20376 21296 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:18:13,905 basehttp 20376 15456 "GET / HTTP/1.1" 200 29343
+WARNING 2025-06-04 19:18:13,995 basehttp 20376 15456 "GET /static/css/style.css HTTP/1.1" 404 1899
+INFO 2025-06-04 19:26:40,339 autoreload 20376 9076 D:\projects\TalentZik\config\celery.py changed, reloading.
+INFO 2025-06-04 19:26:41,511 autoreload 13224 2424 Watching for file changes with StatReloader
+INFO 2025-06-04 19:31:55,296 autoreload 13224 2424 D:\projects\TalentZik\config\settings\__init__.py changed, reloading.
+INFO 2025-06-04 19:31:56,695 autoreload 19496 12080 Watching for file changes with StatReloader
+INFO 2025-06-05 13:50:25,212 autoreload 6676 16232 Watching for file changes with StatReloader
+INFO 2025-06-05 13:50:29,030 basehttp 6676 23764 "GET / HTTP/1.1" 200 29343
+WARNING 2025-06-05 13:50:29,110 basehttp 6676 23764 "GET /static/css/style.css HTTP/1.1" 404 1899
