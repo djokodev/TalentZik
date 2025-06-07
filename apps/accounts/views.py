@@ -23,6 +23,7 @@ from django.http import JsonResponse
 from django.db import transaction
 from django.http import Http404
 from django.template.loader import render_to_string
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import User, ArtistProfile, OrganizerProfile, EmailVerificationToken
 from .forms import (
@@ -36,29 +37,29 @@ from .forms import (
 )
 
 
-class LoginView(BaseLoginView):
+class LoginView(SuccessMessageMixin, BaseLoginView):
     """Vue de connexion"""
 
     form_class = TalentZikLoginForm
     template_name = "accounts/login.html"
     redirect_authenticated_user = True
+    success_message = "Bienvenue %(username)s ! Vous êtes maintenant connecté."
 
     def get_success_url(self):
         """Redirection après connexion réussie"""
-        if self.request.user.is_artist:
-            return reverse_lazy("accounts:profile")
-        elif self.request.user.is_organizer:
-            return reverse_lazy("accounts:profile")
-        return reverse_lazy("home")
+        user = self.request.user
+        if user.is_authenticated:
+            if user.is_artist:
+                # Rediriger l'artiste vers la page de gestion de son profil
+                return reverse_lazy("accounts:edit_profile")
+            elif user.is_organizer:
+                # Rediriger l'organisateur vers son tableau de bord
+                return reverse_lazy(
+                    "accounts:profile"
+                )  # ou une URL 'organizers:dashboard'
 
-    def form_valid(self, form):
-        """Actions après connexion réussie"""
-        response = super().form_valid(form)
-        messages.success(
-            self.request,
-            f"Bienvenue {self.request.user.get_full_name()} ! Vous êtes maintenant connecté.",
-        )
-        return response
+        # Fallback pour tout autre cas
+        return reverse_lazy("home")
 
 
 class LogoutView(BaseLogoutView):
