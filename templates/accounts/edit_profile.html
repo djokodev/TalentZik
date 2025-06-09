@@ -72,9 +72,9 @@
     }
     
     .tab-active {
-        background: linear-gradient(135deg, #ea580c, #f97316);
+        background: #3c1361;
         color: white;
-        box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+        box-shadow: 0 4px 12px rgba(60, 19, 97, 0.3);
     }
     
     .tab-inactive {
@@ -86,12 +86,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50 min-h-screen py-8">
+<div class="bg-white min-h-screen py-8">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- En-tête patriotique -->
         <div class="bg-white rounded-xl shadow-lg border border-gray-200 mb-8 overflow-hidden">
-            <div class="bg-gradient-to-r from-green-600 via-red-600 to-yellow-500 px-6 py-4">
+            <div class="px-6 py-4" style="background-color: #3c1361;">
                 <div class="flex items-center text-white">
                     <div>
                         <h1 class="text-3xl font-bold">Valorisez votre talent</h1>
@@ -178,7 +178,7 @@
                                     {% if user.artist_profile.profile_picture %}
                                         <img src="{{ user.artist_profile.profile_picture.url }}" alt="Photo de profil" class="w-24 h-24 rounded-full object-cover border-4 border-orange-200">
                                     {% else %}
-                                        <div class="w-24 h-24 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                                        <div class="w-24 h-24 rounded-full flex items-center justify-center" style="background-color: #3c1361;">
                                             <i class="fas fa-user text-white text-3xl"></i>
                                         </div>
                                     {% endif %}
