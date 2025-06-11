@@ -48,24 +48,6 @@ CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes
 CELERY_TASK_SOFT_TIME_LIMIT = 25 * 60  # 25 minutes
 
 
-# Cookies sécurisés
-# TEMPORAIRE : Désactivé pour le débogage - À réactiver avec HTTPS !
-SESSION_COOKIE_SECURE = False  # TEMPORAIRE : True en production avec HTTPS
-SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = "Lax"  # TEMPORAIRE : "Strict" avec HTTPS
-CSRF_COOKIE_SECURE = False  # TEMPORAIRE : True en production avec HTTPS
-CSRF_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE = "Lax"  # TEMPORAIRE : "Strict" avec HTTPS
-
-# Configuration de session pour déboggage
-SESSION_ENGINE = (
-    "django.contrib.sessions.backends.db"  # Utilise la DB pour les sessions
-)
-SESSION_COOKIE_AGE = 3600  # 1 heure
-SESSION_SAVE_EVERY_REQUEST = True
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-
 # Configuration des fichiers statiques pour production
 STATIC_ROOT = config("STATIC_ROOT", default="/app/staticfiles")
 MEDIA_ROOT = config("MEDIA_ROOT", default="/app/media")
@@ -170,3 +152,30 @@ USE_L10N = True
 
 # Optimisations de template
 TEMPLATES[0]["OPTIONS"]["debug"] = False
+
+# Configuration HTTPS et CSRF - OBLIGATOIRE après passage en HTTPS
+SECURE_SSL_REDIRECT = True  # Redirection automatique HTTP → HTTPS
+SECURE_PROXY_SSL_HEADER = (
+    "HTTP_X_FORWARDED_PROTO",
+    "https",
+)  # Pour les proxies (nginx)
+
+# Cookies sécurisés pour HTTPS
+SESSION_COOKIE_SECURE = True  # OBLIGATOIRE avec HTTPS
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+
+# Configuration CSRF pour HTTPS
+CSRF_COOKIE_SECURE = True  # OBLIGATOIRE avec HTTPS
+CSRF_COOKIE_HTTPONLY = True  # Peut rester True
+CSRF_COOKIE_SAMESITE = "Lax"
+
+# Origines de confiance CSRF - CRITIQUE pour HTTPS
+CSRF_TRUSTED_ORIGINS = []
+if config("CSRF_TRUSTED_ORIGINS", default=""):
+    CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS").split(",")
+
+# Configuration de session pour HTTPS
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_COOKIE_AGE = 3600  # 1 heure
+SESSION_SAVE_EVERY_REQUEST = True
