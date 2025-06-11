@@ -1,7 +1,22 @@
 from .base import *
+import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+TEMPLATE_DEBUG = False
+
+# Vérification de sécurité - Empêcher toute activation accidentelle du debug
+if os.environ.get("DEBUG", "").lower() in ["true", "1", "yes"]:
+    print("⚠️ ALERTE SÉCURITÉ: DEBUG=True détecté en production !")
+    print("🔒 FORCING DEBUG=False pour la sécurité")
+    DEBUG = False
+
+# Logs de vérification
+print(f"🔍 DEBUG MODE: {DEBUG}")
+print(f"🏠 ALLOWED_HOSTS: {config('ALLOWED_HOSTS', default='NON CONFIGURÉ')}")
+print(
+    f"🔐 CSRF_TRUSTED_ORIGINS: {config('CSRF_TRUSTED_ORIGINS', default='NON CONFIGURÉ')}"
+)
 
 # Hosts autorisés en production - OBLIGATOIRE !
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")

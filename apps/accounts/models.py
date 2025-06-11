@@ -120,6 +120,7 @@ class ArtistProfile(models.Model):
     phone_number = models.CharField(
         _("Numéro de téléphone"),
         max_length=20,
+        blank=True,
         help_text=_("Numéro de téléphone principal"),
     )
     whatsapp_number = models.CharField(
@@ -137,10 +138,10 @@ class ArtistProfile(models.Model):
         _("Photo de profil"), upload_to="profiles/artists/", blank=True, null=True
     )
     city = models.CharField(
-        _("Ville"), max_length=100, help_text=_("Ville de résidence")
+        _("Ville"), max_length=100, blank=True, help_text=_("Ville de résidence")
     )
     region = models.CharField(
-        _("Région"), max_length=100, help_text=_("Région du Cameroun")
+        _("Région"), max_length=100, blank=True, help_text=_("Région du Cameroun")
     )
     is_available = models.BooleanField(
         _("Disponible"),

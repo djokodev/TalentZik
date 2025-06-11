@@ -211,20 +211,35 @@ class ArtistRegistrationForm(UserRegistrationForm):
         )
 
     def save(self, commit=True):
+        from django.db import transaction
+
         user = super().save(commit=False)
         user.user_type = "artist"
+
         if commit:
-            user.save()
-            # Créer le profil artiste
-            profile = ArtistProfile.objects.create(
-                user=user,
-                stage_name=self.cleaned_data.get("stage_name", ""),
-                phone_number=self.cleaned_data["phone_number"],
-                whatsapp_number=self.cleaned_data.get("whatsapp_number", ""),
-                city=self.cleaned_data["city"],
-                region=self.cleaned_data["region"],
-                bio=self.cleaned_data.get("bio", ""),
-            )
+            try:
+                with transaction.atomic():
+                    user.save()
+                    # Créer le profil artiste avec gestion d'erreurs
+                    profile = ArtistProfile.objects.create(
+                        user=user,
+                        stage_name=self.cleaned_data.get("stage_name", ""),
+                        phone_number=self.cleaned_data.get("phone_number", ""),
+                        whatsapp_number=self.cleaned_data.get("whatsapp_number", ""),
+                        city=self.cleaned_data.get("city", ""),
+                        region=self.cleaned_data.get("region", ""),
+                        bio=self.cleaned_data.get("bio", ""),
+                    )
+            except Exception as e:
+                # Log l'erreur pour debug
+                import logging
+
+                logger = logging.getLogger(__name__)
+                logger.error(
+                    f"Erreur lors de la création du profil artiste pour {user.email}: {e}"
+                )
+                # Rethrow l'exception pour que l'utilisateur ne soit pas créé non plus
+                raise
         return user
 
 
