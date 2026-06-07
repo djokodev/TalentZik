@@ -1,6 +1,10 @@
 # TalentZik 🎵
 
-TalentZik est une plateforme web moderne conçue pour connecter les artistes (musiciens, chanteurs, groupes, DJ, etc.) avec des recruteurs, des organisateurs d'événements et des passionnés de musique. Elle permet aux artistes de créer des profils professionnels riches, de présenter leurs portfolios multimédias et de recevoir des avis certifiés de clients.
+> **Conçu pour le Cameroun. Pensé pour l'Afrique.**
+
+TalentZik est une plateforme web moderne conçue pour connecter les artistes camerounais (musiciens, chanteurs, groupes, DJ, etc.) avec des recruteurs, des organisateurs d'événements et des passionnés de musique. Pensée d'abord pour le marché camerounais, la plateforme a vocation à s'étendre progressivement à l'ensemble du continent africain, en valorisant la richesse des talents locaux souvent sous-représentés sur les plateformes internationales.
+
+Elle permet aux artistes de créer des profils professionnels riches, de présenter leurs portfolios multimédias et de recevoir des avis certifiés de clients.
 
 ---
 
@@ -22,19 +26,98 @@ Le secteur de l'événementiel musical souffre d'un manque de centralisation et 
 
 ## 🛠️ Pile Technique
 
-*   **Framework Principal :** Django 4.2 (Python 3.11)
-*   **Interface Utilisateur :** TailwindCSS, Django Crispy Forms (Crispy Tailwind)
-*   **Base de Données :** 
-    *   *Développement :* SQLite (léger, sans configuration externe)
-    *   *Production :* PostgreSQL (robuste et performant)
-*   **Gestion des Tâches Asynchrones :** Celery (pour l'envoi d'e-mails et le traitement asynchrone des médias lourds)
-*   **Broker & Cache :** Redis (gestion des sessions, cache applicatif et files d'attente Celery)
-*   **Serveur Web de Production :** Nginx (proxy inverse et serveur direct de fichiers statiques/médias)
-*   **Déploiement :** Dokploy (PaaS Docker-native hébergé sur VPS)
+| Composant | Technologie | Rôle |
+|---|---|---|
+| **Framework** | Django 4.2 (Python 3.11) | Backend MVT, ORM, admin, auth |
+| **UI / Templates** | TailwindCSS + Crispy Forms | Rendu HTML côté serveur |
+| **Base de données dev** | SQLite | Léger, zéro configuration locale |
+| **Base de données prod** | PostgreSQL 15 | Robuste, ACID, full-text search |
+| **Tâches asynchrones** | Celery 5.3 | File d'attente pour emails, médias |
+| **Broker & Cache** | Redis 7 | Sessions, cache, files Celery |
+| **Serveur applicatif** | Gunicorn | WSGI multi-workers pour Django |
+| **Proxy inverse** | Nginx | Sert les statiques, reverse proxy |
+| **Conteneurisation** | Docker + Docker Compose | Isolation et portabilité |
 
 ---
 
-## 🚀 Installation et Démarrage Local
+## 🏗️ Architecture du Projet
+
+TalentZik suit le pattern **MVT (Model – View – Template)** natif de Django, organisé en couches fonctionnelles distinctes. L'ensemble des services tourne dans des conteneurs Docker isolés et communique via un réseau interne.
+
+### Pattern MVT — Modèle, Vue, Template
+
+```
+┌────────────────────────────────────────────────────────┐
+│                     NAVIGATEUR                         │
+│            (Requête HTTP : localhost:8000)              │
+└─────────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+┌────────────────────────────────────────────────────────┐
+│                  NGINX (Port 80)                       │
+│  • Sert les fichiers statiques (CSS, JS, images)       │
+│  • Sert les fichiers médias uploadés par les artistes  │
+│  • Redirige les autres requêtes vers Gunicorn          │
+└─────────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+┌────────────────────────────────────────────────────────┐
+│               GUNICORN (Port 8000)                     │
+│        Serveur WSGI — point d'entrée Django            │
+└─────────────────────────┬──────────────────────────────┘
+                          │
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
+┌──────────────┐  ┌───────────────┐  ┌──────────────────┐
+│    MODÈLE    │  │     VUE       │  │    TEMPLATE      │
+│  (models.py) │  │  (views.py)   │  │  (*.html)        │
+│              │  │               │  │                  │
+│  Artiste     │◄─┤  Logique      ├─►│  HTML rendu      │
+│  Recruteur   │  │  métier       │  │  TailwindCSS     │
+│  Avis        │  │  Permissions  │  │  Crispy Forms    │
+│  Portfolio   │  │  Filtres      │  │                  │
+└──────┬───────┘  └───────┬───────┘  └──────────────────┘
+       │                  │
+       ▼                  ▼
+┌──────────────┐  ┌───────────────────────────────────────┐
+│  PostgreSQL  │  │               REDIS                   │
+│  (Port 5432) │  │            (Port 6379)                │
+│              │  │  • Cache des requêtes fréquentes      │
+│  Persistance │  │  • Sessions utilisateurs              │
+│  de toutes   │  │  • File d'attente pour Celery         │
+│  les données │  └──────────────────┬────────────────────┘
+└──────────────┘                     │
+                                     ▼
+                        ┌────────────────────────┐
+                        │    CELERY (Worker)     │
+                        │  Traitement différé    │
+                        │  • Envoi d'e-mails     │
+                        │  • Compression médias  │
+                        │  • Notifications       │
+                        └────────────────────────┘
+```
+
+### Les couches en détail
+
+#### Couche Modèle, la structure des données
+Les modèles Django définissent la structure de toutes les entités métier : `Artiste`, `Recruteur`, `Portfolio`, `Avis`, `Genre musical`, etc. L'ORM Django traduit automatiquement ces classes Python en tables SQL dans PostgreSQL, sans écrire une seule ligne de SQL manuellement.
+
+#### Couche Vue, la logique métier
+Les vues Django reçoivent les requêtes HTTP, appliquent les règles métier (vérification des permissions, filtrage des artistes, validation des formulaires) et renvoient une réponse. TalentZik utilise les **Class-Based Views** (CBV) pour maximiser la réutilisabilité du code.
+
+#### Couche Template, l'interface utilisateur
+Les templates HTML sont rendus côté serveur par Django. TailwindCSS assure le design responsive et Django Crispy Forms génère automatiquement les formulaires stylisés, sans dupliquer de code HTML.
+
+#### Traitement asynchrone, Celery + Redis
+L'upload de fichiers multimédias lourds (vidéos jusqu'à 100 Mo, audios jusqu'à 25 Mo) et l'envoi d'e-mails sont des opérations longues qui ne doivent pas bloquer la réponse HTTP. Ces tâches sont placées dans une **file d'attente Redis** et traitées en arrière-plan par un **worker Celery** indépendant.
+
+#### Isolation par conteneurs
+Chaque service (Nginx, Gunicorn/Django, PostgreSQL, Redis, Celery) tourne dans son propre conteneur Docker isolé. Ils communiquent via un réseau interne nommé `talentzik_network`, sans exposer leurs ports directement sur la machine hôte (sauf Nginx sur le port 80).
+
+---
+
+
+## Installation et Démarrage Local
 
 ### Prérequis
 *   Python 3.11 ou supérieur
