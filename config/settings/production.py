@@ -1,5 +1,6 @@
 from .base import *
 import os
+from urllib.parse import urlsplit, urlunsplit
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -42,18 +43,27 @@ DATABASES = {
 # Configuration Redis pour cache et Celery
 REDIS_URL = config("REDIS_URL", default="redis://localhost:6379")
 
+
+def _redis_base_url(redis_url: str) -> str:
+    """Normalise l'URL Redis pour retirer une base de données éventuelle."""
+    parsed = urlsplit(redis_url)
+    return urlunsplit((parsed.scheme, parsed.netloc, "", "", ""))
+
+
+REDIS_BASE_URL = _redis_base_url(REDIS_URL)
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": f"{REDIS_URL}/1",
+        "LOCATION": f"{REDIS_BASE_URL}/1",
         "KEY_PREFIX": "talentzik",
         "TIMEOUT": 300,
     }
 }
 
 # Configuration Celery
-CELERY_BROKER_URL = f"{REDIS_URL}/0"
-CELERY_RESULT_BACKEND = f"{REDIS_URL}/0"
+CELERY_BROKER_URL = f"{REDIS_BASE_URL}/0"
+CELERY_RESULT_BACKEND = f"{REDIS_BASE_URL}/0"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
