@@ -39,7 +39,8 @@ urlpatterns = [
     path("about/", TemplateView.as_view(template_name="about.html"), name="about"),
 ]
 
-# Servir les fichiers médias et statiques
-# TEMPORAIRE : Force Django à servir les médias même en production
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Servir les fichiers médias et statiques uniquement en mode debug/dev.
+# En production, Nginx prend le relais dans Dokploy.
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
