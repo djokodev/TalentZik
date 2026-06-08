@@ -179,19 +179,25 @@ USE_L10N = True
 TEMPLATES[0]["OPTIONS"]["debug"] = False
 
 # Configuration HTTPS et CSRF - OBLIGATOIRE après passage en HTTPS
-SECURE_SSL_REDIRECT = True  # Redirection automatique HTTP → HTTPS
+SECURE_SSL_REDIRECT = config(
+    "SECURE_SSL_REDIRECT", default=True, cast=bool
+)  # Redirection automatique HTTP → HTTPS
 SECURE_PROXY_SSL_HEADER = (
     "HTTP_X_FORWARDED_PROTO",
     "https",
 )  # Pour les proxies (nginx)
 
 # Cookies sécurisés pour HTTPS
-SESSION_COOKIE_SECURE = True  # OBLIGATOIRE avec HTTPS
+SESSION_COOKIE_SECURE = config(
+    "SESSION_COOKIE_SECURE", default=True, cast=bool
+)  # OBLIGATOIRE avec HTTPS
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 
 # Configuration CSRF pour HTTPS
-CSRF_COOKIE_SECURE = True  # OBLIGATOIRE avec HTTPS
+CSRF_COOKIE_SECURE = config(
+    "CSRF_COOKIE_SECURE", default=True, cast=bool
+)  # OBLIGATOIRE avec HTTPS
 CSRF_COOKIE_HTTPONLY = True  # Peut rester True
 CSRF_COOKIE_SAMESITE = "Lax"
 
