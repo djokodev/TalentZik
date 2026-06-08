@@ -23,9 +23,16 @@ else
     echo "⚠️ Commande populate_initial_data non trouvée"
 fi
 
+echo "👤 Création du superuser depuis l'environnement..."
+if python manage.py help create_superuser_from_env > /dev/null 2>&1; then
+    python manage.py create_superuser_from_env || echo "⚠️ Erreur lors de la création du superuser, continuons sans..."
+else
+    echo "⚠️ Commande create_superuser_from_env non trouvée"
+fi
+
 
 echo "🎉 Initialisation terminée !"
 echo "🚀 Démarrage de l'application..."
 
 # Démarrer l'application avec Gunicorn
-exec gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers=2 --threads=4 
+exec gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers=2 --threads=4
